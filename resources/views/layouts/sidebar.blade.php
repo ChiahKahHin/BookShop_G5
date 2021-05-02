@@ -26,7 +26,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link " href="../pages/billing.html">
+				<a class="nav-link" href="../pages/billing.html">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 						💳
 					</div>
@@ -34,7 +34,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link " href="../pages/rtl.html">
+				<a class="nav-link" href="../pages/rtl.html">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 						🛠
 					</div>
@@ -45,7 +45,7 @@
 				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link " href="../pages/profile.html">
+				<a class="nav-link" href="../pages/profile.html">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 						🙎‍♂️
 					</div>
@@ -53,7 +53,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link " href="../pages/sign-in.html">
+				<a class="nav-link" href="../pages/sign-in.html">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 						🔐
 					</div>
