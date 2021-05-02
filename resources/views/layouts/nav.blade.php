@@ -9,9 +9,15 @@
 	</div>
 	<ul class="navbar-nav justify-content-end">
 		<li class="nav-item d-flex align-items-center">
-			<a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+			<a href="{{ route("register") }}" class="nav-link text-body font-weight-bold">
 				<i class="fa fa-user me-sm-1"></i>
-				<span class="d-sm-inline d-none">Sign In</span>
+				<span class="d-sm-inline d-none">Register</span>
+			</a>
+		</li>
+		<li class="nav-item d-flex align-items-center">
+			<a href="{{ route("login") }}" class="nav-link text-body font-weight-bold px-1">
+				<i class="fa fa-sign-in me-sm-1"></i>
+				<span class="d-sm-inline d-none">Login</span>
 			</a>
 		</li>
 		<li class="nav-item d-xl-none ps-3 d-flex align-items-center">

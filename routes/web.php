@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 })->name("dashboard");
+
+Route::get('/login', "App\Http\Controllers\LoginController@index")->name("login");
+Route::post('/login', "App\Http\Controllers\LoginController@store");
+
+Route::get('/register', "App\Http\Controllers\RegisterController@index")->name("register");
+Route::post('/register', "App\Http\Controllers\RegisterController@store");
