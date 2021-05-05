@@ -15,7 +15,7 @@ class UserController extends Controller
     public function store(Request $request){
         $this->validate($request, [
             'username' => 'required|max:255|unique:users,username',
-            'phone' => 'required|regex:/^(\+?6?01)[0-46-9]-*[0-9]{7,8}$/|max:12',
+            'phone' => 'required|regex:/^(\+6)?01[0-46-9]-[0-9]{7,8}$/|max:14',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|confirmed|min:8|max:255',
         ]);
