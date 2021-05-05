@@ -3,7 +3,7 @@
 		<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute right-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
 		<a class="navbar-brand m-0" href="{{ route('dashboard') }}">
 			<img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100 w-15" alt="...">
-			<span class="ms-1 font-weight-bold">Book Store</span>
+			<span class="ms-1 font-weight-bold">Book Shop</span>
 		</a>
 	</div>
 	<hr class="horizontal dark mt-0">
@@ -26,7 +26,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link " href="../pages/billing.html">
+				<a class="nav-link" href="../pages/billing.html">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 						💳
 					</div>
@@ -34,7 +34,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link " href="../pages/rtl.html">
+				<a class="nav-link" href="../pages/rtl.html">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 						🛠
 					</div>
@@ -45,7 +45,7 @@
 				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link " href="../pages/profile.html">
+				<a class="nav-link" href="../pages/profile.html">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 						🙎‍♂️
 					</div>
@@ -53,7 +53,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link " href="../pages/sign-in.html">
+				<a class="nav-link" href="../pages/sign-in.html">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 						🔐
 					</div>
