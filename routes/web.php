@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 })->name("dashboard");
+
+Route::get('/addAdmin', [UserController::class, 'index'])->name('addAdmin');
+Route::post('/addAdmin', [UserController::class, 'store']);
+Route::get('/manageAdmin', [UserController::class, 'manageAdmin'])->name('manageAdmin');
+Route::get('/manageAdmin/{id}', [UserController::class, 'deleteAdmin']);
+
+Route::get('/addStock', [StockController::class, 'index'])->name('addStock');
+Route::post('/addStock', [StockController::class, 'store']);
