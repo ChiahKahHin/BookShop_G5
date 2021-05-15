@@ -1,0 +1,29 @@
+.btn-stock-view{
+    letter-spacing: normal;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    background-color: green;
+    border: 1px solid green !important;
+    padding: .5rem 1rem !important;
+}
+
+.btn-stock-view:hover{
+    color: green;
+    background-color: white;
+    border: 1px solid green;
+}
+
+.btn-stock-delete{
+    letter-spacing: normal;
+    box-sizing: border-box;
+    margin-bottom: 0;
+    background-color: red;
+    border: 1px solid red !important; 
+    padding: .5rem 1rem !important;
+}
+
+.btn-stock-delete:hover{
+    color: red;
+    background-color: white;
+    border: 1px solid red;
+}
