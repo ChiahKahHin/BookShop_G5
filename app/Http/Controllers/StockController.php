@@ -19,4 +19,17 @@ class StockController extends Controller
         
         return redirect('/');
     }
+
+    public function show($isbn){
+        $stock = Stock::findOrFail($isbn);
+
+        return view('stock', ['stock' => $stock]);
+    }
+
+    public function deleteStock($isbn){
+        $stock = Stock::findOrFail($isbn);
+        $stock->delete();
+
+        return redirect('/');
+    }
 }

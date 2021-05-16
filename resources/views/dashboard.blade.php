@@ -10,15 +10,23 @@ Dashboard
 
 @section("content")
 <div class="container-fluid py-4">
-	<table id="stockTable" class="display cell-border">
+	<div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+					<h6></h6>
+                    </div>
+					<div class="card-body">
+	<table id="stockTable" class="display">
 		<thead>
 			<tr>
-				<th style="width: 30%">Title</th>
-				<th style="width: 20%">Author</th>
+				<th style="width: 27%">Title</th>
+				<th style="width: 18%">Author</th>
 				<th style="width: 15%">ISBN</th>
 				<th style="width: 10%">Price</th>
 				<th style="width: 10%">Quantity</th>
-				<th style="width: 15%">Actions</th>
+				<th class="text-center" style="width: 10%">Action</th>
+				<th class="text-center" style="width: 10%">View</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -29,21 +37,20 @@ Dashboard
 				<td>{{ $stock->book_isbn_no }}</td>
 				<td>{{ $stock->book_retail_price }}</td>
 				<td>{{ $stock->book_quantity }}</td>
-				<td>
-					<a class="btn btn-primary btn-stock-view" href="/stock/{{ $stock->book_isbn_no }}"><i class="fa fa-arrow-right"></i> View</a>&nbsp;&nbsp;
-					<button class="btn btn-primary btn-stock-delete" onclick="deleteStock({{ $stock->book_isbn_no }})" value="{{ $stock->book_isbn_no }}">
-					<i class="fa fa-trash"></i> Delete</button>
-					<!-- <form action="/{{ $stock->book_isbn_no }}" method="POST">
-						@csrf
-						@method('DELETE')
-					</form> -->
+				<td class="align-middle text-center">
+					<i class="material-icons btn-stock-action" style="color: blue">mode_edit<a href="#"></a></i>
+					<i class="material-icons btn-stock-action" style="color: blue" onclick="deleteStock({{ $stock->book_isbn_no }})" value="{{ $stock->book_isbn_no }}">delete</i>
+					<!-- <button class="btn btn-primary btn-stock-delete"><i class="fa fa-trash"></i> Delete</button> -->
 				</td>
+				<td class="align-middle text-center"><a class="btn bg-gradient-info mb-0" href="/stock/{{ $stock->book_isbn_no }}">View</a></td>
 			</tr>
 			@endforeach
 		</tbody>
 	</table>
-
-
+	</div>
+	</div>
+	</div>
+	</div>
 
 </div>
 @endsection
@@ -55,7 +62,6 @@ Dashboard
 	});
 
 	function deleteStock(isbn) {
-		console.log(isbn);
 		$.confirm({
 			title: 'Delete Book ISBN',
 			content: '<b>' + isbn + '</b>',

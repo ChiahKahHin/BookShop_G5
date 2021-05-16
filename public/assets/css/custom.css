@@ -13,17 +13,8 @@
     border: 1px solid green;
 }
 
-.btn-stock-delete{
-    letter-spacing: normal;
-    box-sizing: border-box;
-    margin-bottom: 0;
-    background-color: red;
-    border: 1px solid red !important; 
-    padding: .5rem 1rem !important;
+.btn-stock-action:hover{
+    cursor: pointer;
+    color: rgba(0, 0, 255, 0.5) !important;
 }
 
-.btn-stock-delete:hover{
-    color: red;
-    background-color: white;
-    border: 1px solid red;
-}

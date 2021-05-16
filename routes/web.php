@@ -15,4 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [StockController::class, 'index'])->name("dashboard");
+Route::get('/stock/{isbn}', [StockController::class, 'show']);
 Route::get('/{isbn}', [StockController::class, 'destroy']);
+Route::get('/stock/delete/{isbn}', [StockController::class, 'deleteStock']);
