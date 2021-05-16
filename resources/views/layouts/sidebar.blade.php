@@ -41,33 +41,35 @@
 					<span class="nav-link-text ms-1">RTL</span>
 				</a>
 			</li>
-			<li class="nav-item mt-3">
-				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../pages/profile.html">
-					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-						🙎‍♂️
-					</div>
-					<span class="nav-link-text ms-1">Profile</span>
-				</a>
-			</li>
-			<li class="nav-item ">
-				<a class="nav-link" href="../pages/sign-in.html">
-					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-						🔐
-					</div>
-					<span class="nav-link-text ms-1">Change Password</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../pages/sign-up.html">
-					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-						🚪
-					</div>
-					<span class="nav-link-text ms-1">Logout</span>
-				</a>
-			</li>
+			@auth
+				<li class="nav-item mt-3">
+					<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="../pages/profile.html">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							🙎‍♂️
+						</div>
+						<span class="nav-link-text ms-1">Profile</span>
+					</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="../pages/sign-in.html">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							🔐
+						</div>
+						<span class="nav-link-text ms-1">Change Password</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ route("logout") }}">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							🚪
+						</div>
+						<span class="nav-link-text ms-1">Logout</span>
+					</a>
+				</li>
+			@endauth
 		</ul>
 	</div>
 </aside>

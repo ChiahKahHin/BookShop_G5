@@ -11,14 +11,17 @@
 @section("content")
 	<div class="card">
 		<div class="card-body">
+			@if (session('status'))
+				<div class="text-danger row mb-3 col-sm-6 offset-sm-3">{{ session('status') }}</div>
+			@endif
 			<form action="{{ route("login") }}" method="post">
 				@csrf
 				<div class="form-group">
 					<div class="row mb-3">
 						<div class="col-sm-6 offset-sm-3">
-							<label for="email">Email</label>
-							<input type="text" name="email" class="form-control @error("email") border-warning @enderror" id="email" placeholder="e.g. example@gmail.com" value="{{ old("email") }}">
-							@error("email")
+							<label for="username">Username</label>
+							<input type="text" name="username" class="form-control @error("username") border-warning @enderror" id="username" placeholder="e.g. Alexanda" value="{{ old("email") }}">
+							@error("username")
 								<div class="text-sm text-danger">
 									{{ $message }}
 								</div>
@@ -39,8 +42,8 @@
 					<div class="row my-3">
 						<div class="col-sm-6 offset-sm-3">
 							<div class="form-check form-switch">
-								<input type="checkbox" name="rememberMe" class="form-check-input" id="rememberMe">
-								<label for="rememberMe">Remember Me</label>
+								<input type="checkbox" name="remember" class="form-check-input" id="remember">
+								<label for="remember">Remember Me</label>
 							</div>
 						</div>
 					</div>

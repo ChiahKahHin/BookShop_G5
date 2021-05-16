@@ -49,7 +49,7 @@
 				<div class="row mb-3">
 					<div class="col-sm-6 offset-sm-3">
 						<label for="password_confirmation">Confirm Password</label>
-						<input type="password" name="password_confirmation @error("password_confirmation") border-warning @enderror" class="form-control" id="password_confirmation" placeholder="Confirm Password">
+						<input type="password" name="password_confirmation" class="form-control @error("password_confirmation") border-warning @enderror" id="password_confirmation" placeholder="Confirm Password">
 						@error("password_confirmation")
 							<div class="text-sm text-danger">
 								{{ $message }}
