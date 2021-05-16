@@ -21,6 +21,6 @@
 			</div>
 		</div>
 		@include("layouts.script")
-		<script>@yield("script")</script>
+		@yield("script")
 	</body>
 </html>

@@ -42,7 +42,7 @@
 					<div class="row my-3">
 						<div class="col-sm-6 offset-sm-3">
 							<div class="form-check form-switch">
-								<input type="checkbox" name="remember" class="form-check-input" id="remember">
+								<input type="checkbox" name="remember" class="form-check-input" id="remember" checked>
 								<label for="remember">Remember Me</label>
 							</div>
 						</div>

@@ -17,18 +17,15 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
-            $table->string('email');
+            $table->string('username')->unique();
+            $table->string('phone');
+            $table->string('email')->unique();
             $table->string('password');
+            $table->integer('role'); //admin-0, customer-1
+            $table->string('address')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
-
-        User::create([
-            "email" => "admin@gmail.com",
-            "username" => "admin1",
-            "password" => Hash::make("12345678")
-        ]);
     }
 
     /**
