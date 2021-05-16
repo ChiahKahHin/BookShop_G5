@@ -13,8 +13,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
-                    <div class="card-header pb-0">
-                        <h6>Manage Admin</h6>
+                    <div class="card-header pb-0" style="padding-right: 65px;">
+                        <span style="font-weight: bold; color: black;">Manage Admin</span>
+                        <a href="{{ route('addAdmin') }}" style="float:right;" class="btn bg-gradient-primary">Add Admin</a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -60,7 +61,7 @@
                                             <a href="#">
                                                 <i class="material-icons" style="color: blue">mode_edit</i>
                                             </a>
-                                            <a href="/manageAdmin/{{ $admin->id }}">
+                                            <a href="/manageAdmin/{{ $admin->id }}" onclick="return confirm('Delete this admin?');">
                                                 <i class="material-icons" style="color: blue">delete</i>
                                             </a>
                                         </td>

@@ -43,6 +43,6 @@ class UserController extends Controller
         $admin->delete();
         
         $admins = User::all();
-        return view('manageAdmin', ['admins' => $admins]);
+        return redirect('/manageAdmin');
     }
 }
