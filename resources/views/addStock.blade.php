@@ -180,8 +180,10 @@
 
     <script src="http://code.jquery.com/jquery-1.5.js"></script>
     @section('script')
-        function countWords(words){
-            var maxlength = document.getElementById('book_description').maxLength;
-            $('#description_word_count').text(words.value.length + "/" + maxlength);
-        };
+        <script>
+            function countWords(words){
+                var maxlength = document.getElementById('book_description').maxLength;
+                $('#description_word_count').text(words.value.length + "/" + maxlength);
+            };
+        </script>
     @endsection
