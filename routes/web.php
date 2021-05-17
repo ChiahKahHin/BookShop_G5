@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/home', [StockController::class, 'homepage'])->name("home");
 Route::get('/', [StockController::class, 'index'])->name("dashboard");
-Route::get('/stock/{isbn}', [StockController::class, 'show']);
-Route::get('/{isbn}', [StockController::class, 'destroy']);
+Route::get('/stock/{isbn}', [StockController::class, 'bookDetails']);
+Route::get('/{isbn}', [StockController::class, 'delete']);
 Route::get('/stock/delete/{isbn}', [StockController::class, 'deleteStock']);
+Route::post('/home/search', [StockController::class, 'homepageSearch'])->name("homeSearch");
+

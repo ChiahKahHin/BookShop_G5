@@ -39,7 +39,7 @@ Dashboard
 				<td>{{ $stock->book_quantity }}</td>
 				<td class="align-middle text-center">
 					<i class="material-icons btn-stock-action" style="color: blue">mode_edit<a href="#"></a></i>
-					<i class="material-icons btn-stock-action" style="color: blue" onclick="deleteStock({{ $stock->book_isbn_no }})" value="{{ $stock->book_isbn_no }}">delete</i>
+					<i class="material-icons btn-stock-action deleteStockList" style="color: blue" id="{{ $stock->book_isbn_no }}" value="{{ $stock->book_isbn_no }}">delete</i>
 					<!-- <button class="btn btn-primary btn-stock-delete"><i class="fa fa-trash"></i> Delete</button> -->
 				</td>
 				<td class="align-middle text-center"><a class="btn bg-gradient-info mb-0" href="/stock/{{ $stock->book_isbn_no }}">View</a></td>
@@ -61,37 +61,16 @@ Dashboard
 		$('#stockTable').DataTable();
 	});
 
-	function deleteStock(isbn) {
+	$(document).on('click', '.deleteStockList', function(){
+		var stockISBN = $(this).attr('id');
 		$.confirm({
 			title: 'Delete Book ISBN',
-			content: '<b>' + isbn + '</b>',
+			content: '<b>' + stockISBN + '</b>',
 			buttons: {
 				Yes: {
 					btnClass: 'btn-blue',
 					action: function() {
-						// $.post('/' + isbn, function() {
-						// });
-						// $.ajax({
-						// 	type: "DELETE",
-						// 	dataType: "json",
-						// 	url: "/" + isbn,
-						// 	data: {
-						// 		"_token": "{{ csrf_token() }}"
-						// 	},
-						// 	success: function(data) {
-						// 		//data = JSON.parse(data);
-								
-						// 		$('#stockTable').DataTable().ajax.reload(null, false);
-						// 		//console.log(data);
-						// 	},
-						// 	error: function(data) {
-						// 		//data = JSON.parse(data);
-						// 		$('#stockTable').DataTable().ajax.reload(null, false);
-						// 		//console.log(data);
-						// 	}
-						// });
-						window.location.href = "/" + isbn;
-						
+						window.location.href = "/" + stockISBN;
 					}
 				},
 				Cancel: function() {
@@ -99,8 +78,47 @@ Dashboard
 				}
 			}
 		});
-	}
+	});
 
+	// function deleteStock(isbn) {
+	// 	$.confirm({
+	// 		title: 'Delete Book ISBN',
+	// 		content: '<b>' + isbn + '</b>',
+	// 		buttons: {
+	// 			Yes: {
+	// 				btnClass: 'btn-blue',
+	// 				action: function() {
+	// 					// $.post('/' + isbn, function() {
+	// 					// });
+	// 					// $.ajax({
+	// 					// 	type: "DELETE",
+	// 					// 	dataType: "json",
+	// 					// 	url: "/" + isbn,
+	// 					// 	data: {
+	// 					// 		"_token": "{{ csrf_token() }}"
+	// 					// 	},
+	// 					// 	success: function(data) {
+	// 					// 		//data = JSON.parse(data);
+								
+	// 					// 		$('#stockTable').DataTable().ajax.reload(null, false);
+	// 					// 		//console.log(data);
+	// 					// 	},
+	// 					// 	error: function(data) {
+	// 					// 		//data = JSON.parse(data);
+	// 					// 		$('#stockTable').DataTable().ajax.reload(null, false);
+	// 					// 		//console.log(data);
+	// 					// 	}
+	// 					// });
+	// 					window.location.href = "/" + isbn;
+						
+	// 				}
+	// 			},
+	// 			Cancel: function() {
+
+	// 			}
+	// 		}
+	// 	});
+	// }
 
 	var win = navigator.platform.indexOf('Win') > -1;
 	if (win && document.querySelector('#sidenav-scrollbar')) {
