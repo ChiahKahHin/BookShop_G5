@@ -28,6 +28,8 @@ Route::get('/addAdmin', [UserController::class, 'index'])->name('addAdmin');
 Route::post('/addAdmin', [UserController::class, 'store']);
 Route::get('/manageAdmin', [UserController::class, 'manageAdmin'])->name('manageAdmin');
 Route::get('/manageAdmin/{id}', [UserController::class, 'deleteAdmin']);
+Route::get('/changePassword', [UserController::class, 'changePasswordForm'])->name("changePassword");
+Route::post('/changePassword', [UserController::class, 'changePassword']);
 
 Route::get('/addStock', [StockController::class, 'index'])->name('addStock');
 Route::post('/addStock', [StockController::class, 'store']);

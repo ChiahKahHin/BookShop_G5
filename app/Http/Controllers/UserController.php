@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct() {
+        $this->middleware("auth");
+    }
     public function index(){
         return view('addAdmin');
     }
@@ -44,5 +48,18 @@ class UserController extends Controller
         
         $admins = User::all();
         return redirect('/manageAdmin');
+    }
+
+    public function changePasswordForm() {
+        return view("changePassword");
+    }
+
+    public function changePassword(Request $request) {
+        $this->validate($request, [
+            'oldPassword' => [new MatchOldPassword],
+            'password' => 'required|confirmed|min:8|max:255',
+        ]);
+        User::find(auth()->user()->id)->update(['password'=> Hash::make($request->password)]);
+        return back()->with("status", "Your password has updated successfully");
     }
 }
