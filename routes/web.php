@@ -31,3 +31,5 @@ Route::get('/manageAdmin/{id}', [UserController::class, 'deleteAdmin']);
 
 Route::get('/addStock', [StockController::class, 'index'])->name('addStock');
 Route::post('/addStock', [StockController::class, 'store']);
+
+Route::get('/viewAccount', [ViewController::class, 'index'])->name("viewAccount");
