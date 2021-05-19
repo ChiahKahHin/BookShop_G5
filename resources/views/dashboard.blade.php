@@ -16,13 +16,9 @@ Dashboard
 		<div class="col-12">
 			<div class="card mb-4">
 				<div class="card-header pb-0">
-					<div class="row">
-						<div class="col-4">
-						</div>
-						<div class="col-4">
+					<div>
+						<div class="float-end">
 							<a class="btn bg-gradient-info mb-0 form-control" href="/addStock">Add New Stock</a>
-						</div>
-						<div class="col-4">
 						</div>
 					</div>
 				</div>
