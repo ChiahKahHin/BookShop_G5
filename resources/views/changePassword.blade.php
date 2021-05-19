@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
-                                        <label>Old Password</label>
+                                        <label>New Password</label>
                                         <input type="password" name="password" id="password" class="form-control @error('password') border-danger @enderror">
                                         @error('password')
                                             <div class="text-danger mt-2 text-sm">
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
-                                        <label>Old Password</label>
+                                        <label>Confirm Password</label>
                                         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') border-danger @enderror">
                                         @error('password_confirmation')
                                             <div class="text-danger mt-2 text-sm">
