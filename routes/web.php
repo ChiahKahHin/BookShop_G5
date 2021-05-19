@@ -29,5 +29,5 @@ Route::post('/addAdmin', [UserController::class, 'store']);
 Route::get('/manageAdmin', [UserController::class, 'manageAdmin'])->name('manageAdmin');
 Route::get('/manageAdmin/{id}', [UserController::class, 'deleteAdmin']);
 
-Route::get('/addStock', [StockController::class, 'index'])->name('addStock');
+Route::get('/addStock', [StockController::class, 'addStockForm'])->name('addStock');
 Route::post('/addStock', [StockController::class, 'store']);

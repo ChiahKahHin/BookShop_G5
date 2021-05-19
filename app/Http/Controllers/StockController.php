@@ -14,7 +14,7 @@ class StockController extends Controller
         $this->middleware(['auth']);
     }
     
-    public function index(){
+    public function addStockForm(){
         return view('addStock');
     }
 
