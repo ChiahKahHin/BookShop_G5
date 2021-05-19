@@ -9,7 +9,12 @@ use function PHPUnit\Framework\isNull;
 
 class StockController extends Controller
 {
-    public function index(){
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+    
+    public function addStockForm(){
         return view('addStock');
     }
 

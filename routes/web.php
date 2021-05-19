@@ -31,5 +31,5 @@ Route::get('/manageAdmin/{id}', [UserController::class, 'deleteAdmin']);
 Route::get('/changePassword', [UserController::class, 'changePasswordForm'])->name("changePassword");
 Route::post('/changePassword', [UserController::class, 'changePassword']);
 
-Route::get('/addStock', [StockController::class, 'index'])->name('addStock');
+Route::get('/addStock', [StockController::class, 'addStockForm'])->name('addStock');
 Route::post('/addStock', [StockController::class, 'store']);
