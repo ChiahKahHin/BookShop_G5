@@ -17,7 +17,7 @@ class StockController extends Controller
         $stock = Stock::findOrFail($isbn);
         $stock->delete();
         
-        return redirect('/');
+        return redirect('/dashboard');
     }
 
     public function bookDetails($isbn){
@@ -30,7 +30,7 @@ class StockController extends Controller
         $stock = Stock::findOrFail($isbn);
         $stock->delete();
 
-        return redirect('/');
+        return redirect('/dashboard');
     }
 
     public function homepage(){

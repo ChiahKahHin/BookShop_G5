@@ -9,7 +9,7 @@
 			<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
 				<div class="container-fluid py-1 px-3">
 					<h6 class="font-weight-bolder mb-0">@yield("navtitle")</h6>
-					@include('layouts.nav')
+					@include('layouts.homenav')
 				</div>
 			</nav>
 			

@@ -10,46 +10,55 @@ Dashboard
 
 @section("content")
 <div class="container-fluid py-4">
+
+
 	<div class="row">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header pb-0">
-					<h6></h6>
-                    </div>
-					<div class="card-body">
-	<table id="stockTable" class="display">
-		<thead>
-			<tr>
-				<th style="width: 27%">Title</th>
-				<th style="width: 18%">Author</th>
-				<th style="width: 15%">ISBN</th>
-				<th style="width: 10%">Price</th>
-				<th style="width: 10%">Quantity</th>
-				<th class="text-center" style="width: 10%">Action</th>
-				<th class="text-center" style="width: 10%">View</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach($stock as $stock)
-			<tr>
-				<td>{{ $stock->book_name }}</td>
-				<td>{{ $stock->book_author }}</td>
-				<td>{{ $stock->book_isbn_no }}</td>
-				<td>{{ $stock->book_retail_price }}</td>
-				<td>{{ $stock->book_quantity }}</td>
-				<td class="align-middle text-center">
-					<i class="material-icons btn-stock-action" style="color: blue">mode_edit<a href="#"></a></i>
-					<i class="material-icons btn-stock-action deleteStockList" style="color: blue" id="{{ $stock->book_isbn_no }}" value="{{ $stock->book_isbn_no }}">delete</i>
-					<!-- <button class="btn btn-primary btn-stock-delete"><i class="fa fa-trash"></i> Delete</button> -->
-				</td>
-				<td class="align-middle text-center"><a class="btn bg-gradient-info mb-0" href="/stock/{{ $stock->book_isbn_no }}">View</a></td>
-			</tr>
-			@endforeach
-		</tbody>
-	</table>
-	</div>
-	</div>
-	</div>
+		<div class="col-12">
+			<div class="card mb-4">
+				<div class="card-header pb-0">
+					<div class="row">
+						<div class="col-4">
+						</div>
+						<div class="col-4">
+							<a class="btn bg-gradient-info mb-0 form-control" href="/addStock">Add New Stock</a>
+						</div>
+						<div class="col-4">
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+
+					<table id="stockTable" class="display">
+						<thead>
+							<tr>
+								<th style="width: 15%"></th>
+								<th style="width: 30%">Title</th>
+								<th style="width: 20%">ISBN</th>
+								<th class="text-center" style="width: 15%">Quantity</th>
+								<th class="text-center" style="width: 10%">Action</th>
+								<th class="text-center" style="width: 10%">View</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($stock as $stock)
+							<tr>
+								<td><img class="img-fluid" src="data:image/png;base64,{{ chunk_split(base64_encode($stock->book_front_cover)) }}"></td>
+								<td>{{ $stock->book_name }}</td>
+								<td>{{ $stock->getRawOriginal("book_isbn_no") }}</td>
+								<td class="align-middle text-center">{{ $stock->book_quantity }}</td>
+								<td class="align-middle text-center">
+									<i class="material-icons btn-stock-action" style="color: blue">mode_edit<a href="#"></a></i>
+									<i class="material-icons btn-stock-action deleteStockList" style="color: blue" id="{{ $stock->book_isbn_no }}" value="{{ $stock->book_isbn_no }}">delete</i>
+									<!-- <button class="btn btn-primary btn-stock-delete"><i class="fa fa-trash"></i> Delete</button> -->
+								</td>
+								<td class="align-middle text-center"><a class="btn bg-gradient-info mb-0" href="/stock/{{ $stock->getRawOriginal('book_isbn_no') }}">View</a></td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </div>
@@ -61,7 +70,7 @@ Dashboard
 		$('#stockTable').DataTable();
 	});
 
-	$(document).on('click', '.deleteStockList', function(){
+	$(document).on('click', '.deleteStockList', function() {
 		var stockISBN = $(this).attr('id');
 		$.confirm({
 			title: 'Delete Book ISBN',
@@ -70,7 +79,7 @@ Dashboard
 				Yes: {
 					btnClass: 'btn-blue',
 					action: function() {
-						window.location.href = "/" + stockISBN;
+						window.location.href = "/dashboard/" + stockISBN;
 					}
 				},
 				Cancel: function() {
@@ -99,7 +108,7 @@ Dashboard
 	// 					// 	},
 	// 					// 	success: function(data) {
 	// 					// 		//data = JSON.parse(data);
-								
+
 	// 					// 		$('#stockTable').DataTable().ajax.reload(null, false);
 	// 					// 		//console.log(data);
 	// 					// 	},
@@ -110,7 +119,7 @@ Dashboard
 	// 					// 	}
 	// 					// });
 	// 					window.location.href = "/" + isbn;
-						
+
 	// 				}
 	// 			},
 	// 			Cancel: function() {

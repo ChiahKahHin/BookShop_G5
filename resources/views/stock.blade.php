@@ -38,7 +38,7 @@ Book Details
                             <br><br>
 
                             <h6>Book ISBN No.</h6>
-                                <label>{{ $stock->book_isbn_no }}</label>
+                                <label>{{ $stock->getRawOriginal("book_isbn_no") }}</label>
                             <br><br>
 
                             <h6>Book Description</h6>
