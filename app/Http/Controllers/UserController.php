@@ -31,6 +31,24 @@ class UserController extends Controller
         return redirect('/addAdmin')->with('message', 'Admin Added Successfully');
     }
 
+    public function updateAdmin(Request $request, $id){
+        $this->validate($request, [
+            'username' => 'required|max:255|unique:users,username,'.$id,
+            'phone' => 'required|regex:/^(\+6)?01[0-46-9]-[0-9]{7,8}$/|max:14',
+            'email' => 'required|email|max:255',
+            
+        ]);
+        $admin = User::find($id);
+
+        $admin->username = request('username');
+        $admin->phone = request('phone');
+        $admin->email = request('email');
+        $admin->save();
+        
+        $admins = User::all();
+        return redirect()->route("manageAdmin")->with('message', 'Admin Info Updated Successfully');
+    }
+
     public function manageAdmin(){
         $admins = User::all();
         //$admins = User::all()->except(Auth::id);
@@ -44,5 +62,17 @@ class UserController extends Controller
         
         $admins = User::all();
         return view('manageAdmin', ['admins' => $admins]);
+    }
+
+    public function editAdmin($id){
+        $admins = User::findOrFail($id);
+
+        return view('editAdmin',['admins' => $admins]);
+    }
+
+    public function viewAdmin($id){
+        $admins = User::findOrFail($id);
+
+        return view('viewAdmin',['admins' => $admins]);
     }
 }

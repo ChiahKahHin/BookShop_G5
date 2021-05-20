@@ -15,6 +15,7 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <h6>Manage Admin</h6>
+                        <p class="text-success">{{ session('message') }}</p>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -57,7 +58,7 @@
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  $admin->email }}</p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <a href="#">
+                                            <a href="{{ route('editAdmin', ['id' => $admin->id]) }}">
                                                 <i class="material-icons" style="color: blue">mode_edit</i>
                                             </a>
                                             <a href="/manageAdmin/{{ $admin->id }}">
@@ -65,7 +66,7 @@
                                             </a>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <a href="#" class="btn bg-gradient-info w-50 mt-2">
+                                            <a href="/viewAdmin/{{ $admin->id }}" class="btn bg-gradient-info w-50 mt-2">
                                                 View
                                             </a>
                                         </td>
