@@ -52,4 +52,13 @@ class StockController extends Controller
 
         return redirect('/addStock')->with('message', $message);
     }
+
+    public function editStockForm($isbn) {
+        $stock = Stock::findOrFail($isbn);
+        return view("editStock", ["stock" => $stock]);
+    }
+
+    public function editStock($id) {
+        return view("editStock");
+    }
 }

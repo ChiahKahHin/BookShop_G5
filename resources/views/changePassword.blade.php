@@ -63,7 +63,7 @@
                                     <button class="btn bg-gradient-info w-100 mt-4 md-6" type="submit">Update</button>
                                 </div>
                             </div>
-                    </div>
+                        </div>
                     </form>
                 </div>
             </div>

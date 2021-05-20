@@ -13,6 +13,8 @@
 <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
 <!-- CSS Files -->
 <link id="pagestyle" href="../assets/css/soft-ui-dashboard.min.css?v=1.0.1" rel="stylesheet" />
+<!-- Custom CSS -->
+<link href="../assets/css/custom.css" rel="stylesheet" />
 <!-- Anti-flicker snippet (recommended)	-->
 <style>
 	.async-hide {

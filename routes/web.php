@@ -26,6 +26,8 @@ Route::post('/login', [LoginController::class, "store"]);
 Route::get('/logout', [LogoutController::class, "index"])->name("logout");
 Route::get('/addAdmin', [UserController::class, 'index'])->name('addAdmin');
 Route::post('/addAdmin', [UserController::class, 'store']);
+Route::get('/editStock/{isbn}', [StockController::class, 'editStockForm'])->name('editStock');
+Route::post('/editStock/{isbn}', [StockController::class, 'editStock']);
 Route::get('/manageAdmin', [UserController::class, 'manageAdmin'])->name('manageAdmin');
 Route::get('/manageAdmin/{id}', [UserController::class, 'deleteAdmin']);
 Route::get('/changePassword', [UserController::class, 'changePasswordForm'])->name("changePassword");
