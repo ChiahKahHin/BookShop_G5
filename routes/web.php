@@ -32,4 +32,6 @@ Route::get('/manageAdmin/{id}', [UserController::class, 'deleteAdmin']);
 Route::get('/addStock', [StockController::class, 'index'])->name('addStock');
 Route::post('/addStock', [StockController::class, 'store']);
 
-Route::get('/viewAccount', [ViewController::class, 'index'])->name("viewAccount");
+Route::get('/viewAccount', [UserController::class, 'viewAccount'])->name("viewAccount");
+Route::get('/editAccount', [UserController::class, 'editAccount'])->name("editAccount");
+Route::post('/editAccount', [UserController::class, 'updateAccount'])->name("updateAccount");

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -49,5 +50,35 @@ class UserController extends Controller
         
         $admins = User::all();
         return redirect('/manageAdmin');
+    }
+
+    public function viewAccount(){
+        $admins = DB::table('users')->get();
+        $admins = DB::select('SELECT * FROM users WHERE id = '.Auth::id().'');
+
+        return view('viewAccount', ['admins' => $admins[0]]);
+    }
+
+    public function editAccount(){
+        $admins = DB::table('users')->get();
+        $admins = DB::select('SELECT * FROM users WHERE id = '.Auth::id().'');
+
+        return view('editAccount', ['admins' => $admins[0]]);
+    }
+
+    public function updateAccount(Request $request){
+        $this->validate($request, [
+            'username' => 'required|max:255|unique:users,username',
+            'phone' => 'required|regex:/^(\+6)?01[0-46-9]-[0-9]{7,8}$/|max:14',
+            'email' => 'required|email|max:255|unique:users,email',
+        ]);
+
+        $data = User::find($request->id);
+        $data->username = $request->username;
+        $data->phone = $request->phone;
+        $data->email = $request->email;
+        $data->save();
+        return redirect('editAccount')->with('message', 'Admin Info Edit Successfully');
+
     }
 }
