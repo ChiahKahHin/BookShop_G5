@@ -65,7 +65,7 @@ Book Details
                                     <a href="/editStock/#" class="btn bg-gradient-info w-100 mt-4 md-6">Edit</a>
                                 </div>
                                 <div class="col-md-6">
-                                    <button id="deleteBtnStock" class="btn bg-gradient-info w-100 mt-4 md-6" value="{{ $stock->book_isbn_no }}">Delete</button>
+                                    <button id="deleteBtnStock" class="btn bg-gradient-info w-100 mt-4 md-6" value="{{ $stock->getRawOriginal('book_isbn_no') }}">Delete</button>
                                 </div>
                             </div>
                     </div>
@@ -83,21 +83,44 @@ Book Details
     function deleteStock(){
         var isbn = document.getElementById("deleteBtnStock").value;
 
-        $.confirm({
-			title: '',
-			content: "Delete book?",
-			buttons: {
-				Yes: {
-					btnClass: 'btn-blue',
-					action: function() {
-						window.location.href = "/stock/delete/" + isbn;
-					}
-				},
-				Cancel: function() {
-
-				}
+        Swal.fire({
+			title: 'Delete Book?',
+			text: '',
+			icon: 'warning',
+			showCancelButton: true,
+			cancelButtonColor: '#F00',
+			confirmButtonColor: '#00F',
+			confirmButtonText: 'Yes'
+		}).then((result) => {
+			if (result.value) {
+				Swal.fire({
+					title: "Deleted!",
+					text: "Deleted book with ISBN: " + isbn,
+					icon: 'success',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 1500,
+				}).then(function() {
+					window.location.href = "/stock/delete/" + isbn;
+				});
 			}
 		});
+
+        // $.confirm({
+		// 	title: '',
+		// 	content: "Delete book?",
+		// 	buttons: {
+		// 		Yes: {
+		// 			btnClass: 'btn-blue',
+		// 			action: function() {
+		// 				window.location.href = "/stock/delete/" + isbn;
+		// 			}
+		// 		},
+		// 		Cancel: function() {
+
+		// 		}
+		// 	}
+		// });
     }
 	
 

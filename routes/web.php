@@ -24,6 +24,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [StockController::class, 'homepage'])->name("home");
 Route::get('/dashboard', [StockController::class, 'index'])->name("dashboard");
 Route::get('/stock/{isbn}', [StockController::class, 'bookDetails'])->name("stockDetails");
-Route::get('/dashboard/{isbn}', [StockController::class, 'delete']);
+Route::get('/dashboard/delete/{isbn}', [StockController::class, 'delete']);
 Route::get('/stock/delete/{isbn}', [StockController::class, 'deleteStock']);
 Route::post('/search', [StockController::class, 'homepageSearch'])->name("homeSearch");

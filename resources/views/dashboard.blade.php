@@ -22,8 +22,7 @@ Dashboard
 						</div>
 					</div>
 				</div>
-				<div class="card-body">
-
+				<div class="card-body" id="dashboardCard">
 					<table id="stockTable" class="display">
 						<thead>
 							<tr>
@@ -44,7 +43,7 @@ Dashboard
 								<td class="align-middle text-center">{{ $stock->book_quantity }}</td>
 								<td class="align-middle text-center">
 									<i class="material-icons btn-stock-action" style="color: blue">mode_edit<a href="#"></a></i>
-									<i class="material-icons btn-stock-action deleteStockList" style="color: blue" id="{{ $stock->book_isbn_no }}" value="{{ $stock->book_isbn_no }}">delete</i>
+									<i class="material-icons btn-stock-action deleteStockList" style="color: blue" id="{{ $stock->getRawOriginal('book_isbn_no') }}" value="{{ $stock->getRawOriginal('book_isbn_no') }}">delete</i>
 									<!-- <button class="btn btn-primary btn-stock-delete"><i class="fa fa-trash"></i> Delete</button> -->
 								</td>
 								<td class="align-middle text-center"><a class="btn bg-gradient-info mb-0" href="/stock/{{ $stock->getRawOriginal('book_isbn_no') }}">View</a></td>
@@ -52,6 +51,7 @@ Dashboard
 							@endforeach
 						</tbody>
 					</table>
+
 				</div>
 			</div>
 		</div>
@@ -68,21 +68,66 @@ Dashboard
 
 	$(document).on('click', '.deleteStockList', function() {
 		var stockISBN = $(this).attr('id');
-		$.confirm({
-			title: 'Delete Book ISBN',
-			content: '<b>' + stockISBN + '</b>',
-			buttons: {
-				Yes: {
-					btnClass: 'btn-blue',
-					action: function() {
-						window.location.href = "/dashboard/" + stockISBN;
-					}
-				},
-				Cancel: function() {
+		Swal.fire({
+			title: 'Delete Book?',
+			text: 'ISBN: ' + stockISBN,
+			icon: 'warning',
+			showCancelButton: true,
+			cancelButtonColor: '#F00',
+			confirmButtonColor: '#00F',
+			confirmButtonText: 'Yes'
+		}).then((result) => {
+			if (result.value) {
+				Swal.fire({
+					title: "Deleted!",
+					text: "Deleted book with ISBN: " + stockISBN,
+					icon: 'success',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 1500,
+				}).then(function() {
+					window.location.href = "/dashboard/delete/" + stockISBN;
+				});
 
-				}
+				// $.ajax({
+				// 	type: "POST",
+				// 	dataType: "json",
+				// 	url: " route('dashboardDelete') ",
+				// 	data: {
+				// 		"_token": "csrf_token()",
+				// 		"stockISBN": stockISBN
+				// 	},
+				// 	success: function(data) {
+				// 		console.log("success");
+				// 		$('#stockTable').DataTable().ajax.reload(null, false);
+				// 		//$('#dashboardCard').html(data);
+				// 		console.log(data);
+				// 	},
+				// 	error: function(data) {
+				// 		//data = JSON.parse(data);
+				// 		console.log("fail");
+				// 		$('#stockTable').DataTable().ajax.reload(null, false);
+				// 		console.log(data);
+				// 	}
+				// });
 			}
 		});
+
+		// $.confirm({
+		// 	title: 'Delete Book ISBN',
+		// 	content: '<b>' + stockISBN + '</b>',
+		// 	buttons: {
+		// 		Yes: {
+		// 			btnClass: 'btn-blue',
+		// 			action: function() {
+		// 				window.location.href = "/dashboard/" + stockISBN;
+		// 			}
+		// 		},
+		// 		Cancel: function() {
+
+		// 		}
+		// 	}
+		// });
 	});
 
 	// function deleteStock(isbn) {
