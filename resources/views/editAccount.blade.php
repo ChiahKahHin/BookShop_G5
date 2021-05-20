@@ -9,18 +9,19 @@
 @endsection
 
 @section('content')
-<input type="hidden" name="id" value="{{ $admins->id }}">
 <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <h6>My Account Details</h6>
+                        <p class="text-success">{{ session('message') }}</p>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('editAccount') }}" method="POST">
                             @csrf
                             <div class="form-group">
+                            <input type="hidden" name="id" value="{{ $admins->id }}">
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <label>Username</label>

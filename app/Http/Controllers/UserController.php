@@ -68,12 +68,13 @@ class UserController extends Controller
 
     public function updateAccount(Request $request){
         $this->validate($request, [
-            'username' => 'required|max:255|unique:users,username',
+            'username' => 'required|max:255|unique:users,username,'.$request->id.'',
             'phone' => 'required|regex:/^(\+6)?01[0-46-9]-[0-9]{7,8}$/|max:14',
-            'email' => 'required|email|max:255|unique:users,email',
+            'email' => 'required|email|max:255|unique:users,email,'.$request->id.'',
         ]);
 
-        $data = User::find($request->id);
+        //dd($request->id);
+        $data = User::findOrFail($request->id);
         $data->username = $request->username;
         $data->phone = $request->phone;
         $data->email = $request->email;
