@@ -17,6 +17,7 @@
                         <div class="row">
                             <div class="col-10">
                                 <span style="font-weight: bold; color: black;">Manage Admin</span>
+                                <p class="text-success">{{ session('message') }}</p>
                             </div>
                             <div class="col-2">
                                 <a href="{{ route('addAdmin') }}" style="float:right;" class="btn bg-gradient-primary">Add Admin</a>
@@ -64,7 +65,7 @@
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  $admin->email }}</p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <a href="#">
+                                            <a href="{{ route('editAdmin', ['id' => $admin->id]) }}">
                                                 <i class="material-icons" style="color: blue">mode_edit</i>
                                             </a>
                                             <a href="/manageAdmin/{{ $admin->id }}" onclick="return confirm('Delete this admin?');">
@@ -72,7 +73,7 @@
                                             </a>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <a href="#" class="btn bg-gradient-info w-50 mt-2">
+                                            <a href="/viewAdmin/{{ $admin->id }}" class="btn bg-gradient-info w-50 mt-2">
                                                 View
                                             </a>
                                         </td>
