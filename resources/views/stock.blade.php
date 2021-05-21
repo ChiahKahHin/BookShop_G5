@@ -25,37 +25,37 @@ Book Details
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4">
-                            <h6>Book Name</h6>
-                                <label>{{ $stock->book_name }}</label>
-                            <br><br>
+                            <h5>Book Name</h5>
+                                <h6>{{ $stock->book_name }}</h6>
+                            <br>
 
-                            <h6>Book Author</h6>
-                                <label>{{ $stock->book_author }}</label>
-                            <br><br>
+                            <h5>Book Author</h5>
+                                <h6>{{ $stock->book_author }}</h6>
+                            <br>
 
-                            <h6>Book Publication Date</h6>
-                                <label>{{ $stock->book_publication_date }}</label>
-                            <br><br>
+                            <h5>Book Publication Date</h5>
+                                <h6>{{ $stock->book_publication_date }}</h6>
+                            <br>
 
-                            <h6>Book ISBN No.</h6>
-                                <label>{{ $stock->getRawOriginal("book_isbn_no") }}</label>
-                            <br><br>
+                            <h5>Book ISBN No.</h5>
+                                <h6>{{ $stock->getRawOriginal("book_isbn_no") }}</h6>
+                            <br>
 
-                            <h6>Book Description</h6>
-                                <label>{{ $stock->book_description }}</label>
-                            <br><br>
+                            <h5>Book Description</h5>
+                                <h6>{{ $stock->book_description }}</h6>
+                            <br>
 
-                            <h6>Book Trade Price (RM)</h6>
-                                <label>{{ $stock->book_trade_price }}</label>
-                            <br><br>
+                            <h5>Book Trade Price (RM)</h5>
+                                <h6>{{ $stock->book_trade_price }}</h6>
+                            <br>
 
-                            <h6>Book Retail Price (RM)</h6>
-                                <label>{{ $stock->book_retail_price }}</label>
-                            <br><br>
+                            <h5>Book Retail Price (RM)</h5>
+                                <h6>{{ $stock->book_retail_price }}</h6>
+                            <br>
 
-                            <h6>Book Quantity</h6>
-                                <label>{{ $stock->book_quantity }}</label>
-                            <br><br>
+                            <h5>Book Quantity</h5>
+                                <h6>{{ $stock->book_quantity }}</h6>
+                            <br>
 
                             </div>
                         </div>
