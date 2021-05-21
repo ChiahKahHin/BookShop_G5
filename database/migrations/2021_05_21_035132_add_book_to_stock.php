@@ -39,8 +39,7 @@ class AddBookToStock extends Migration
             'book_quantity' => '25',
             'created_at' => '2021-05-19 20:14:05',
             'updated_at' => '2021-05-19 20:14:05',
-            'book_front_cover' => ''
-            
+            'book_front_cover' => file_get_contents("public\\assets\\img\\book\\tokillamockingbird.jpg")
         ));
 
         DB::table('stock')->insert(array(
@@ -54,7 +53,7 @@ class AddBookToStock extends Migration
             'book_quantity' => '10',
             'created_at' => '2021-05-19 20:14:05',
             'updated_at' => '2021-05-19 20:14:05',
-            'book_front_cover' => ''
+            'book_front_cover' => file_get_contents("public\\assets\\img\\book\\thecatcherintherye.jpg")
         ));
 
         DB::table('stock')->insert(array(
@@ -68,7 +67,7 @@ class AddBookToStock extends Migration
             'book_quantity' => '5',
             'created_at' => '2021-05-19 20:14:05',
             'updated_at' => '2021-05-19 20:14:05',
-            'book_front_cover' => ''
+            'book_front_cover' => file_get_contents("public\\assets\\img\\book\\ofmiceandmen.jpg")
         ));
 
         DB::table('stock')->insert(array(
@@ -82,7 +81,7 @@ class AddBookToStock extends Migration
             'book_quantity' => '12',
             'created_at' => '2021-05-19 20:14:05',
             'updated_at' => '2021-05-19 20:14:05',
-            'book_front_cover' => ''
+            'book_front_cover' => file_get_contents("public\\assets\\img\\book\\thegrapesofwrath.jpg")
         ));
 
         DB::table('stock')->insert(array(
@@ -96,7 +95,7 @@ class AddBookToStock extends Migration
             'book_quantity' => '10',
             'created_at' => '2021-05-19 20:14:05',
             'updated_at' => '2021-05-19 20:14:05',
-            'book_front_cover' => ''
+            'book_front_cover' => file_get_contents("public\\assets\\img\\book\\thegreatgatsby.jpg")
         ));
 
         DB::table('stock')->insert(array(
@@ -110,7 +109,7 @@ class AddBookToStock extends Migration
             'book_quantity' => '9',
             'created_at' => '2021-05-19 20:14:05',
             'updated_at' => '2021-05-19 20:14:05',
-            'book_front_cover' => ''
+            'book_front_cover' => file_get_contents("public\\assets\\img\\book\\fahrenheit.jpg")
         ));
 
         DB::table('stock')->insert(array(
@@ -124,7 +123,7 @@ class AddBookToStock extends Migration
             'book_quantity' => '11',
             'created_at' => '2021-05-19 20:14:05',
             'updated_at' => '2021-05-19 20:14:05',
-            'book_front_cover' => ''
+            'book_front_cover' => file_get_contents("public\\assets\\img\\book\\invisibleman.jpg")
         ));
 
         DB::table('stock')->insert(array(
@@ -138,7 +137,7 @@ class AddBookToStock extends Migration
             'book_quantity' => '6',
             'created_at' => '2021-05-19 20:14:05',
             'updated_at' => '2021-05-19 20:14:05',
-            'book_front_cover' => ''
+            'book_front_cover' => file_get_contents("public\\assets\\img\\book\\thescarletletter.jpg")
         ));
 
         DB::table('stock')->insert(array(
@@ -152,7 +151,7 @@ class AddBookToStock extends Migration
             'book_quantity' => '20',
             'created_at' => '2021-05-19 20:14:05',
             'updated_at' => '2021-05-19 20:14:05',
-            'book_front_cover' => ''
+            'book_front_cover' => file_get_contents("public\\assets\\img\\book\\romeoandjuliet.jpg")
         ));
 
         DB::table('stock')->insert(array(
@@ -166,7 +165,7 @@ class AddBookToStock extends Migration
             'book_quantity' => '17',
             'created_at' => '2021-05-19 20:14:05',
             'updated_at' => '2021-05-19 20:14:05',
-            'book_front_cover' => ''
+            'book_front_cover' => file_get_contents("public\\assets\\img\\book\\theoldmanandthesea.jpg")
         ));
     }
 
