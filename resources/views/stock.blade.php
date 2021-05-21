@@ -21,7 +21,7 @@ Book Details
                             <div class="col-md-6 mb-4">
                                 <h6>Book Front Cover</h6>
                                 <div class="text-center">
-                                <img class="img-fluid" src="data:image/png;base64,{{ chunk_split(base64_encode($stock->book_front_cover)) }}">
+                                <img style="height: auto; width:50%;" class="img-fluid" src="data:image/png;base64,{{ chunk_split(base64_encode($stock->book_front_cover)) }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4">
