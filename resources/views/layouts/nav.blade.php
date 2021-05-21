@@ -13,9 +13,9 @@
 	<ul class="navbar-nav justify-content-end">
 		@auth
 			<li class="nav-item d-flex align-items-center">
-				<a href="{{ route("logout") }}" class="nav-link text-body font-weight-bold">
+				<a href="{{ route("viewAccount") }}" class="nav-link text-body font-weight-bold px-1">
 					<i class="fa fa-user me-sm-1"></i>
-					<span class="d-sm-inline d-none">Logout</span>
+					<span class="d-sm-inline d-none">{{ Auth::user()->username }}</span>
 				</a>
 			</li>
 		@endauth
@@ -27,9 +27,7 @@
 				</a>
 			</li>
 		@endguest
-		
-		
-		<li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+{{-- 	<li class="nav-item d-xl-none ps-3 d-flex align-items-center">
 			<a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
 				<div class="sidenav-toggler-inner">
 					<i class="sidenav-toggler-line"></i>
@@ -115,6 +113,6 @@
 					</a>
 				</li>
 			</ul>
-		</li>
+		</li> --}}
 	</ul>
 </div>

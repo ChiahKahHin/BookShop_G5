@@ -48,7 +48,7 @@
 					</a>
 				</li>
 				<li class="nav-item ">
-					<a class="nav-link" href="{{ route("changePassword") }}">
+					<a class="nav-link @if (Route::currentRouteName() == "changePassword") active @endif" href="{{ route('changePassword') }}">
 						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 							🔐
 						</div>

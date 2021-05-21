@@ -6,9 +6,12 @@
                 <img style="height: 350px; width:100%;" class="img-fluid" src="data:image/png;base64,{{ chunk_split(base64_encode($stock->book_front_cover)) }}">
                 <br><br>
                 <div>
-                <h6><a href="/home/stock/{{ $stock->book_isbn_no }}">{{ $stock->book_name }}</a></h6>
+                    <h6>
+                        {{-- <a href="{{ route("stockDetails", ["isbn" => $stock->book_isbn_no]) }}">{{ $stock->book_name }}</a> --}}
+                        {{ $stock->book_name }}
+                    </h6>
                     <label>{{ $stock->book_author }}</label>
-                    <h6>RM{{ number_format($stock->book_retail_price, 2) }}</h6>
+                    <h6>RM {{ number_format($stock->book_retail_price, 2) }}</h6>
                 </div>
                 <br>
                 
