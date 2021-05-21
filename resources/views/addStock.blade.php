@@ -62,10 +62,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
-                                        <label>Book ISBN No.</label>
+                                        <label>Book ISBN No. <i>(Format: 123-1-12-123456-1)</i></label>
                                         <input type="text" name="book_isbn_no" id="book_isbn_no"
                                             class="form-control @error('book_isbn_no') border-danger @enderror"
-                                            placeholder="e.g. 999-99-99999-99-9" value="{{ old('book_isbn_no') }}">
+                                            placeholder="e.g. 123-1-12-123456-1" value="{{ old('book_isbn_no') }}">
                                         @error('book_isbn_no')
                                             <div class="text-danger mt-2 text-sm">
                                                 {{ $message }}
