@@ -64,7 +64,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button class="btn bg-gradient-info w-100 mt-4 md-6" type="submit">confirm update</button>
+                                    <button class="btn bg-gradient-info w-100 mt-4 md-6" type="submit">Update Account</button>
                                 </div>
                             </div>
                         </div>

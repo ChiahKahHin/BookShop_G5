@@ -35,7 +35,7 @@ class UserController extends Controller
         $this->validate($request, [
             'username' => 'required|max:255|unique:users,username,'.$id,
             'phone' => 'required|regex:/^(\+6)?01[0-46-9]-[0-9]{7,8}$/|max:14',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.$id,
             
         ]);
         $admin = User::find($id);
@@ -46,7 +46,7 @@ class UserController extends Controller
         $admin->save();
         
         $admins = User::all();
-        return redirect()->route("manageAdmin")->with('message', 'Admin Info Updated Successfully');
+        return redirect()->route("editAdmin",['id'=>$id])->with('message', 'Admin Info Updated Successfully');
     }
 
     public function manageAdmin(){
