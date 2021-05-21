@@ -63,9 +63,9 @@
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <label>Book Description</label>
-                                        <textarea type="text" name="book_description" id="book_description" class="form-control @error('book_description') border-danger @enderror" placeholder="Description of the book" rows="6" style="min-height:10rem;" maxlength="65535" onkeyup="countWords(this)">{{ old('book_description', $stock->book_description) }}</textarea>
+                                        <textarea type="text" name="book_description" id="book_description" class="form-control @error('book_description') border-danger @enderror" placeholder="Description of the book" rows="6" style="min-height:10rem;" maxlength="65535" onkeyup="countWords()">{{ old('book_description', $stock->book_description) }}</textarea>
                                         <div id="description_word_count" class="text-sm" style="text-align: right">
-                                            0/65535
+                                            
                                         </div>
                                         @error('book_description')
                                             <div class="text-danger mt-2 text-sm">
@@ -152,8 +152,12 @@
 <script src="http://code.jquery.com/jquery-1.5.js"></script>
 @section('script')
     <script>
-        function countWords(words){
-            var maxlength = document.getElementById('book_description').maxLength;
+        $(document).ready(function() {
+            countWords();
+        });
+        function countWords(){
+            var words = document.getElementById('book_description');
+            var maxlength = words.maxLength;
             $('#description_word_count').text(words.value.length + "/" + maxlength);
         };
 

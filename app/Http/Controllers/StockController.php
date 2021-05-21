@@ -77,7 +77,7 @@ class StockController extends Controller
         $stock->book_trade_price = request('book_trade_price_input');
         $stock->book_retail_price = request('book_retail_price_input');
         $stock->book_quantity = request('book_quantity_input');
-        $stock = Stock::findOrFail($isbn);
+        $stock->save();
         return redirect()->route("editStock", ["isbn" => $isbn])->with("message", "Stock updated successfully");
     }
 
