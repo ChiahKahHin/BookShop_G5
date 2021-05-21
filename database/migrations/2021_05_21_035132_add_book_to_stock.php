@@ -27,7 +27,7 @@ class AddBookToStock extends Migration
         //     'updated_at' => '',
         //     'book_front_cover' => ''
         // ));
-        
+
         DB::table('stock')->insert(array(
             'book_name' => 'To Kill a Mockingbird',
             'book_author' => 'Harper Lee',
@@ -156,7 +156,7 @@ class AddBookToStock extends Migration
         ));
 
         DB::table('stock')->insert(array(
-            'book_name' => 'The Old Man and The Sea, Book Cover May Vary',
+            'book_name' => 'The Old Man and The Sea',
             'book_author' => 'Ernest Hemingway',
             'book_publication_date' => '1995-05-05',
             'book_isbn_no' => '978-0684801223',
