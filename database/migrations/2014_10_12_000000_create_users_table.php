@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
         User::create([
             "email" => "admin@gmail.com",
             "username" => "admin",
-            "phone" => "12345678",
+            "phone" => "012-3456789",
             "role" => 0,
             "password" => Hash::make("p455w0rd")
         ]);
