@@ -8,4 +8,6 @@ class Stock extends Model
 {
     protected $table = "stock";
     protected $primaryKey = "book_isbn_no";
+    protected $keyType = "string";
+    public $incrementing = false;
 }

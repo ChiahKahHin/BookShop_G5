@@ -1,7 +1,7 @@
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-left ms-3" id="sidenav-main">
 	<div class="sidenav-header">
 		<i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute right-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-		<a class="navbar-brand m-0" href="{{ route('dashboard') }}">
+		<a class="navbar-brand m-0" href="{{ route('home') }}">
 			<img src="../assets/img/book-icon.png" class="navbar-brand-img h-100 w-15" alt="...">
 			<span class="ms-1 font-weight-bold">Book Shop</span>
 		</a>
@@ -10,64 +10,60 @@
 	<div class="collapse navbar-collapse w-auto h-100" id="sidenav-collapse-main">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a class="nav-link @if (Route::currentRouteName() == "dashboard") active @endif" href="{{ route('dashboard') }}">
+				<a class="nav-link @if (Route::currentRouteName() == "home") active @endif" href="{{ route('home') }}">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 						🏠
 					</div>
-					<span class="nav-link-text ms-1">Dashboard</span>
+					<span class="nav-link-text ms-1">Home</span>
 				</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../pages/tables.html">
-					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-						📈
-					</div>
-					<span class="nav-link-text ms-1">Tables</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../pages/billing.html">
-					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-						💳
-					</div>
-					<span class="nav-link-text ms-1">Billing</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../pages/rtl.html">
-					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-						🛠
-					</div>
-					<span class="nav-link-text ms-1">RTL</span>
-				</a>
-			</li>
-			<li class="nav-item mt-3">
-				<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../pages/profile.html">
-					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-						🙎‍♂️
-					</div>
-					<span class="nav-link-text ms-1">Profile</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../pages/sign-in.html">
-					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-						🔐
-					</div>
-					<span class="nav-link-text ms-1">Change Password</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../pages/sign-up.html">
-					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-						🚪
-					</div>
-					<span class="nav-link-text ms-1">Logout</span>
-				</a>
-			</li>
+			@auth
+				<li class="nav-item">
+					<a class="nav-link @if (Route::currentRouteName() == "dashboard") active @endif" href="{{ route('dashboard') }}">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							📈
+						</div>
+						<span class="nav-link-text ms-1">Stock Level</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @if (Route::currentRouteName() == "manageAdmin") active @endif" href="{{ route('manageAdmin') }}">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							🤵
+						</div>
+						<span class="nav-link-text ms-1">Manage Admin</span>
+					</a>
+				</li>
+			@endauth
+			@auth
+				<li class="nav-item mt-3">
+					<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @if (Route::currentRouteName() == "viewAccount") active @endif" href="{{ route('viewAccount') }}">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							🙎‍♂️
+						</div>
+						<span class="nav-link-text ms-1">Profile</span>
+					</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link @if (Route::currentRouteName() == "changePassword") active @endif" href="{{ route('changePassword') }}">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							🔐
+						</div>
+						<span class="nav-link-text ms-1">Change Password</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ route("logout") }}">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							🚪
+						</div>
+						<span class="nav-link-text ms-1">Logout</span>
+					</a>
+				</li>
+			@endauth
 		</ul>
 	</div>
 </aside>

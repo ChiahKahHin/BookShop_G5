@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isNull;
-
 class StockController extends Controller
 {
-    public function index(){
+    public function __construct()
+    {
+        $this->middleware(['auth'])->except("homepage");
+    }
+    
+    public function addStockForm(){
         return view('addStock');
     }
 
@@ -46,5 +49,81 @@ class StockController extends Controller
         $stock->save();
 
         return redirect('/addStock')->with('message', $message);
+    }
+
+    public function editStockForm($isbn) {
+        $stock = Stock::findOrFail($isbn);
+        return view("editStock", ["stock" => $stock]);
+    }
+
+    public function editStock(Request $request, $isbn) {
+        $this->validate($request, [
+            'book_name' => 'required|max:255',
+            'book_author' => 'required|max:255',
+            'book_publication_date' => 'required',
+            'book_description' => 'required|max:65535',
+            'book_trade_price_input' => 'required|numeric|min:0|max:500',
+            'book_retail_price_input' => 'required|numeric|min:0|max:500',
+            'book_quantity_input' => 'required|numeric|min:1|max:20'
+        ]);
+        
+        $stock = Stock::findOrFail($isbn);
+        $stock->book_name = request('book_name');
+        $stock->book_author = request('book_author');
+        $stock->book_publication_date = request('book_publication_date');
+        $stock->book_description = request('book_description');
+        if (request('book_front_cover'))
+            $stock->book_front_cover = file_get_contents(request('book_front_cover'));
+        $stock->book_trade_price = request('book_trade_price_input');
+        $stock->book_retail_price = request('book_retail_price_input');
+        $stock->book_quantity = request('book_quantity_input');
+        $stock = Stock::findOrFail($isbn);
+        return redirect()->route("editStock", ["isbn" => $isbn])->with("message", "Stock updated successfully");
+    }
+
+    public function index(){
+        $stock = Stock::all();
+
+        return view('dashboard', ['stock' => $stock]);
+    }
+
+    public function delete($isbn){
+        $stock = Stock::findOrFail($isbn);
+        $stock->delete();
+        
+        return redirect('/dashboard');
+    }
+
+    public function bookDetails($isbn){
+        $stock = Stock::findOrFail($isbn);
+
+        return view('stock', ['stock' => $stock]);
+    }
+
+    public function deleteStock($isbn){
+        $stock = Stock::findOrFail($isbn);
+        $stock->delete();
+
+        return redirect('/dashboard');
+    }
+
+    public function homepage(){
+        $stock = Stock::all();
+        
+        return view('home', ['stock' => $stock]);
+    }
+
+    public function homepageSearch(Request $request){
+        $stock = Stock::where('book_name', 'LIKE', '%' . $request->homeSearch . '%')
+        ->orWhere('book_author', 'LIKE', '%' . $request->homeSearch . '%')
+        ->orWhere('book_isbn_no', 'LIKE', '%' . $request->homeSearch . '%')
+        ->get();
+        if($stock->isEmpty()){
+
+            return view('noresult');
+        }
+        else{
+            return view('homeStock', ['stock' => $stock]);
+        }
     }
 }
