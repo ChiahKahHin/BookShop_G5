@@ -38,6 +38,11 @@
                                         <p class="text-md text-dark font-weight-bold mb-0 px-2">{{ $admins->email }}</p>
                                     </div>
                                 </div>
+                                <div class="row">
+                                <div class="col-md-6">
+                                    <a class="btn bg-gradient-info w-100 mt-4 md-6" href="{{ route('editAccount') }}">Edit Account Info</a>
+                                </div>
+                            </div>
                             </div>
                     </div>
                     </form>
