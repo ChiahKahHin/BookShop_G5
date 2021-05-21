@@ -2,6 +2,13 @@
 
 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 	<div class="ms-md-auto pe-md-3 d-flex align-items-center">
+		@auth
+			@if (Route::currentRouteName() == "home")
+			<div>
+				<a href="{{ route('dashboard') }}" class="btn bg-gradient-info mb-0">Stock Levels</a>
+			</div>
+			@endif
+		@endauth
 	</div>
 	<ul class="navbar-nav justify-content-end">
 		@auth

@@ -95,7 +95,7 @@ class UserController extends Controller
 
         return view('viewAdmin',['admins' => $admins]);
     }
-    
+
     public function viewAccount(){
         $admins = DB::table('users')->get();
         $admins = DB::select('SELECT * FROM users WHERE id = '.Auth::id().'');

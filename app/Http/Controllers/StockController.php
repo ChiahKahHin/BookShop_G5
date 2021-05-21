@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isNull;
-
 class StockController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware(['auth'])->except("homepage");
     }
     
     public function addStockForm(){
@@ -81,5 +79,51 @@ class StockController extends Controller
         $stock->book_quantity = request('book_quantity_input');
         $stock = Stock::findOrFail($isbn);
         return redirect()->route("editStock", ["isbn" => $isbn])->with("message", "Stock updated successfully");
+    }
+
+    public function index(){
+        $stock = Stock::all();
+
+        return view('dashboard', ['stock' => $stock]);
+    }
+
+    public function delete($isbn){
+        $stock = Stock::findOrFail($isbn);
+        $stock->delete();
+        
+        return redirect('/dashboard');
+    }
+
+    public function bookDetails($isbn){
+        $stock = Stock::findOrFail($isbn);
+
+        return view('stock', ['stock' => $stock]);
+    }
+
+    public function deleteStock($isbn){
+        $stock = Stock::findOrFail($isbn);
+        $stock->delete();
+
+        return redirect('/dashboard');
+    }
+
+    public function homepage(){
+        $stock = Stock::all();
+        
+        return view('home', ['stock' => $stock]);
+    }
+
+    public function homepageSearch(Request $request){
+        $stock = Stock::where('book_name', 'LIKE', '%' . $request->homeSearch . '%')
+        ->orWhere('book_author', 'LIKE', '%' . $request->homeSearch . '%')
+        ->orWhere('book_isbn_no', 'LIKE', '%' . $request->homeSearch . '%')
+        ->get();
+        if($stock->isEmpty()){
+
+            return view('noresult');
+        }
+        else{
+            return view('homeStock', ['stock' => $stock]);
+        }
     }
 }

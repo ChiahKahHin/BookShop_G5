@@ -16,6 +16,6 @@ class LogoutController extends Controller
     {
         auth()->logout();
 
-        return redirect()->route("dashboard");
+        return redirect()->route("home");
     }
 }
