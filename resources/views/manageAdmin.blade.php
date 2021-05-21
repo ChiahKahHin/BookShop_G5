@@ -66,11 +66,11 @@
                                         </td>
                                         <td class="align-middle text-center">
                                             <a href="{{ route('editAdmin', ['id' => $admin->id]) }}">
-                                                <i class="material-icons" style="color: blue">mode_edit</i>
+                                                <i class="material-icons btn-stock-action" style="color: blue">mode_edit</i>
                                             </a>
-                                            <a href="/manageAdmin/{{ $admin->id }}" onclick="return confirm('Delete this admin?');">
-                                                <i class="material-icons" style="color: blue">delete</i>
-                                            </a>
+                                            
+                                            <a class="material-icons btn-stock-action deleteAdmin" style="color: blue" id="{{ $admin->id }}" value="{{ $admin->username }}">delete</a>
+                                            
                                         </td>
                                         <td class="align-middle text-center">
                                             <a href="/viewAdmin/{{ $admin->id }}" class="btn bg-gradient-info w-50 mt-2">
@@ -79,6 +79,11 @@
                                         </td>
                                     </tr>
 										@endforeach
+                                        @if (count($admins) == 0)
+                                            <tr>
+                                                <td colspan="6" style="text-align: center;">No data available in table</td>
+                                            </tr>
+                                        @endif
                                 </tbody>
                             </table>
                         </div>
@@ -88,4 +93,35 @@
         </div>
     </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).on('click', '.deleteAdmin', function() {
+		    var adminID = $(this).attr('id');
+		    var adminUsername = $(this).attr('value');
+            Swal.fire({
+                title: 'Delete Admin?',
+                text: 'Username: ' + adminUsername,
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#F00',
+                confirmButtonColor: '#00F',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Deleted admin with username: " + adminUsername,
+                        icon: 'success',
+                        type: 'success',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    }).then(function() {
+                        window.location.href = "/manageAdmin/" + adminID;
+                    });
+                }
+		    });
+        });
+    </script>
 @endsection
