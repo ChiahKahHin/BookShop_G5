@@ -42,7 +42,7 @@ Book Details
                             <br>
 
                             <h5>Book Description</h5>
-                                <h6>{{ $stock->book_description }}</h6>
+                                <h6>{!! nl2br($stock->book_description) !!}</h6>
                             <br>
 
                             <h5>Book Trade Price (RM)</h5>
