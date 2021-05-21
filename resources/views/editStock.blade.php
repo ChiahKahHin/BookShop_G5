@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4 mb-4">
+                                    <div class="col-md-4 my-4">
                                         <label>Book Trade Price <i>(RM)</i></label>
                                         <input type="range" name="book_trade_price_range" id="book_trade_price_range" class="form-range @error('book_trade_price_input') border-danger @enderror" value="{{ old('book_trade_price_input', $stock->book_trade_price) }}" min="0" max="500" step=".5" oninput="document.getElementById('book_trade_price_input').value = this.value">
                                         @error('book_trade_price_input')
