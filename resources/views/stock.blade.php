@@ -46,11 +46,11 @@ Book Details
                             <br>
 
                             <h5>Book Trade Price (RM)</h5>
-                                <h6>{{ $stock->book_trade_price }}</h6>
+                                <h6>{{ number_format($stock->book_trade_price, 2) }}</h6>
                             <br>
 
                             <h5>Book Retail Price (RM)</h5>
-                                <h6>{{ $stock->book_retail_price }}</h6>
+                                <h6>{{ number_format($stock->book_retail_price, 2) }}</h6>
                             <br>
 
                             <h5>Book Quantity</h5>
