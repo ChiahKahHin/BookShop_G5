@@ -38,3 +38,7 @@ Route::post('/changePassword', [UserController::class, 'changePassword']);
 
 Route::get('/addStock', [StockController::class, 'addStockForm'])->name('addStock');
 Route::post('/addStock', [StockController::class, 'store']);
+
+Route::get('/viewAccount', [UserController::class, 'viewAccount'])->name("viewAccount");
+Route::get('/editAccount', [UserController::class, 'editAccount'])->name("editAccount");
+Route::post('/editAccount', [UserController::class, 'updateAccount'])->name("updateAccount");
