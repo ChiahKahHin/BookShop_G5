@@ -74,7 +74,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row mb-4">
                                     <div class="col-md-6">
                                         <label>Book Front Cover <i>(Only images with .pdf, .jpg, .png, .jpeg extension can be accepted) (Optional)</i></label>
                                         <input type="file" name="book_front_cover" id="book_front_cover" class="form-control @error('book_front_cover') border-danger @enderror" accept=".pdf,.jpg,.png,.jpeg">
