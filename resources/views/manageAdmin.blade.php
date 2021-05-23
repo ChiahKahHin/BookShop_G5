@@ -73,7 +73,7 @@
                                             
                                         </td>
                                         <td class="align-middle text-center">
-                                            <a href="/viewAdmin/{{ $admin->id }}" class="btn bg-gradient-info w-50 mt-2">
+                                            <a href="/viewAdmin/{{ $admin->id }}" class="btn bg-gradient-info mt-2">
                                                 View
                                             </a>
                                         </td>
