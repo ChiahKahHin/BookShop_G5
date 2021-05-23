@@ -29,7 +29,7 @@ Stock Level
 								<th style="width: 2%">#</th>
 								<th style="width: 15%">Thumbnail</th>
 								<th style="width: 30%">Title</th>
-								<th style="width: 20%">ISBN</th>
+								<th style="width: 18%">ISBN</th>
 								<th class="text-center" style="width: 15%">Quantity</th>
 								<th class="text-center" style="width: 10%">Action</th>
 								<th class="text-center" style="width: 10%">View</th>
