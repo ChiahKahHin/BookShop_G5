@@ -26,9 +26,10 @@ Stock Level
 					<table id="stockTable" class="display">
 						<thead>
 							<tr>
-								<th style="width: 15%"></th>
+								<th style="width: 2%">#</th>
+								<th style="width: 15%">Thumbnail</th>
 								<th style="width: 30%">Title</th>
-								<th style="width: 20%">ISBN</th>
+								<th style="width: 18%">ISBN</th>
 								<th class="text-center" style="width: 15%">Quantity</th>
 								<th class="text-center" style="width: 10%">Action</th>
 								<th class="text-center" style="width: 10%">View</th>
@@ -37,7 +38,8 @@ Stock Level
 						<tbody>
 							@foreach($stock as $stock)
 							<tr>
-								<td><img class="img-fluid" src="data:image/png;base64,{{ chunk_split(base64_encode($stock->book_front_cover)) }}"></td>
+								<td class="text-center">{{ $loop->iteration }}</td>
+								<td class="text-center"><img class="img-thumbnail w-75" src="data:image/png;base64,{{ chunk_split(base64_encode($stock->book_front_cover)) }}"></td>
 								<td>{{ $stock->book_name }}</td>
 								<td>{{ $stock->book_isbn_no }}</td>
 								<td class="align-middle text-center">{{ $stock->book_quantity }}</td>

@@ -38,12 +38,6 @@ Route::post('/addStock', [StockController::class, 'store']);
 Route::get('/viewAccount', [UserController::class, 'viewAccount'])->name("viewAccount");
 Route::get('/editAccount', [UserController::class, 'editAccount'])->name("editAccount");
 Route::post('/editAccount', [UserController::class, 'updateAccount'])->name("updateAccount");
-// Route::get('/home', [StockController::class, 'homepage'])->name("home");
-// Route::get('/', [StockController::class, 'index'])->name("dashboard");
-// Route::get('/stock/{isbn}', [StockController::class, 'bookDetails']);
-// Route::get('/{isbn}', [StockController::class, 'delete']);
-// Route::get('/stock/delete/{isbn}', [StockController::class, 'deleteStock']);
-// Route::post('/home/search', [StockController::class, 'homepageSearch'])->name("homeSearch");
 
 Route::get('/', [StockController::class, 'homepage'])->name("home");
 Route::get('/dashboard', [StockController::class, 'index'])->name("dashboard");

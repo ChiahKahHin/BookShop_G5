@@ -23,10 +23,13 @@ class StockController extends Controller
             'book_publication_date' => 'required',
             'book_isbn_no' => 'required|regex:/(?=(?:[0-9]+[-●]){4})[-●0-9]{17}$/|min:17|max:17',//123-1-12-123456-0
             'book_description' => 'required|max:65535',
-            'book_front_cover' => 'required',
+            'book_front_cover' => 'required|file',
             'book_trade_price_input' => 'required|numeric|min:0|max:500',
-            'book_retail_price_input' => 'required|numeric|min:0|max:500',
+            'book_retail_price_input' => 'required|numeric|gte:'.request('book_trade_price_input').'|min:0|max:500',
             'book_quantity_input' => 'required|numeric|min:1|max:20'
+        ],
+        [
+            'book_retail_price_input.gte' => 'The book retail price must be greater or equal to book trade price'
         ]);
         
         $stock = Stock::find(request('book_isbn_no'));
@@ -62,9 +65,13 @@ class StockController extends Controller
             'book_author' => 'required|max:255',
             'book_publication_date' => 'required',
             'book_description' => 'required|max:65535',
+            'book_front_cover' => 'file',
             'book_trade_price_input' => 'required|numeric|min:0|max:500',
-            'book_retail_price_input' => 'required|numeric|min:0|max:500',
+            'book_retail_price_input' => 'required|numeric|gte:'.request('book_trade_price_input').'|min:0|max:500',
             'book_quantity_input' => 'required|numeric|min:1|max:20'
+        ],
+        [
+            'book_retail_price_input.gte' => 'The book retail price must be greater or equal to book trade price'
         ]);
         
         $stock = Stock::findOrFail($isbn);
@@ -77,7 +84,7 @@ class StockController extends Controller
         $stock->book_trade_price = request('book_trade_price_input');
         $stock->book_retail_price = request('book_retail_price_input');
         $stock->book_quantity = request('book_quantity_input');
-        $stock = Stock::findOrFail($isbn);
+        $stock->save();
         return redirect()->route("editStock", ["isbn" => $isbn])->with("message", "Stock updated successfully");
     }
 
