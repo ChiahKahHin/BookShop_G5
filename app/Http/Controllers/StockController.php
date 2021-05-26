@@ -21,7 +21,7 @@ class StockController extends Controller
             'book_name' => 'required|max:255',
             'book_author' => 'required|max:255',
             'book_publication_date' => 'required',
-            'book_isbn_no' => 'required|regex:/(?=(?:[0-9]+[-●]){4})[-●0-9]{17}$/|min:17|max:17',//123-1-12-123456-0
+            'book_isbn_no' => 'required|regex:/^(?=(?:\d+-){4})\d{3}-[-\d]{13}$/|min:17|max:17',//123-1-12-123456-0
             'book_description' => 'required|max:65535',
             'book_front_cover' => 'required|file',
             'book_trade_price_input' => 'required|numeric|min:0|max:500',
