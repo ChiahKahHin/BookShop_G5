@@ -92,6 +92,21 @@
     color: blue;
 }
 
+.cart-delete:hover{
+	cursor: pointer;
+	color: rgba(255, 0, 0, 0.5) !important;
+}
+
+.cart-nav:hover{
+	color: rgba(103, 116, 142, 0.7) !important;
+}
+
+.vertical-line-nav{
+	display: inline-block;
+	border-left: 1px solid #c9c9c9;
+	margin: 0 15px;
+	height: 40px;
+}
 
 
 
