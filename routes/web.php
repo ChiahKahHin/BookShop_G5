@@ -45,3 +45,5 @@ Route::get('/stock/{isbn}', [StockController::class, 'bookDetails'])->name("stoc
 Route::get('/dashboard/delete/{isbn}', [StockController::class, 'delete']);
 Route::get('/stock/delete/{isbn}', [StockController::class, 'deleteStock']);
 Route::post('/search', [StockController::class, 'homepageSearch'])->name("homeSearch");
+
+Route::post('/addToCart', [StockController::class, 'addToCart'])->name("addToCart");

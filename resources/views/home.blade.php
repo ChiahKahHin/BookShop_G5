@@ -12,9 +12,9 @@ Book Shop
 @section("content")
 <div class="container py-4">
     <div class="" style="margin-bottom: 30px;">
-        <!-- <form action="{{ route('homeSearch') }}" method="post">
+        <form action="{{ route('homeSearch') }}" method="post">
             <input type="search" class="form-control" name="homeSearch" id="homeSearchInput" placeholder="Search for books...">
-        </form> -->
+        </form>
 
     </div>
 

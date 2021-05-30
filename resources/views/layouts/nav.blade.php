@@ -3,7 +3,10 @@
 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 	<div class="ms-md-auto pe-md-3 d-flex align-items-center">
 		@auth
-			@if (Route::currentRouteName() == "home")
+			@if (Route::currentRouteName() == "home" || Route::currentRouteName() == "cart")
+			<div style="border: 1px solid #000;">
+				<a href="{{ route('cart') }}" class="nav-link text-body font-weight-bold px-1"><i class="fa fa-shopping-cart"></i></a>
+			</div>
 			<div>
 				<a href="{{ route('dashboard') }}" class="btn bg-gradient-info mb-0">Stock Levels</a>
 			</div>
