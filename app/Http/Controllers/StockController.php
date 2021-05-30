@@ -133,4 +133,13 @@ class StockController extends Controller
             return view('homeStock', ['stock' => $stock]);
         }
     }
+
+    public function checkISBN(Request $request){
+        $stock = Stock::find($request->isbn);
+
+        if($stock == null)
+            return false;
+        else
+            return true;
+    }
 }
