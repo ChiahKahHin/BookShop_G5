@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\AdminCreatedNotification;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,7 @@ class UserController extends Controller
         $admin->password = Hash::make(request('password'));
         $admin->role = 0;
         $admin->save();
-
+        $admin->notify(new AdminCreatedNotification(request('username'), request('password')));
         return redirect('/addAdmin')->with('message', 'Admin Added Successfully');
     }
 
