@@ -47,8 +47,8 @@ class AdminCreatedNotification extends Notification
         return (new MailMessage)
                     ->greeting("Hello!")
                     ->line('Your account has been created.')
-                    ->line('Your Username: '.$this->username)
-                    ->line('Your Password: '.$this->password)
+                    ->line('Username: '.$this->username)
+                    ->line('Password: '.$this->password)
                     ->line('Please change your password for the first time login')
                     ->line('Thank you for using our application!');
     }
