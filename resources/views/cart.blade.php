@@ -39,7 +39,7 @@ Book Shop
             @foreach (json_decode($cart) as $cart)
                 <div class="row">
                     <div class="col-1 text-center">
-                        <input type="checkbox" class="align-middle">
+                        <input type="checkbox" class="">
                     </div>
                     <div class="col-2 text-center">
                         <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cart->book_front_cover) }}">

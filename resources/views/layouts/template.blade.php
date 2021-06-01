@@ -15,6 +15,10 @@
 					@include('layouts.nav')
 				</div>
 			</nav>
+
+			@if (Route::currentRouteName() == "home")
+				@yield("carouselSlides")
+			@endif
 			
 			<div class="container-fluid py-4">
 				@yield("content")
