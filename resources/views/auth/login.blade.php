@@ -20,7 +20,7 @@
 					<div class="row mb-3">
 						<div class="col-sm-6 offset-sm-3">
 							<label for="username">Username</label>
-							<input type="text" name="username" class="form-control @error("username") border-warning @enderror" id="username" placeholder="e.g. Alexanda" value="{{ old("email") }}">
+							<input type="text" name="username" class="form-control @error("username") border-warning @enderror" value="{{ old("username") }}" id="username" placeholder="e.g. Alexanda">
 							@error("username")
 								<div class="text-sm text-danger">
 									{{ $message }}
