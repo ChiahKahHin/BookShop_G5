@@ -49,3 +49,5 @@ Route::post('/search', [StockController::class, 'homepageSearch'])->name("homeSe
 
 Route::get('/forgetPassword', [ForgetPasswordController::class, 'index'])->name("forgotPassword");
 Route::post('/forgetPassword', [ForgetPasswordController::class, 'notifyEmail']);
+Route::get('/forgetPassword/{token}', [ForgetPasswordController::class, 'resetPassword'])->name('password.reset');
+Route::post('/forgetPassword/{token}', [ForgetPasswordController::class, 'changePassword']);
