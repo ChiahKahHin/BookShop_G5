@@ -126,4 +126,22 @@ class UserController extends Controller
         return redirect('editAccount')->with('message', 'Admin Info Edit Successfully');
 
     }
+
+    public function reloadWalletForm(){
+        return view('reloadWallet');
+    }
+
+    public function reloadWallet(Request $request){
+        $this->validate($request,[
+            'password' => ["required", new MatchOldPassword]
+        ]);
+        $user = User::find(Auth::id());
+        
+        $totalReload = $request->amountReload + $user->wallet_balance;
+        $user->wallet_balance = $totalReload;
+        $user->save();
+        $message = "Reload successful";
+        
+        return redirect('/reloadWallet')->with('message', $message);
+    }
 }

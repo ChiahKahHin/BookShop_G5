@@ -47,3 +47,5 @@ Route::get('/stock/delete/{isbn}', [StockController::class, 'deleteStock']);
 Route::post('/search', [StockController::class, 'homepageSearch'])->name("homeSearch");
 
 Route::post('/checkISBN', [StockController::class, 'checkISBN'])->name("checkISBN");
+Route::get('/reloadWallet', [UserController::class, 'reloadWalletForm'])->name("reloadWallet");
+Route::post('/reloadWallet', [UserController::class, 'reloadWallet']);
