@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -45,3 +46,6 @@ Route::get('/stock/{isbn}', [StockController::class, 'bookDetails'])->name("stoc
 Route::get('/dashboard/delete/{isbn}', [StockController::class, 'delete']);
 Route::get('/stock/delete/{isbn}', [StockController::class, 'deleteStock']);
 Route::post('/search', [StockController::class, 'homepageSearch'])->name("homeSearch");
+
+Route::get('/forgetPassword', [ForgetPasswordController::class, 'index'])->name("forgotPassword");
+Route::post('/forgetPassword', [ForgetPasswordController::class, 'notifyEmail']);

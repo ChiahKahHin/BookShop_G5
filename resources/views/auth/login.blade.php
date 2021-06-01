@@ -14,6 +14,9 @@
 			@if (session('status'))
 				<div class="text-danger row mb-3 col-sm-6 offset-sm-3">{{ session('status') }}</div>
 			@endif
+			@if (session('message'))
+				<div class="text-success row mb-3 col-sm-6 offset-sm-3">{{ session('message') }}</div>
+			@endif
 			<form action="{{ route("login") }}" method="post">
 				@csrf
 				<div class="form-group">
