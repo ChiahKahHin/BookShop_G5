@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Role
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -15,13 +15,10 @@ class Role
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, ... $roles)
+    public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        // dd($user->role, $roles, in_array("1", $roles));
-        if ($user->role === 0 && in_array("admin", $roles))
-            return $next($request);
-        else if ($user->role === 1 && in_array("customer", $roles))
+        if ($user->isAdmin())
             return $next($request);
 
         return redirect()->route("home");

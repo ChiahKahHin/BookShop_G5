@@ -17,7 +17,7 @@
 					<span class="nav-link-text ms-1">Home</span>
 				</a>
 			</li>
-			@if (Auth::check() && Auth::user()->role == 0)
+			@if (Auth::check() && Auth::user()->isAdmin())
 				<li class="nav-item">
 					<a class="nav-link @if (Route::currentRouteName() == "dashboard") active @endif" href="{{ route('dashboard') }}">
 						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
