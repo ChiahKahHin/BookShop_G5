@@ -124,8 +124,6 @@
 	z-index: 100 !important;
 }
 
-[type="checkbox"]:checked,
-[type="checkbox"]:not(:checked),
 [type="radio"]:checked,
 [type="radio"]:not(:checked){
 	position: absolute;
