@@ -58,7 +58,7 @@ class UserController extends Controller
     }
 
     public function manageAdmin(){
-        $admins = User::all()->except(Auth::id());
+        $admins = User::all()->except(Auth::id())->where('role', 0);
 
         return view('manageAdmin', ['admins' => $admins]);
     }
