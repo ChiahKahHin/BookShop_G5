@@ -2,23 +2,21 @@
 
 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 	<div class="ms-md-auto pe-md-3 d-flex align-items-center">
-		@auth
-			@if (Route::currentRouteName() == "home")
+		@if (Auth::check() && Auth::user()->role == 0 && Route::currentRouteName() == "home")
 			<div>
 				<a href="{{ route('dashboard') }}" class="btn bg-gradient-info mb-0">Stock Levels</a>
 			</div>
-			@endif
-		@endauth
+		@endif
 	</div>
 	<ul class="navbar-nav justify-content-end">
-		@auth
+		@if (Auth::check() && Auth::user()->role == 0)
 			<li class="nav-item d-flex align-items-center">
 				<a href="{{ route("viewAccount") }}" class="nav-link text-body font-weight-bold px-1">
 					<i class="fa fa-user me-sm-1"></i>
 					<span class="d-sm-inline d-none">{{ Auth::user()->username }}</span>
 				</a>
 			</li>
-		@endauth
+		@endif
 		@guest
 			<li class="nav-item d-flex align-items-center">
 				<a href="{{ route("login") }}" class="nav-link text-body font-weight-bold px-1">

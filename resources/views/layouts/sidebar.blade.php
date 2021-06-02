@@ -17,7 +17,7 @@
 					<span class="nav-link-text ms-1">Home</span>
 				</a>
 			</li>
-			@auth
+			@if (Auth::check() && Auth::user()->role == 0)
 				<li class="nav-item">
 					<a class="nav-link @if (Route::currentRouteName() == "dashboard") active @endif" href="{{ route('dashboard') }}">
 						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -34,7 +34,7 @@
 						<span class="nav-link-text ms-1">Manage Admin</span>
 					</a>
 				</li>
-			@endauth
+			@endif
 			@auth
 				<li class="nav-item mt-3">
 					<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
