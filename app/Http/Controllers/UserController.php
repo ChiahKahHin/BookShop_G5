@@ -15,6 +15,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
+        $this->middleware(['admin'])->only(["index", "store", "updateAdmin", "manageAdmin", "deleteAdmin", "editAdmin", "viewAdmin"]);
     }
 
     public function index(){
@@ -100,7 +101,6 @@ class UserController extends Controller
     public function viewAccount(){
         $admins = DB::table('users')->get();
         $admins = DB::select('SELECT * FROM users WHERE id = '.Auth::id().'');
-
         return view('viewAccount', ['admins' => $admins[0]]);
     }
 
