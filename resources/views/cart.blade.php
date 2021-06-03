@@ -31,17 +31,18 @@ Book Shop
                 <div class="col-4">
                     <h6>Book</h6>
                 </div>
+                <div class="col-1 text-center">
+                    <h6>Quantity</h6>
+                </div>
                 <div class="col-2 text-center">
                     <h6>Price per Unit (RM)</h6>
                 </div>
                 <div class="col-2 text-center">
-                    <h6>Quantity</h6>
-                </div>
-                <div class="col-1">
+                    <h6>Total Price (RM)</h6>
                 </div>
             </div>
             <hr>
-
+            <div style="display: none">{{ $totalPrice = 0 }}</div>
             @foreach (json_decode($cart) as $cart)
                 <div class="row">
                     <div class="col-1 text-center d-flex align-items-center justify-content-center">
@@ -55,21 +56,24 @@ Book Shop
                             <h5>{{ $cart->book_name }}</h5> <label>by {{ $cart->book_author }}</label>
                         </div>
                         <div>
-                            <p style="color: black;">ISBN: {{ $cart->book_isbn_no }}</p>
+                            <i class="fa fa-trash cart-delete deleteCartBtn" style="color: red;" id="{{ 'deleteCart'.$cart->book_isbn_no }}" 
+                                data-stockName="{{ $cart->book_name }}"> Delete Book</i>
+
+                            <p style="color: black;">ISBN: {{ $cart->book_isbn_no }}</p>   
                         </div>
+                    </div>
+                    <div class="col-1 text-center">
+                        {{ $cart->book_quantity }}
                     </div>
                     <div class="col-2 text-center">
                         RM{{ number_format($cart->book_retail_price, 2) }}
                     </div>
                     <div class="col-2 text-center">
-                        {{ $cart->book_quantity }}
-                    </div>
-                    <div class="col-1 text-center">
-                        <i class="fa fa-trash cart-delete deleteCartBtn" style="color: red;" id="{{ 'deleteCart'.$cart->book_isbn_no }}" 
-                            data-stockName="{{ $cart->book_name }}"></i>
+                        RM{{ number_format($cart->book_retail_price*$cart->book_quantity, 2) }}
                     </div>
                 </div>
                 <hr>
+                <div style="display: none">{{ $totalPrice += $cart->book_retail_price*$cart->book_quantity }}</div>
             @endforeach
 
             <div class="row">
@@ -80,11 +84,13 @@ Book Shop
                 </div>
                 <div class="col-4">
                 </div>
-                <div class="col-2 text-center">
+                <div class="col-1 text-center">
                 </div>
                 <div class="col-2 text-center">
+                    Subtotal:
                 </div>
-                <div class="col-1">
+                <div class="col-2 text-center">
+                    RM{{ number_format($totalPrice, 2) }}
                 </div>
             </div>
         </div>
