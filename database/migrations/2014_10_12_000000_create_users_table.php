@@ -23,9 +23,27 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('role'); //admin-0, customer-1
             $table->string('address')->nullable();
+            $table->double('wallet_balance')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
+
+        User::create([
+            "email" => "customer1@gmail.com",
+            "username" => "customer1",
+            "phone" => "012-3456789",
+            "role" => 1,
+            "password" => Hash::make("12345678"),
+            "wallet_balance" => 10
+        ]);
+
+        User::create([
+            "email" => "customer2@gmail.com",
+            "username" => "customer2",
+            "phone" => "012-3456789",
+            "role" => 1,
+            "password" => Hash::make("12345678")
+        ]);
 
         User::create([
             "email" => "admin@gmail.com",

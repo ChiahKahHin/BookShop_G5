@@ -48,3 +48,6 @@ Route::post('/search', [StockController::class, 'homepageSearch'])->name("homeSe
 
 Route::post('/addToCart', [StockController::class, 'addToCart'])->name("addToCart");
 Route::get('/cart', [StockController::class, 'showCart'])->name("cart");
+
+Route::get('/reloadWallet', [UserController::class, 'reloadWalletForm'])->name("reloadWallet");
+Route::post('/reloadWallet', [UserController::class, 'reloadWallet']);

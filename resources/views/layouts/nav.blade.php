@@ -3,15 +3,36 @@
 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 	<div class="ms-md-auto pe-md-3 d-flex align-items-center">
 		@auth
-			@if (Route::currentRouteName() == "home" || Route::currentRouteName() == "cart")
-			<div>
-				<a href="{{ route('cart') }}" class="nav-link text-body font-weight-bold px-1 cart-nav"><i class="fa fa-shopping-cart"></i> Cart</a>
-			</div>
-			<span class="vertical-line-nav"></span>
-			<div>
-				<a href="{{ route('dashboard') }}" class="btn bg-gradient-info mb-0">Stock Levels</a>
-			</div>
-			<span class="vertical-line-nav"></span>
+			@if (Auth::user()->role == 1)
+				@if (Route::currentRouteName() == "home" || Route::currentRouteName() == "cart")
+					<div>
+						<a href="{{ route('reloadWallet') }}" class="nav-link text-body font-weight-bold px-1 cart-nav">
+							<i class="fa fa-wallet"></i> RM{{ number_format(Auth::user()->wallet_balance, 2) }}
+						</a>
+					</div>
+					<span class="vertical-line-nav"></span>
+					<div>
+						<a href="{{ route('cart') }}" class="nav-link text-body font-weight-bold px-1 cart-nav"><i class="fa fa-shopping-cart"></i> Cart</a>
+					</div>
+					<span class="vertical-line-nav"></span>
+				@endif
+			@else
+				@if (Route::currentRouteName() == "home" || Route::currentRouteName() == "cart")
+					<div>
+						<a href="{{ route('reloadWallet') }}" class="nav-link text-body font-weight-bold px-1 cart-nav">
+							<i class="fa fa-wallet"></i> RM{{ number_format(Auth::user()->wallet_balance, 2) }}
+						</a>
+					</div>
+					<span class="vertical-line-nav"></span>
+					<div>
+						<a href="{{ route('cart') }}" class="nav-link text-body font-weight-bold px-1 cart-nav"><i class="fa fa-shopping-cart"></i> Cart</a>
+					</div>
+					<span class="vertical-line-nav"></span>
+					<div>
+						<a href="{{ route('dashboard') }}" class="btn bg-gradient-info mb-0">Stock Levels</a>
+					</div>
+					<span class="vertical-line-nav"></span>
+				@endif
 			@endif
 		@endauth
 	</div>

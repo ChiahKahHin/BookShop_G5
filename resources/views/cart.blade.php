@@ -11,7 +11,13 @@ Book Shop
 
 @section("content")
 <div class="text-center"><h3 class="mb-0">Shopping Cart</h3></div>
+
 <div class="container py-4">
+    {{-- <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+        <a href="{{ route('home') }}" class="btn bg-gradient-info mb-0">
+            Continue Shopping
+        </a>
+    </div> --}}
     
     <div class="card">
         <div class="card-body">
@@ -48,7 +54,7 @@ Book Shop
                         <h4>{{ $cart->book_name }}</h4> <label>by {{ $cart->book_author }}</label>
                     </div>
                     <div class="col-2 text-center">
-                        {{ $cart->book_retail_price }}
+                        RM{{ number_format($cart->book_retail_price, 2) }}
                     </div>
                     <div class="col-2 text-center">
                         {{ $cart->book_quantity }}
@@ -79,6 +85,11 @@ Book Shop
         </div>
     </div>
     
+    <div class="d-flex justify-content-end" style="margin-top: 10px; margin-bottom: 10px;">
+        <a href="{{ route('home') }}" class="btn bg-gradient-info mb-0">
+            Continue Shopping
+        </a>
+    </div>
 
 </div>
 @endsection
