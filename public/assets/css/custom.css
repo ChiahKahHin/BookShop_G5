@@ -111,8 +111,10 @@
 
 
 
-input,
-textarea {
+input.quantity-field,
+textarea.quantity-field,
+input.button-minus,
+input.button-plus {
   border: 1px solid #eeeeee;
   box-sizing: border-box;
   margin: 0;
@@ -120,7 +122,9 @@ textarea {
   padding: 10px;
 }
 
-input[type="button"] {
+input[type="button"].quantity-field,
+input[type="button"].button-minus,
+input[type="button"].button-plus {
   -webkit-appearance: button;
   cursor: pointer;
 }
@@ -168,7 +172,7 @@ input::-webkit-inner-spin-button {
   left: -13px;
 } */
 
-input[type="number"] {
+input[type="number"].quantity-field {
   -moz-appearance: textfield;
   -webkit-appearance: none;
 }
