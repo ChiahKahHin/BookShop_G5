@@ -32,7 +32,7 @@ class UserController extends Controller
         $admin->username = request('username');
         $admin->phone = request('phone');
         $admin->email = request('email');
-        
+        $admin->address = request ('address');
         $admin->password = Hash::make(request('password'));
         $admin->role = 0;
         $admin->save();
@@ -123,7 +123,7 @@ class UserController extends Controller
         $data->username = $request->username;
         $data->phone = $request->phone;
         $data->email = $request->email;
-
+        $data->address = $request->address;
         $data->save();
         return redirect('editAccount')->with('message', 'Admin Info Edit Successfully');
 
