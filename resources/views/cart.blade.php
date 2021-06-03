@@ -86,8 +86,8 @@ Book Shop
                 </div>
                 <div class="col-1 text-center">
                 </div>
-                <div class="col-2 text-center">
-                    Subtotal:
+                <div class="col-2 text-end">
+                    <h6 class="m-0">Subtotal:</h6>
                 </div>
                 <div class="col-2 text-center">
                     RM{{ number_format($totalPrice, 2) }}
