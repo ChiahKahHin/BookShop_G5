@@ -136,10 +136,10 @@ class StockController extends Controller
 
     public function checkISBN(Request $request){
         $stock = Stock::find($request->isbn);
-
+        
         if($stock == null)
-            return false;
+            return false; // unique ISBN
         else
-            return true;
+            return true; // duplicated ISBN
     }
 }
