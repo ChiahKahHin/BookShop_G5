@@ -29,13 +29,13 @@ Book Shop
 
                 </div>
                 <div class="col-4">
-                    <h5>Book</h5>
+                    <h6>Book</h6>
                 </div>
                 <div class="col-2 text-center">
-                    <h5>Price (RM)</h5>
+                    <h6>Price per Unit (RM)</h6>
                 </div>
                 <div class="col-2 text-center">
-                    <h5>Quantity</h5>
+                    <h6>Quantity</h6>
                 </div>
                 <div class="col-1">
                 </div>
@@ -50,8 +50,13 @@ Book Shop
                     <div class="col-2 text-center">
                         <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cart->book_front_cover) }}">
                     </div>
-                    <div class="col-4">
-                        <h4>{{ $cart->book_name }}</h4> <label>by {{ $cart->book_author }}</label>
+                    <div class="col-4 d-flex align-content-between flex-wrap">
+                        <div class="w-100">
+                            <h5>{{ $cart->book_name }}</h5> <label>by {{ $cart->book_author }}</label>
+                        </div>
+                        <div>
+                            <p style="color: black;">ISBN: {{ $cart->book_isbn_no }}</p>
+                        </div>
                     </div>
                     <div class="col-2 text-center">
                         RM{{ number_format($cart->book_retail_price, 2) }}
