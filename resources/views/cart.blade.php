@@ -10,7 +10,7 @@ Book Shop
 @endsection
 
 @section("content")
-<div class="text-center"><h3>Shopping Cart</h3></div>
+<div class="text-center"><h3 class="mb-0">Shopping Cart</h3></div>
 <div class="container py-4">
     
     <div class="card">
@@ -39,7 +39,7 @@ Book Shop
             @foreach (json_decode($cart) as $cart)
                 <div class="row">
                     <div class="col-1 text-center d-flex align-items-center justify-content-center">
-                        <input type="checkbox" class="selectCartChk" name="selectCart">
+                        <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" value="">
                     </div>
                     <div class="col-2 text-center">
                         <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cart->book_front_cover) }}">
@@ -63,7 +63,7 @@ Book Shop
 
             <div class="row">
                 <div class="col-1 text-center d-flex align-items-center justify-content-center">
-                    <input type="checkbox" class="" name="selectAllCart" id="selectAllCartBtn">
+                    <input type="checkbox" class="checkboxCart" name="selectAllCart" id="selectAllCartBtn">
                 </div>
                 <div class="col-2">
                 </div>
@@ -85,6 +85,18 @@ Book Shop
 
 @section("script")
 <script>
+    $(document).ready(function (){
+        var cartSelectAll = document.getElementById('selectAllCartBtn');
+        var cartSelect = document.getElementsByName('selectCart');
+
+        for(var i=0; i < cartSelect.length; i++){  
+            if(cartSelect[i].type == 'checkbox'){
+                cartSelect[i].checked = true;
+            }
+        }
+        cartSelectAll.checked = true;
+    });
+
     $(document).on('click', '.selectCartChk', function(){
         var cartSelectAll = document.getElementById('selectAllCartBtn');
         var cartSelect = document.getElementsByName('selectCart');
@@ -104,8 +116,6 @@ Book Shop
                 cartSelectAll.checked = true;
             } 
         }
-        
-        
     });
 
     $('#selectAllCartBtn').on('click', function(){
@@ -126,8 +136,6 @@ Book Shop
                 }
             }  
         }
-        
-        
     });
 
     $(document).on('click', '.deleteCartBtn', function (){
