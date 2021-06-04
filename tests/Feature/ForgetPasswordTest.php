@@ -62,7 +62,7 @@ class ForgetPasswordTest extends TestCase
                 $data = $notification->toMail($user)->toArray();
                 
                 // check whether the generated URL is correct with the generated token
-                $this->assertStringStartsWith(route("forgotPassword")."/".$notification->token, $data["actionUrl"]);
+                $this->assertStringStartsWith(route("password.reset", ["token" => $notification->token]), $data["actionUrl"]);
                 return true;
             });
     }
