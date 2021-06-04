@@ -51,3 +51,7 @@ Route::get('/forgetPassword', [ForgetPasswordController::class, 'index'])->name(
 Route::post('/forgetPassword', [ForgetPasswordController::class, 'notifyEmail']);
 Route::get('/forgetPassword/{token}', [ForgetPasswordController::class, 'resetPassword'])->name('password.reset');
 Route::post('/forgetPassword/{token}', [ForgetPasswordController::class, 'changePassword']);
+
+Route::post('/checkISBN', [StockController::class, 'checkISBN'])->name("checkISBN");
+Route::get('/reloadWallet', [UserController::class, 'reloadWalletForm'])->name("reloadWallet");
+Route::post('/reloadWallet', [UserController::class, 'reloadWallet']);

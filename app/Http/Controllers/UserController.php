@@ -60,7 +60,7 @@ class UserController extends Controller
     }
 
     public function manageAdmin(){
-        $admins = User::all()->except(Auth::id());
+        $admins = User::all()->except(Auth::id())->where('role', 0);
 
         return view('manageAdmin', ['admins' => $admins]);
     }
@@ -126,5 +126,23 @@ class UserController extends Controller
         $data->save();
         return redirect('editAccount')->with('message', 'Admin Info Edit Successfully');
 
+    }
+
+    public function reloadWalletForm(){
+        return view('reloadWallet');
+    }
+
+    public function reloadWallet(Request $request){
+        $this->validate($request,[
+            'password' => ["required", new MatchOldPassword]
+        ]);
+        $user = User::find(Auth::id());
+        
+        $totalReload = $request->amountReload + $user->wallet_balance;
+        $user->wallet_balance = $totalReload;
+        $user->save();
+        $message = "Reload successful";
+        
+        return redirect('/reloadWallet')->with('message', $message);
     }
 }
