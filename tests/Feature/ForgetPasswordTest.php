@@ -53,8 +53,7 @@ class ForgetPasswordTest extends TestCase
         $user = $this->user;
         $this->followingRedirects()->post(route("forgotPassword"), [
             "email" => $user->email
-        ])->assertSessionHasNoErrors() // no validation error
-        ->assertOk(); // status 200
+        ])->assertOk(); // status 200
         
         Notification::assertSentTo($user, 
             ResetPassword::class,
@@ -76,7 +75,7 @@ class ForgetPasswordTest extends TestCase
             "email" => $user->email,
             "password" => $newPassword,
             "password_confirmation" => $newPassword
-        ])->assertSessionHasNoErrors() // no validation error
+        ])
         ->assertOk(); // status 200
 
         // before reset password

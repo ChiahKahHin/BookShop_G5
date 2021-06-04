@@ -68,8 +68,7 @@ class AddAdminNotification extends TestCase
             "email" => $admin->email,
             "password" => $admin->hidden_password,
             "password_confirmation" => $admin->hidden_password
-        ])->assertSessionHasNoErrors() // no validation error
-        ->assertOk(); // status 200
+        ])->assertOk(); // status 200
         
         Notification::assertSentTo(
             User::where("email", $admin->email)->first(), 
