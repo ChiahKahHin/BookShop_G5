@@ -13,15 +13,25 @@
                     <label class="ms-0" style="margin-left: 0;">{{ $stock->book_author }}</label>
                     <h6>RM {{ number_format($stock->book_retail_price, 2) }}</h6>
                     @auth
-                        <div class="input-group justify-content-center">
-                            <input type="button" value="-" class="button-minus" data-field="quantity">
-                            <input type="number" step="1" max="{{ $stock->book_quantity }}" value="1" name="quantity" class="quantity-field validateEmpty"
-                                id="{{ 'bookQty' . $stock->book_isbn_no }}">
-                            <input type="button" value="+" class="button-plus" data-field="quantity" data-maxQty="{{ $stock->book_quantity }}">
-                        </div>
-                        <button type="button" class="btn bg-gradient-info mb-0 addBookToCart"
-                            data-bookName="{{ $stock->book_name }}" value="{{ $stock->book_isbn_no }}"><i
-                                class="fa fa-shopping-cart"></i> Add to Cart</button>
+                        @if($stock->book_quantity <= 0)
+                            <div class="input-group justify-content-center">
+                                <input type="button" value="-" class="button-minus" data-field="quantity" disabled>
+                                <input type="number" step="1" max="{{ $stock->book_quantity }}" value="1" name="quantity" class="quantity-field validateEmpty"
+                                    id="{{ 'bookQty' . $stock->book_isbn_no }}" disabled>
+                                <input type="button" value="+" class="button-plus" data-field="quantity" data-maxQty="{{ $stock->book_quantity }}" disabled>
+                            </div>
+                            <button type="button" class="btn bg-gradient-info mb-0" disabled><i class="fa fa-shopping-cart"></i> Out of Stock</button>
+                        @else
+                            <div class="input-group justify-content-center">
+                                <input type="button" value="-" class="button-minus" data-field="quantity">
+                                <input type="number" step="1" max="{{ $stock->book_quantity }}" value="1" name="quantity" class="quantity-field validateEmpty"
+                                    id="{{ 'bookQty' . $stock->book_isbn_no }}">
+                                <input type="button" value="+" class="button-plus" data-field="quantity" data-maxQty="{{ $stock->book_quantity }}">
+                            </div>
+                            <button type="button" class="btn bg-gradient-info mb-0 addBookToCart"
+                                data-bookName="{{ $stock->book_name }}" value="{{ $stock->book_isbn_no }}"><i
+                                    class="fa fa-shopping-cart"></i> Add to Cart</button>
+                        @endif
                     @endauth
                 </div>
 
@@ -77,12 +87,30 @@
                 "stockQty": quantity
             },
             success: function(data) {
-                if (data) {
+                if(data == "success"){
                     Swal.fire({
                         title: 'Book Added',
                         text: bookName,
                         icon: 'success',
-                        timer: 1500,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+                else if(data == "sameAmount"){
+                    Swal.fire({
+                        title: 'Failed to Add',
+                        html: bookName + "<br>" + "Quantity added to cart is at maximum!",
+                        icon: 'error',
+                        timer: 3500,
+                        showConfirmButton: false
+                    });
+                }
+                else{
+                    Swal.fire({
+                        title: 'Some Book Added',
+                        html: bookName + "<br>Maximum Quantity Reached!<br>Only " + data + " book(s) added",
+                        icon: 'error',
+                        timer: 3500,
                         showConfirmButton: false
                     });
                 }

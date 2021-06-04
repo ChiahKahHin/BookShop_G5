@@ -163,11 +163,30 @@ class StockController extends Controller
             $cart->book_quantity = request('stockQty');
             $cart->save();
         } else {
-            $stock->book_quantity += request('stockQty');
-            $stock->save();
-        }
+            $checkStock = Stock::where('book_isbn_no', request('stockISBN'))->first();
 
-        return true;
+            if($stock->book_quantity != $checkStock->book_quantity){
+                if(($stock->book_quantity + request('stockQty')) == $checkStock->book_quantity){
+                    $stock->book_quantity += request('stockQty');
+                    $stock->save();
+                    return "success";
+                }
+                else if(($stock->book_quantity + request('stockQty')) > $checkStock->book_quantity){
+                    $difference = $checkStock->book_quantity - $stock->book_quantity;
+                    $stock->book_quantity = $checkStock->book_quantity;
+                    $stock->save();
+                    return $difference;
+                }
+                else{
+                    $stock->book_quantity += request('stockQty');
+                    $stock->save();
+                    return "success";
+                }
+            }
+            else{
+                return "sameAmount";
+            }
+        }
     }
 
     public function showCart()
