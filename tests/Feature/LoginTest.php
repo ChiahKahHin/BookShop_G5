@@ -64,7 +64,6 @@ class LoginTest extends TestCase
     public function test_admin_login() {
         $admin = $this->admin;
         $response = $this->followingRedirects()
-            ->actingAs($admin)
             ->post(route("login"), [
                 "username" => $admin->username,
                 "password" => $admin->hidden_password
@@ -78,12 +77,12 @@ class LoginTest extends TestCase
     public function test_customer_login() {
         $customer = $this->customer;
         $response = $this->followingRedirects()
-            ->actingAs($customer)
             ->post(route("login"), [
                 "username" => $customer->username,
                 "password" => $customer->hidden_password
             ]
         )->assertOk(); // status 200
+        
         $this->assertTrue($this->isAuthenticated()); // check whether the user is authenticated
         $this->assertAuthenticatedAs($customer); // check whether the user is authenticated as the given user
         $response->assertViewIs("home"); // check whether the system is redirect to correct route
