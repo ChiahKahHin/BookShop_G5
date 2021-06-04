@@ -71,7 +71,8 @@ class LoginTest extends TestCase
             ]
         )->assertSessionHasNoErrors()
         ->assertOk();
-        $this->isAuthenticated();
+        $this->assertTrue($this->isAuthenticated());
+        $this->assertAuthenticatedAs($admin);
         $response->assertViewIs("dashboard");
     }
 
@@ -85,8 +86,8 @@ class LoginTest extends TestCase
             ]
         )->assertSessionHasNoErrors()
         ->assertOk();
-        
-        $this->isAuthenticated();
+        $this->assertTrue($this->isAuthenticated());
+        $this->assertAuthenticatedAs($customer);
         $response->assertViewIs("home");
     }
 }
