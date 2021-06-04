@@ -15,9 +15,6 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    private $admin;
-    private $customer;
-
     public function setUp(): void {
         parent::setUp();
         $this->admin = User::factory()->create(
