@@ -55,3 +55,9 @@ Route::post('/forgetPassword/{token}', [ForgetPasswordController::class, 'change
 Route::post('/checkISBN', [StockController::class, 'checkISBN'])->name("checkISBN");
 Route::get('/reloadWallet', [UserController::class, 'reloadWalletForm'])->name("reloadWallet");
 Route::post('/reloadWallet', [UserController::class, 'reloadWallet']);
+
+Route::post('/addToCart', [StockController::class, 'addToCart'])->name("addToCart");
+Route::get('/cart', [StockController::class, 'showCart'])->name("cart");
+
+Route::get('/reloadWallet', [UserController::class, 'reloadWalletForm'])->name("reloadWallet");
+Route::post('/reloadWallet', [UserController::class, 'reloadWallet']);

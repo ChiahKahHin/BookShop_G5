@@ -22,7 +22,7 @@
                             @csrf
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6 mb-4">
+                                    <div class="col-md-12 mb-4">
                                         <label>Reload Amount</label><br>
                                         <!--<input type="text" name="reload_amount" id="reload_amount"
                                             class="form-control @error('reload_amount') border-danger @enderror"

@@ -11,7 +11,7 @@
 		<ul class="navbar-nav">
 			
 			@auth
-			@if (Auth::user()->role == 1)
+			@if (Auth::user()->isCustomer())
 				<li class="nav-item mt-3">
 					<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Wallet Balance: <br><br> RM 
 						@if (Auth::user()->wallet_balance != null)

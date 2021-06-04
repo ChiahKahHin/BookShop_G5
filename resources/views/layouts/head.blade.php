@@ -23,6 +23,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Custom CSS -->
 <link href="../assets/css/custom.css" rel="stylesheet" />
+
 <!-- Anti-flicker snippet (recommended)	-->
 <style>
 	.async-hide {
