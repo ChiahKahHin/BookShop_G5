@@ -58,7 +58,7 @@ class LoginTest extends TestCase
     public function test_load_login_page() {
         $response = $this->get(route("login"));
         
-        $response->assertOk();
+        $response->assertOk(); // status 200
     }
 
     public function test_admin_login() {
@@ -69,11 +69,11 @@ class LoginTest extends TestCase
                 "username" => $admin->username,
                 "password" => $admin->hidden_password
             ]
-        )->assertSessionHasNoErrors()
-        ->assertOk();
-        $this->assertTrue($this->isAuthenticated());
-        $this->assertAuthenticatedAs($admin);
-        $response->assertViewIs("dashboard");
+        )->assertSessionHasNoErrors() // no validation error
+        ->assertOk(); // status 200
+        $this->assertTrue($this->isAuthenticated()); // check whether the user is authenticated
+        $this->assertAuthenticatedAs($admin); // check whether the user is authenticated as the given user
+        $response->assertViewIs("dashboard"); // check whether the system is redirect to correct route
     }
 
     public function test_customer_login() {
@@ -84,10 +84,10 @@ class LoginTest extends TestCase
                 "username" => $customer->name,
                 "password" => $customer->hidden_password
             ]
-        )->assertSessionHasNoErrors()
-        ->assertOk();
-        $this->assertTrue($this->isAuthenticated());
-        $this->assertAuthenticatedAs($customer);
-        $response->assertViewIs("home");
+        )->assertSessionHasNoErrors() // no validation error
+        ->assertOk(); // status 200
+        $this->assertTrue($this->isAuthenticated()); // check whether the user is authenticated
+        $this->assertAuthenticatedAs($customer); // check whether the user is authenticated as the given user
+        $response->assertViewIs("home"); // check whether the system is redirect to correct route
     }
 }

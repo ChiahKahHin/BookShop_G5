@@ -46,21 +46,22 @@ class ForgetPasswordTest extends TestCase
     public function test_load_forget_password_page()
     {
         $response = $this->get(route("forgotPassword"));
-        $response->assertOk();
+        $response->assertOk(); // status 200
     }
 
     public function test_forget_password_email_notification() {
         $user = $this->user;
         $this->followingRedirects()->post(route("forgotPassword"), [
             "email" => $user->email
-        ])->assertSessionHasNoErrors()
-        ->assertOk();
+        ])->assertSessionHasNoErrors() // no validation error
+        ->assertOk(); // status 200
         
         Notification::assertSentTo($user, 
             ResetPassword::class,
             function ($notification) use ($user) {
                 $data = $notification->toMail($user)->toArray();
                 
+                // check whether the generated URL is correct with the generated token
                 $this->assertStringStartsWith(route("forgotPassword")."/".$notification->token, $data["actionUrl"]);
                 return true;
             });
@@ -75,8 +76,8 @@ class ForgetPasswordTest extends TestCase
             "email" => $user->email,
             "password" => $newPassword,
             "password_confirmation" => $newPassword
-        ])->assertSessionHasNoErrors()
-        ->assertOk();
+        ])->assertSessionHasNoErrors() // no validation error
+        ->assertOk(); // status 200
 
         // before reset password
         $this->assertTrue(Hash::check($user->hidden_password, $user->getAuthPassword()));

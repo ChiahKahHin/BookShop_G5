@@ -57,7 +57,7 @@ class AddAdminNotification extends TestCase
      */
     public function test_load_admin_page() {
         $response = $this->actingAs($this->admin)->get(route("addAdmin"));
-        $response->assertOk();
+        $response->assertOk(); // status 200
     }
 
     public function test_add_admin_email_notification() {
@@ -68,8 +68,8 @@ class AddAdminNotification extends TestCase
             "email" => $admin->email,
             "password" => $admin->hidden_password,
             "password_confirmation" => $admin->hidden_password
-        ])->assertSessionHasNoErrors()
-        ->assertOk();
+        ])->assertSessionHasNoErrors() // no validation error
+        ->assertOk(); // status 200
         
         Notification::assertSentTo(
             User::where("email", $admin->email)->first(), 
@@ -77,8 +77,8 @@ class AddAdminNotification extends TestCase
             function ($notification) use ($admin) {
                 $data = $notification->toMail($admin)->toArray();
                 
-                $this->assertContains("Username: ".$admin->username, $data["introLines"]);
-                $this->assertContains("Password: ".$admin->hidden_password, $data["introLines"]);
+                $this->assertContains("Username: ".$admin->username, $data["introLines"]); // check whether the username is shown correctly
+                $this->assertContains("Password: ".$admin->hidden_password, $data["introLines"]); // check whether the password is shown correctly
                 return true;
             }
         );
