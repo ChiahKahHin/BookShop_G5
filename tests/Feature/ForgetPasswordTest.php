@@ -18,7 +18,7 @@ class ForgetPasswordTest extends TestCase
 
     public function setUp(): void {
         parent::setUp();
-        $randomPassword = Str::random(15); // random password
+        $randomPassword = $this->faker->password(8); // random password
         $this->user = User::factory()->create(
             [
                 'username' => "admin10",
@@ -69,7 +69,7 @@ class ForgetPasswordTest extends TestCase
 
     public function test_reset_password() {
         $user = $this->user;
-        $newPassword = Str::random(16); // new random password
+        $newPassword = $this->faker->password(8); // new random password
         $token = Password::broker()->createToken($user); // create a new password reset token
         $this->followingRedirects()->post(route("password.reset", ["token" => $token]), [
             "token" => $token,
