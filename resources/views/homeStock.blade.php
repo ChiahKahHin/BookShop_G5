@@ -94,6 +94,8 @@
                         icon: 'success',
                         timer: 2000,
                         showConfirmButton: false
+                    }).then(function (){
+                        window.location.href = "/cart";
                     });
                 }
                 else if(data == "sameAmount"){
@@ -103,6 +105,8 @@
                         icon: 'error',
                         timer: 3500,
                         showConfirmButton: false
+                    }).then(function (){
+                        window.location.href = "/cart";
                     });
                 }
                 else{
@@ -112,6 +116,8 @@
                         icon: 'error',
                         timer: 3500,
                         showConfirmButton: false
+                    }).then(function (){
+                        window.location.href = "/cart";
                     });
                 }
             }
