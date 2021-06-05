@@ -103,10 +103,8 @@
                         title: 'Failed to Add',
                         html: bookName + "<br>" + "Quantity added to cart is at maximum!",
                         icon: 'error',
-                        timer: 3500,
+                        timer: 4000,
                         showConfirmButton: false
-                    }).then(function (){
-                        window.location.href = "/cart";
                     });
                 }
                 else{
@@ -114,7 +112,7 @@
                         title: 'Some Book Added',
                         html: bookName + "<br>Maximum Quantity Reached!<br>Only " + data + " book(s) added",
                         icon: 'error',
-                        timer: 3500,
+                        timer: 4000,
                         showConfirmButton: false
                     }).then(function (){
                         window.location.href = "/cart";

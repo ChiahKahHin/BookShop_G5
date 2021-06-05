@@ -172,6 +172,7 @@ class StockController extends Controller
             $cart->book_isbn_no = request('stockISBN');
             $cart->book_quantity = request('stockQty');
             $cart->save();
+            return "success";
         } else {
             $checkStock = Stock::where('book_isbn_no', request('stockISBN'))->first();
 

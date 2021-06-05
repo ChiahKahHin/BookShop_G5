@@ -1,12 +1,11 @@
 @extends("layouts.template")
 
 @section("title")
-Cart
+    Shopping Cart
 @endsection
 
 @section('navtitle')
-<img src="../assets/img/book-icon.png" class="navbar-brand-img h-100 w-15" alt="...">
-Book Shop
+    Shopping Cart
 @endsection
 
 @section("content")

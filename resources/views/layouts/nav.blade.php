@@ -4,19 +4,10 @@
 	<div class="ms-md-auto pe-md-3 d-flex align-items-center">
 		@auth
 			@if (Auth::user()->isCustomer())
-				@if (Route::currentRouteName() == "home" || Route::currentRouteName() == "cart")
-					<div>
-						<a href="{{ route('reloadWallet') }}" class="nav-link text-body font-weight-bold px-1 cart-nav">
-							<i class="fa fa-wallet"></i> RM{{ number_format(Auth::user()->wallet_balance, 2) }}
-						</a>
-					</div>
-					<span class="vertical-line-nav"></span>
-					<div>
-						<a href="{{ route('cart') }}" class="nav-link text-body font-weight-bold px-1 cart-nav"><i class="fa fa-shopping-cart"></i> Cart</a>
-					</div>
-					<span class="vertical-line-nav"></span>
-				@endif
-			@elseif (Route::currentRouteName() == "home" || Route::currentRouteName() == "cart")
+				<div>
+					<a href="{{ route('home') }}" class="nav-link text-body font-weight-bold px-1 cart-nav"><i class="fa fa-home"></i> Home</a>
+				</div>
+				<span class="vertical-line-nav"></span>
 				<div>
 					<a href="{{ route('reloadWallet') }}" class="nav-link text-body font-weight-bold px-1 cart-nav">
 						<i class="fa fa-wallet"></i> RM{{ number_format(Auth::user()->wallet_balance, 2) }}
@@ -27,6 +18,17 @@
 					<a href="{{ route('cart') }}" class="nav-link text-body font-weight-bold px-1 cart-nav"><i class="fa fa-shopping-cart"></i> Cart</a>
 				</div>
 				<span class="vertical-line-nav"></span>
+			@elseif (Route::currentRouteName() == "home")
+				{{-- <div>
+					<a href="{{ route('reloadWallet') }}" class="nav-link text-body font-weight-bold px-1 cart-nav">
+						<i class="fa fa-wallet"></i> RM{{ number_format(Auth::user()->wallet_balance, 2) }}
+					</a>
+				</div>
+				<span class="vertical-line-nav"></span>
+				<div>
+					<a href="{{ route('cart') }}" class="nav-link text-body font-weight-bold px-1 cart-nav"><i class="fa fa-shopping-cart"></i> Cart</a>
+				</div>
+				<span class="vertical-line-nav"></span> --}}
 				<div>
 					<a href="{{ route('dashboard') }}" class="btn bg-gradient-info mb-0">Stock Levels</a>
 				</div>
@@ -36,12 +38,57 @@
 	</div>
 	<ul class="navbar-nav justify-content-end">
 		@auth
-			<li class="nav-item d-flex align-items-center">
-				<a href="{{ route("viewAccount") }}" class="nav-link text-body font-weight-bold px-1">
-					<i class="fa fa-user me-sm-1"></i>
-					<span class="d-sm-inline d-none">{{ Auth::user()->username }}</span>
-				</a>
+			@if (Auth::user()->isAdmin())
+				<li class="nav-item d-flex align-items-center">
+					<a href="{{ route("viewAccount") }}" class="nav-link text-body font-weight-bold px-1">
+						<i class="fa fa-user me-sm-1"></i>
+						<span class="d-sm-inline d-none">{{ Auth::user()->username }}</span>
+					</a>
+				</li>
+				@else
+				<li class="nav-item dropdown d-flex align-items-center">
+					<a href="javascript:;" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" class="nav-link text-body font-weight-bold px-1">
+						<i class="fa fa-user me-sm-1"></i>
+						<span class="d-sm-inline d-none">{{ Auth::user()->username }}</span>
+					</a>
+				<ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+					<li class="mb-2">
+						<a class="dropdown-item border-radius-md" href="{{ route("viewAccount") }}">
+							<div class="d-flex py-1">
+								<div class="d-flex flex-column justify-content-center">
+									<h6 class="text-sm font-weight-normal mb-1">
+										<span>View Account</span>
+									</h6>
+								</div>
+							</div>
+						</a>
+					</li>
+					<li class="mb-2">
+						<a class="dropdown-item border-radius-md" href="{{ route("changePassword") }}">
+							<div class="d-flex py-1">
+								<div class="d-flex flex-column justify-content-center">
+									<h6 class="text-sm font-weight-normal mb-1">
+										<span>Change Password</span>
+									</h6>
+								</div>
+							</div>
+						</a>
+					</li>
+					<li class="mb-2">
+						<a class="dropdown-item border-radius-md" href="{{ route("logout") }}">
+							<div class="d-flex py-1">
+								<div class="d-flex flex-column justify-content-center">
+									<h6 class="text-sm font-weight-normal mb-1">
+										<span>Logout</span>
+									</h6>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
 			</li>
+			@endif
+
 		@endauth
 		@guest
 			<li class="nav-item d-flex align-items-center">
@@ -51,7 +98,7 @@
 				</a>
 			</li>
 		@endguest
-{{-- 	<li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+		{{-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
 			<a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
 				<div class="sidenav-toggler-inner">
 					<i class="sidenav-toggler-line"></i>
@@ -64,8 +111,8 @@
 			<a href="javascript:;" class="nav-link text-body p-0">
 				<i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
 			</a>
-		</li>
-		<li class="nav-item dropdown pe-2 d-flex align-items-center">
+		</li> --}}
+		{{-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
 			<a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
 				<i class="fa fa-bell cursor-pointer"></i>
 			</a>

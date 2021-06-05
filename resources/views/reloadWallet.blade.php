@@ -9,20 +9,20 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid py-4">
+    <div class="container py-4">
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
-                    <div class="card-header pb-0">
+                    <div class="card-header pb-0 text-lg-center">
                         <h6>Reload Wallet</h6>
-                        <p class="text-success">{{ session('message') }}</p>
                     </div>
                     <div class="card-body">
                         <form id="addStockForm" action="{{ route('reloadWallet') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-12 mb-4">
+                                    <div class="col-md-6 mb-4 offset-md-3">
+                                        <p class="text-success">{{ session('message') }}</p>
                                         <label>Reload Amount</label><br>
                                         <!--<input type="text" name="reload_amount" id="reload_amount"
                                             class="form-control @error('reload_amount') border-danger @enderror"
@@ -42,7 +42,6 @@
 											<label class="for-checkbox-amountReload" for="amountReload-3">
 												<span data-hover="RM50">RM50</span>
 											</label>   
-											<br>
 										    <input class="checkbox-amountReload" type="radio" name="amountReload" id="amountReload-4" value="100" onclick="enableReload()">
 											<label class="for-checkbox-amountReload" for="amountReload-4">
 												<span data-hover="RM100">RM100</span>
@@ -66,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 mb-4">
+                                    <div class="col-md-6 mb-4 offset-md-3">
                                         <label>Password</label>
                                         <input type="password" name="password" id="password"
                                             class="form-control @error('password') border-danger @enderror"
@@ -79,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 offset-md-3">
                                         <button class="btn bg-gradient-info w-100 mt-4 md-6" id="btnReload" type="submit" disabled>Reload Wallet</button>
                                     </div>
                                 </div>
@@ -89,6 +88,7 @@
                 </div>
             </div>
         </div>
+    </div>
     @endsection
 
     @section('script')
