@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -46,5 +47,6 @@ Route::get('/dashboard/delete/{isbn}', [StockController::class, 'delete']);
 Route::get('/stock/delete/{isbn}', [StockController::class, 'deleteStock']);
 Route::post('/search', [StockController::class, 'homepageSearch'])->name("homeSearch");
 
-Route::get('/customerRegistration', [UserController::class, 'customerRegistration'])->name("customerRegistration");
-Route::post('/customerRegistration', [UserController::class, 'addCustomer'])->name("addCustomer");
+Route::get('/customerRegistration', [RegisterController::class, 'customerRegistration'])->name("customerRegistration");
+Route::post('/customerRegistration', [RegisterController::class, 'addCustomer'])->name("addCustomer");
+Route::get('/viewUserAccount', [UserController::class, 'viewUserAccount'])->name("viewUserAccount");
