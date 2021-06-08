@@ -62,12 +62,14 @@
                                         @enderror
                                     </div>
                                 </div>
+                                @if (Auth::user()->role==1)
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                     <label>Address</label><br>
-                                    <textarea id="address" rows="2" cols="57" name="address" placeholder=" Please fill in your address" >{{ $admins->address }}</textarea>
+                                    <textarea id="address" class="form-control" rows="2" cols="57" name="address" placeholder=" Please fill in your address" >{{ $admins->address }}</textarea>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="col-md-6">
                                     <button class="btn bg-gradient-info w-100 mt-4 md-6" type="submit">Update Account</button>
                                 </div>

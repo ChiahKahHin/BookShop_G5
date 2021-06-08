@@ -116,6 +116,7 @@ class UserController extends Controller
             'username' => 'required|max:255|unique:users,username,'.$request->id.'',
             'phone' => 'required|regex:/^(\+6)?01[0-46-9]-[0-9]{7,8}$/|max:14',
             'email' => 'required|email|max:255|unique:users,email,'.$request->id.'',
+            'address' => 'max:255'
         ]);
 
         //dd($request->id);
@@ -125,7 +126,15 @@ class UserController extends Controller
         $data->email = $request->email;
         $data->address = $request->address;
         $data->save();
-        return redirect('editAccount')->with('message', 'Admin Info Edit Successfully');
+
+        $message = "";
+        if(Auth::user()->role==0){
+            $message = "Admin Info Updated Successfully";
+        }
+        else{
+            $message = "Customer Info Updated Successfully";
+        }
+        return redirect('editAccount')->with('message', $message);
 
     }
 }

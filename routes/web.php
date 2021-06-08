@@ -48,3 +48,4 @@ Route::post('/search', [StockController::class, 'homepageSearch'])->name("homeSe
 
 Route::post('/addToCart', [StockController::class, 'addToCart'])->name("addToCart");
 Route::get('/cart', [StockController::class, 'showCart'])->name("cart");
+Route::get('/cart/deleteCartItem/{id}', [StockController::class, 'deleteCartItem']);

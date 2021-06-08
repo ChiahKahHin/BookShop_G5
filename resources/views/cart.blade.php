@@ -153,32 +153,33 @@ Book Shop
 			confirmButtonText: 'Yes'
 		}).then((result) => {
 			if (result.value) {
-				// Swal.fire({
-				// 	title: "Deleted!",
-				// 	text: "Deleted book with ISBN: " + stockISBN,
-				// 	icon: 'success',
-				// 	type: 'success',
-				// 	showConfirmButton: false,
-				// 	timer: 1500,
-				// }).then(function() {
-				// 	window.location.href = "/dashboard/delete/" + stockISBN;
-				// });
+                
+			// 	Swal.fire({
+			// 		title: "Deleted!",
+			// 		text: "Deleted book with ISBN: " + stockISBN,
+			// 		icon: 'success',
+			// 		type: 'success',
+			// 		showConfirmButton: false,
+			// 		timer: 1500,
+			// 	}).then(function() {
+			// 		window.location.href = "/cart/deleteCartItem/";
+			// 	});
 
-				// $.ajax({
-				// 	type: "POST",
-				// 	dataType: "json",
-				// 	url: " route('dashboardDelete') ",
-				// 	data: {
-				// 		"_token": "csrf_token()",
-				// 		"stockISBN": stockISBN
-				// 	},
-				// 	success: function(data) {
-				// 		console.log("success");
-				// 		$('#stockTable').DataTable().ajax.reload(null, false);
-				// 		//$('#dashboardCard').html(data);
-				// 		console.log(data);
-				// 	}
-				// });
+			// 	$.ajax({
+			// 		type: "POST",
+			// 		dataType: "json",
+			// 		url: " route('dashboardDelete') ",
+			// 		data: {
+			// 			"_token": "csrf_token()",
+			// 			"stockISBN": stockISBN
+			// 		},
+			// 		success: function(data) {
+			// 			console.log("success");
+			// 			$('#stockTable').DataTable().ajax.reload(null, false);
+			// 			$('#dashboardCard').html(data);
+			// 			console.log(data);
+			// 		}
+			// 	});
 			}
 		});
     });

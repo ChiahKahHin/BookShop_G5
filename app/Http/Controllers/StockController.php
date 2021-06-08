@@ -190,6 +190,15 @@ class StockController extends Controller
         return view('cart', ['cart' => $stock]);
     }
 
+    public function deleteCartItem($id)
+    {
+        $cart = Cart::findOrFail($id);
+        $cart->delete();
+
+        $cart = Cart::all();
+        return redirect('/cart');
+    }
+
     // public function showCart()
     // {
     //     $stock = array();
