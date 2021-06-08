@@ -34,6 +34,7 @@ class UserController extends Controller
         $admin->username = request('username');
         $admin->phone = request('phone');
         $admin->email = request('email');
+        $admin->address = request ('address');
         $admin->password = Hash::make(request('password'));
         $admin->role = 0;
         $admin->save();
@@ -116,6 +117,7 @@ class UserController extends Controller
             'username' => 'required|max:255|unique:users,username,'.$request->id.'',
             'phone' => 'required|regex:/^(\+6)?01[0-46-9]-[0-9]{7,8}$/|max:14',
             'email' => 'required|email|max:255|unique:users,email,'.$request->id.'',
+            'address' => 'max:255'
         ]);
 
         //dd($request->id);
@@ -123,8 +125,17 @@ class UserController extends Controller
         $data->username = $request->username;
         $data->phone = $request->phone;
         $data->email = $request->email;
+        $data->address = $request->address;
         $data->save();
-        return redirect('editAccount')->with('message', 'Admin Info Edit Successfully');
+
+        $message = "";
+        if(Auth::user()->role==0){
+            $message = "Admin Info Updated Successfully";
+        }
+        else{
+            $message = "Customer Info Updated Successfully";
+        }
+        return redirect('editAccount')->with('message', $message);
 
     }
 
