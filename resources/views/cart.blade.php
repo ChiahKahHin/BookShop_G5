@@ -153,7 +153,6 @@ Book Shop
 			confirmButtonText: 'Yes'
 		}).then((result) => {
 			if (result.value) {
-                
 			// 	Swal.fire({
 			// 		title: "Deleted!",
 			// 		text: "Deleted book with ISBN: " + stockISBN,
@@ -180,7 +179,7 @@ Book Shop
 			// 			console.log(data);
 			// 		}
 			// 	});
-			}
+			// }
 		});
     });
 
