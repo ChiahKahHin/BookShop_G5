@@ -145,4 +145,11 @@ class UserController extends Controller
         
         return redirect('/reloadWallet')->with('message', $message);
     }
+    
+    public function viewUserAccount(){
+        $user = DB::table('users')->get();
+        $user = DB::select('SELECT * FROM users WHERE id = '.Auth::id().'');
+
+        return view('viewUserAccount', ['user' => $user[0]]);
+    }
 }

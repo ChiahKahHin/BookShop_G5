@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -61,3 +62,7 @@ Route::get('/cart', [StockController::class, 'showCart'])->name("cart");
 
 Route::get('/reloadWallet', [UserController::class, 'reloadWalletForm'])->name("reloadWallet");
 Route::post('/reloadWallet', [UserController::class, 'reloadWallet']);
+
+Route::get('/customerRegistration', [RegisterController::class, 'customerRegistration'])->name("customerRegistration");
+Route::post('/customerRegistration', [RegisterController::class, 'addCustomer'])->name("addCustomer");
+Route::get('/viewUserAccount', [UserController::class, 'viewUserAccount'])->name("viewUserAccount");
