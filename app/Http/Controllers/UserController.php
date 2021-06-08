@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\AdminCreatedNotification;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
+        $this->middleware(['admin'])->only(["index", "store", "updateAdmin", "manageAdmin", "deleteAdmin", "editAdmin", "viewAdmin"]);
     }
 
     public function index(){
@@ -36,7 +38,7 @@ class UserController extends Controller
         $admin->password = Hash::make(request('password'));
         $admin->role = 0;
         $admin->save();
-
+        $admin->notify(new AdminCreatedNotification(request('username'), request('password')));
         return redirect('/addAdmin')->with('message', 'Admin Added Successfully');
     }
 
@@ -59,7 +61,7 @@ class UserController extends Controller
     }
 
     public function manageAdmin(){
-        $admins = User::all()->except(Auth::id());
+        $admins = User::all()->except(Auth::id())->where('role', 0);
 
         return view('manageAdmin', ['admins' => $admins]);
     }
@@ -100,7 +102,6 @@ class UserController extends Controller
     public function viewAccount(){
         $admins = DB::table('users')->get();
         $admins = DB::select('SELECT * FROM users WHERE id = '.Auth::id().'');
-
         return view('viewAccount', ['admins' => $admins[0]]);
     }
 
@@ -136,5 +137,30 @@ class UserController extends Controller
         }
         return redirect('editAccount')->with('message', $message);
 
+    }
+
+    public function reloadWalletForm(){
+        return view('reloadWallet');
+    }
+
+    public function reloadWallet(Request $request){
+        $this->validate($request,[
+            'password' => ["required", new MatchOldPassword]
+        ]);
+        $user = User::find(Auth::id());
+        
+        $totalReload = $request->amountReload + $user->wallet_balance;
+        $user->wallet_balance = $totalReload;
+        $user->save();
+        $message = "Reload successful";
+        
+        return redirect('/reloadWallet')->with('message', $message);
+    }
+    
+    public function viewUserAccount(){
+        $user = DB::table('users')->get();
+        $user = DB::select('SELECT * FROM users WHERE id = '.Auth::id().'');
+
+        return view('viewUserAccount', ['user' => $user[0]]);
     }
 }

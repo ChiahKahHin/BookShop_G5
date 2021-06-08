@@ -28,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'wallet_balance'
     ];
 
     /**
@@ -48,4 +49,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin() {
+        if ($this->role == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isCustomer()
+    {
+        if ($this->role == 1) {
+            return true;
+        }
+        return false;
+    }
 }

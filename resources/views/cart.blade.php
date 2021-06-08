@@ -1,17 +1,22 @@
 @extends("layouts.template")
 
 @section("title")
-Cart
+    Shopping Cart
 @endsection
 
 @section('navtitle')
-<img src="../assets/img/book-icon.png" class="navbar-brand-img h-100 w-15" alt="...">
-Book Shop
+    Shopping Cart
 @endsection
 
 @section("content")
 <div class="text-center"><h3 class="mb-0">Shopping Cart</h3></div>
+
 <div class="container py-4">
+    {{-- <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+        <a href="{{ route('home') }}" class="btn bg-gradient-info mb-0">
+            Continue Shopping
+        </a>
+    </div> --}}
     
     <div class="card">
         <div class="card-body">
@@ -23,19 +28,20 @@ Book Shop
 
                 </div>
                 <div class="col-4">
-                    <h5>Book</h5>
+                    <h6>Book</h6>
+                </div>
+                <div class="col-1 text-center">
+                    <h6>Quantity</h6>
                 </div>
                 <div class="col-2 text-center">
-                    <h5>Price (RM)</h5>
+                    <h6>Price per Unit (RM)</h6>
                 </div>
                 <div class="col-2 text-center">
-                    <h5>Quantity</h5>
-                </div>
-                <div class="col-1">
+                    <h6>Total Price (RM)</h6>
                 </div>
             </div>
             <hr>
-
+            <div style="display: none">{{ $totalPrice = 0 }}</div>
             @foreach (json_decode($cart) as $cart)
                 <div class="row">
                     <div class="col-1 text-center d-flex align-items-center justify-content-center">
@@ -44,21 +50,29 @@ Book Shop
                     <div class="col-2 text-center">
                         <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cart->book_front_cover) }}">
                     </div>
-                    <div class="col-4">
-                        <h4>{{ $cart->book_name }}</h4> <label>by {{ $cart->book_author }}</label>
-                    </div>
-                    <div class="col-2 text-center">
-                        {{ $cart->book_retail_price }}
-                    </div>
-                    <div class="col-2 text-center">
-                        {{ $cart->book_quantity }}
+                    <div class="col-4 d-flex align-content-between flex-wrap">
+                        <div class="w-100">
+                            <h5>{{ $cart->book_name }}</h5> <label>by {{ $cart->book_author }}</label>
+                        </div>
+                        <div>
+                            <i class="fa fa-trash cart-delete deleteCartBtn" style="color: red;" id="{{ 'deleteCart'.$cart->book_isbn_no }}" 
+                                data-stockName="{{ $cart->book_name }}"> Delete Book</i>
+
+                            <p style="color: black;">ISBN: {{ $cart->book_isbn_no }}</p>   
+                        </div>
                     </div>
                     <div class="col-1 text-center">
-                        <i class="fa fa-trash cart-delete deleteCartBtn" style="color: red;" id="{{ 'deleteCart'.$cart->book_isbn_no }}" 
-                            data-stockName="{{ $cart->book_name }}"></i>
+                        {{ $cart->book_quantity }}
+                    </div>
+                    <div class="col-2 text-center">
+                        RM{{ number_format($cart->book_retail_price, 2) }}
+                    </div>
+                    <div class="col-2 text-center">
+                        RM{{ number_format($cart->book_retail_price*$cart->book_quantity, 2) }}
                     </div>
                 </div>
                 <hr>
+                <div style="display: none">{{ $totalPrice += $cart->book_retail_price*$cart->book_quantity }}</div>
             @endforeach
 
             <div class="row">
@@ -69,16 +83,23 @@ Book Shop
                 </div>
                 <div class="col-4">
                 </div>
-                <div class="col-2 text-center">
+                <div class="col-1 text-center">
+                </div>
+                <div class="col-2 text-end">
+                    <h6 class="m-0">Subtotal:</h6>
                 </div>
                 <div class="col-2 text-center">
-                </div>
-                <div class="col-1">
+                    RM{{ number_format($totalPrice, 2) }}
                 </div>
             </div>
         </div>
     </div>
     
+    <div class="d-flex justify-content-end" style="margin-top: 10px; margin-bottom: 10px;">
+        <a href="{{ route('home') }}" class="btn bg-gradient-info mb-0">
+            Continue Shopping
+        </a>
+    </div>
 
 </div>
 @endsection
