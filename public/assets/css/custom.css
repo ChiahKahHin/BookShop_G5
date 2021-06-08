@@ -91,3 +91,155 @@
 .home-stock-card:hover{
     color: blue;
 }
+
+.cart-delete:hover{
+	cursor: pointer;
+	color: rgba(255, 0, 0, 0.5) !important;
+}
+
+.cart-nav:hover{
+	color: rgba(103, 116, 142, 0.7) !important;
+}
+
+.vertical-line-nav{
+	display: inline-block;
+	border-left: 1px solid #c9c9c9;
+	margin: 0 15px;
+	height: 40px;
+}
+
+
+
+
+input.quantity-field,
+textarea.quantity-field,
+input.button-minus,
+input.button-plus {
+  border: 1px solid #eeeeee;
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  padding: 10px;
+}
+
+input[type="button"].quantity-field,
+input[type="button"].button-minus,
+input[type="button"].button-plus {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.input-group {
+  clear: both;
+  margin: 15px 0;
+  position: relative;
+}
+
+.input-group input[type='button'] {
+  background-color: #fff;
+  min-width: 38px;
+  width: auto;
+  transition: all 300ms ease;
+}
+
+.input-group .button-minus,
+.input-group .button-plus {
+  font-weight: bold;
+  height: 38px;
+  padding: 0;
+  width: 38px;
+  position: relative;
+}
+
+.input-group .quantity-field {
+  /* position: relative; */
+  height: 38px;
+  left: -6px;
+  text-align: center;
+  width: 62px;
+  display: inline-block;
+  font-size: 13px;
+  margin: 0 0 5px;
+  resize: vertical;
+}
+
+input[type="number"].quantity-field {
+	-moz-appearance: textfield;
+	-webkit-appearance: none;
+}
+/* .button-plus {
+  left: -13px;
+} */
+
+input[type='checkbox'].checkboxCart {
+	--active: #275efe;
+	--active-inner: #fff;
+	--focus: 2px rgba(39, 94, 254, .3);
+	--border: #bbc1e1;
+	--border-hover: #275efe;
+	--background: #fff;
+	--disabled: #f6f8ff;
+	--disabled-inner: #e1e6f9;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	height: 21px;
+	outline: none;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	margin: 0;
+	cursor: pointer;
+	border: 1px solid var(--bc, var(--border));
+	background: var(--b, var(--background));
+	transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
+input[type='checkbox'].checkboxCart:after{
+	content: '';
+	display: block;
+	left: 0;
+	top: 0;
+	position: absolute;
+	transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+}
+input[type='checkbox'].checkboxCart:checked{
+	--b: var(--active);
+	--bc: var(--active);
+	--d-o: 0.3s;
+	--d-t: 0.6s;
+	--d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+}
+input[type='checkbox'].checkboxCart:focus {
+	box-shadow: 0 0 0 var(--focus);
+}
+input[type='checkbox'].checkboxCart {
+	width: 21px;
+}
+input[type='checkbox'].checkboxCart:after {
+	opacity: var(--o, 0);
+}
+input[type='checkbox'].checkboxCart:checked{
+	--o: 1;
+}
+input[type='checkbox'].checkboxCart {
+	border-radius: 7px;
+}
+input[type='checkbox'].checkboxCart:after {
+	width: 5px;
+	height: 9px;
+	border: 2px solid var(--active-inner);
+	border-top: 0;
+	border-left: 0;
+	left: 7px;
+	top: 4px;
+	transform: rotate(var(--r, 20deg));
+}
+input[type='checkbox'].checkboxCart:checked {
+	--r: 43deg;
+}
+
+
