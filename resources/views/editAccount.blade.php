@@ -1,7 +1,11 @@
 @extends("layouts.template")
 
 @section('title')
-    Admin | Edit Account
+    @if(Auth::user()->isCustomer())
+        Customer | Edit Account
+    @else
+        Admin | Edit Account
+    @endif
 @endsection
 
 @section('navtitle')

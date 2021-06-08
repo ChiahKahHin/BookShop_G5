@@ -38,6 +38,18 @@
                                         <p class="text-md text-dark font-weight-bold mb-0 px-2">{{ $admins->email }}</p>
                                     </div>
                                 </div>
+                                @if(Auth::user()->isCustomer())
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4 @if(Auth::user()->isCustomer()) offset-md-3 @endif">
+                                        <p class="text-md text-dark mb-0 px-2">Address</p>
+                                            @if(Auth::user()->address != NULL)
+                                                <p class="text-md text-dark font-weight-bold mb-0 px-2">{!! nl2br(Auth::user()->address) !!}</p>
+                                            @else
+                                                <p class="text-md text-dark font-weight-bold mb-0 px-2"><i>Address Not Set</i></p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="row">
                                 <div class="col-md-6 @if(Auth::user()->isCustomer()) offset-md-3 @endif">
                                     <a class="btn bg-gradient-info w-100 mt-4 md-6" href="{{ route('editAccount') }}">Edit Account Info</a>

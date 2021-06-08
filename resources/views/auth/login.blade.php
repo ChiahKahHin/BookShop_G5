@@ -56,6 +56,11 @@
 								<input type="submit" class="btn bg-gradient-info w-100" value="Login">
 							</div>
 						</div>
+						<div class="row mt-2">
+							<div class="col-sm-6 offset-sm-3 text-center">
+                                <a href="{{ route('customerRegistration') }}">Don't have an account ? Register now !</a>
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
