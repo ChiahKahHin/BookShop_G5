@@ -81,7 +81,7 @@
             dataType: "text",
             url: "{{ route('addToCart') }}",
             data: {
-                "userID": {{ Auth::id() }},
+                "userID": "{{ Auth::id() }}",
                 "_token": "{{ csrf_token() }}",
                 "stockISBN": stockISBN,
                 "stockQty": quantity
