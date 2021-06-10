@@ -8,11 +8,11 @@
                 <div style="height: 0.75rem;"></div>
                 <div>
                     <h6 class="m-0">
-                        <a href="{{ route('stockDetails', ['isbn' => $stock->book_isbn_no]) }}">{{ $stock->book_name }}</a>
+                        <a @if(Auth::check()) href="{{ route('stockDetails', ['isbn' => $stock->book_isbn_no]) }}" @endif>{{ $stock->book_name }}</a>
                     </h6>
                     <label class="ms-0" style="margin-left: 0;">{{ $stock->book_author }}</label>
                     <h6>RM {{ number_format($stock->book_retail_price, 2) }}</h6>
-                    @auth
+                    @if(Auth::check() && Auth::user()->isCustomer())
                         @if($stock->book_quantity <= 0)
                             <div class="input-group justify-content-center">
                                 <input type="button" value="-" class="button-minus" data-field="quantity" disabled>
@@ -32,7 +32,7 @@
                                 data-bookName="{{ $stock->book_name }}" value="{{ $stock->book_isbn_no }}"><i
                                     class="fa fa-shopping-cart"></i> Add to Cart</button>
                         @endif
-                    @endauth
+                    @endif
                 </div>
 
             </div>
