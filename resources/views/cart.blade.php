@@ -45,7 +45,7 @@
             @foreach (json_decode($cart) as $cart)
                 <div class="row">
                     <div class="col-1 text-center d-flex align-items-center justify-content-center">
-                        <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" value="">
+                        <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" data-uTotalPrice="{{ $cart->book_retail_price*$cart->book_quantity }}">
                     </div>
                     <div class="col-2 text-center">
                         <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cart->book_front_cover) }}">
@@ -89,7 +89,7 @@
                     <h6 class="m-0">Subtotal:</h6>
                 </div>
                 <div class="col-2 text-center">
-                    RM{{ number_format($totalPrice, 2) }}
+                    <h6 class="m-0" id="totalPriceCartValue">RM{{ number_format($totalPrice, 2) }}</h6>
                 </div>
             </div>
         </div>
@@ -122,6 +122,9 @@
         var cartSelectAll = document.getElementById('selectAllCartBtn');
         var cartSelect = document.getElementsByName('selectCart');
         var validateAll = true;
+
+        var totalPriceCartValue = document.getElementById('totalPriceCartValue');
+
         if(cartSelectAll.checked == true){
             cartSelectAll.checked = false;
         }
@@ -135,13 +138,26 @@
             }
             if(validateAll){
                 cartSelectAll.checked = true;
+                totalPriceCartValue.innerHTML = "RM{{ number_format($totalPrice, 2) }}";
             } 
         }
+
+        var totalUnitPrice = 0;
+        for(var i=0; i < cartSelect.length; i++){
+            if(cartSelect[i].type == 'checkbox'){
+                if(cartSelect[i].checked == true){ 
+                   totalUnitPrice += parseFloat($(cartSelect[i]).attr("data-uTotalPrice"));
+                }
+            }
+        }
+        totalPriceCartValue.innerHTML = "RM" + totalUnitPrice.toFixed(2);
     });
 
     $('#selectAllCartBtn').on('click', function(){
         var cartSelectAll = document.getElementById('selectAllCartBtn');
         var cartSelect = document.getElementsByName('selectCart');
+
+        var totalPriceCartValue = document.getElementById('totalPriceCartValue');
 
         if(cartSelectAll.checked == true){
             for(var i=0; i < cartSelect.length; i++){  
@@ -149,13 +165,15 @@
                     cartSelect[i].checked = true;
                 }
             }
+            totalPriceCartValue.innerHTML = "RM{{ number_format($totalPrice, 2) }}";
         }
         else{
             for(var i=0; i < cartSelect.length; i++){  
                 if(cartSelect[i].type == 'checkbox'){
                     cartSelect[i].checked = false;
                 }
-            }  
+            }
+            totalPriceCartValue.innerHTML = "RM{{ number_format(0, 2) }}";
         }
     });
 
