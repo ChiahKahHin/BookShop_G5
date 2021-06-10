@@ -25,7 +25,6 @@
                         <form action="{{ route('editAccount') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                            <input type="hidden" name="id" value="{{ $admins->id }}">
                                 <div class="row">
                                     <div class="col-md-6 mb-4 @if(Auth::user()->isCustomer()) offset-md-3 @endif">
                                         <label>Username</label>

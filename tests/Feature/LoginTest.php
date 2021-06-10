@@ -2,14 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Tests\TestCase;
-use Illuminate\Http\Request;
 
 class LoginTest extends TestCase
 {

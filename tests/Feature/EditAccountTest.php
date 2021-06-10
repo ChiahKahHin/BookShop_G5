@@ -41,16 +41,16 @@ class EditAccountTest extends TestCase
                 'remember_token' => Str::random(10),
             ]
         );
-
         $response = $this->followingRedirects()
-            ->actingAs($user)
-            ->post(route("editAccount"), [
-                "address" => "1-Z, Lebuh Bukit Jambul, Bukit Jambul, 11900 Bayan Lepas, Pulau Pinang"
-            ]
-        );
-        $response->assertOk();
-        $response->assertViewIs("editAccount");
+        ->actingAs($user)
+        ->post(route("editAccount", [
+            "id" => $user->id,
+            "username" => "customer",
+            "phone" => $user->phone,
+            "email" => $user->email,
+            "address" => "asd"
+        ]));
         $this->assertAuthenticatedAs($user);
-
+        $response->assertViewIs("editAccount");
     }
 }

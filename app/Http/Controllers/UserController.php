@@ -114,15 +114,15 @@ class UserController extends Controller
     }
 
     public function updateAccount(Request $request){
+        $id = Auth::user()->id;
         $this->validate($request, [
-            'username' => 'required|max:255|unique:users,username,'.$request->id.'',
+            'username' => 'required|max:255|unique:users,username,'.$id.'',
             'phone' => 'required|regex:/^(\+6)?01[0-46-9]-[0-9]{7,8}$/|max:14',
-            'email' => 'required|email|max:255|unique:users,email,'.$request->id.'',
+            'email' => 'required|email|max:255|unique:users,email,'.$id.'',
             'address' => 'max:255'
         ]);
 
-        //dd($request->id);
-        $data = User::findOrFail($request->id);
+        $data = User::findOrFail($id);
         $data->username = $request->username;
         $data->phone = $request->phone;
         $data->email = $request->email;
@@ -136,7 +136,7 @@ class UserController extends Controller
         else{
             $message = "Customer Info Updated Successfully";
         }
-        return redirect('editAccount')->with('message', $message);
+        return redirect()->route("editAccount")->with('message', $message);
 
     }
 

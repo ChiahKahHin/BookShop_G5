@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-4 d-flex align-content-between flex-wrap">
                         <div class="w-100">
-                            <h5>{{ $cart->book_name }}</h5> <label>by {{ $cart->book_author }}</label>
+                            <a href="{{ route('stockDetails', ['isbn' => $cart->book_isbn_no]) }}"><h5>{{ $cart->book_name }}</h5></a> <label>by {{ $cart->book_author }}</label>
                         </div>
                         <div>
                             <i class="fa fa-trash cart-delete deleteCartBtn" style="color: red;" id="{{ 'deleteCart'.$cart->book_isbn_no }}" 
