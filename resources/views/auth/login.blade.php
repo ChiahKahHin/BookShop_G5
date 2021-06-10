@@ -64,7 +64,7 @@
 						<hr>
 						<div class="row mt-2">
 							<div class="col-sm-6 offset-sm-3 text-center">
-                                <a href="{{ route('customerRegistration') }}">Don't have an account ? Register now !</a>
+                                <a href="{{ route('customerRegistration') }}">Don't have an account? Register now!</a>
 							</div>
 						</div>
 					</div>

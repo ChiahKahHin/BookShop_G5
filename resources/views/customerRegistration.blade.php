@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4 text-center offset-md-3">
-                                <a href="{{ route('login') }}">Already have an account ? Login now !</a>
+                                <a href="{{ route('login') }}">Already have an account? Login now!</a>
                             </div>
                     </div>
                     </form>
