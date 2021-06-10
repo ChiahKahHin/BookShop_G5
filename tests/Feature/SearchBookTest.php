@@ -105,4 +105,21 @@ class SearchBookTest extends TestCase
             return $check;
         });
     }
+
+    public function test_search_not_found()
+    {
+        $user = User::factory()->create(
+            [
+                'username' => "customer",
+                'phone' => $this->faker->regexify("(\+6)?01[0-46-9]-[0-9]{7,8}"),
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => Hash::make("p455w0rd"),
+                'role' => 1,
+                'remember_token' => Str::random(10),
+            ]
+        );
+
+        $response = $this->followingRedirects()->actingAs($user)->post(route("homeSearch", ["homeSearch" => "anything"]));
+        $response->assertViewIs("noresult");
+    }
 }
