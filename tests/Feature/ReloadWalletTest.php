@@ -56,4 +56,49 @@ class ReloadWalletTest extends TestCase
         $response->assertSuccessful();
         $response->assertViewIs("reloadWallet");
     }
+
+    public function test_customer_reload_wallet_with_wrong_password() {
+        $user = User::factory()->create(
+            [
+                'username' => "customer",
+                'phone' => $this->faker->regexify("(\+6)?01[0-46-9]-[0-9]{7,8}"),
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => Hash::make("p455w0rd"),
+                'role' => 1,
+                'remember_token' => Str::random(10),
+            ]
+        );
+        $response = $this->actingAs($user)
+            ->post(route("reloadWallet"), [
+                "amountReload" => 100,
+                "password" => "p455w0rdd"
+            ]
+        );
+        $response->assertSessionHasErrors([
+            "password" => "The password is incorrect"
+        ]);
+    }
+
+    public function test_customer_reload_wallet_with_empty_password() {
+        $user = User::factory()->create(
+            [
+                'username' => "customer",
+                'phone' => $this->faker->regexify("(\+6)?01[0-46-9]-[0-9]{7,8}"),
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => Hash::make("p455w0rd"),
+                'role' => 1,
+                'remember_token' => Str::random(10),
+            ]
+        );
+        $response = $this->actingAs($user)
+            ->post(route("reloadWallet"), [
+                "amountReload" => 100,
+                "password" => ""
+            ]
+        );
+
+        $response->assertSessionHasErrors([
+            "password" => "The password field is required."
+        ]);
+    }
 }
