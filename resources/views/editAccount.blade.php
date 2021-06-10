@@ -66,7 +66,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                @if (Auth::user()->role==1)
+                                @if (Auth::user()->isCustomer())
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                     <label>Address</label><br>

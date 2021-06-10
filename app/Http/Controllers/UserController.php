@@ -130,7 +130,7 @@ class UserController extends Controller
         $data->save();
 
         $message = "";
-        if(Auth::user()->role==0){
+        if(Auth::user()->isAdmin()){
             $message = "Admin Info Updated Successfully";
         }
         else{
