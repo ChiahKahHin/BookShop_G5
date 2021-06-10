@@ -19,8 +19,8 @@ Book Details
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 mb-4">
-                                <h6>Book Front Cover</h6>
                                 <div class="text-center">
+                                    <h6>Book Front Cover</h6>
                                     <img style="height: auto; width:50%;" class="img-fluid" src="data:image/png;base64,{{ chunk_split(base64_encode($stock->book_front_cover)) }}">
                                 </div>
                                 @if(Auth::user()->isCustomer())

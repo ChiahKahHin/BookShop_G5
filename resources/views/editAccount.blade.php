@@ -19,7 +19,6 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 @if(Auth::user()->isCustomer()) text-lg-center @endif">
                         <h6>My Account Details</h6>
-                        <p class="text-success">{{ session('message') }}</p>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('editAccount') }}" method="POST">
@@ -27,6 +26,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6 mb-4 @if(Auth::user()->isCustomer()) offset-md-3 @endif">
+                                        <p class="text-success">{{ session('message') }}</p>
                                         <label>Username</label>
                                         <input type="text" name="username" id="username"
                                             class="form-control @error('username') border-danger @enderror font-weight-bold"

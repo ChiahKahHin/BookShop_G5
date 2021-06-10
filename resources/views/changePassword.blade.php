@@ -15,17 +15,17 @@
                 <div class="card mb-4">
                     <div class="card-header pb-0 @if(Auth::user()->isCustomer()) text-lg-center @endif">
                         <h6>Change Password</h6>
-                        @if (session('status'))
-							<p class="text-success">{{ session('status') }}</p>
-						@endif
                     </div>
                     <div class="card-body">
                         <form action="{{ route('changePassword') }}" method="POST">
                             @csrf
                             <div class="form-group">
-
+                                
                                 <div class="row">
                                     <div class="col-md-6 mb-4 @if(Auth::user()->isCustomer()) offset-md-3 @endif">
+                                        @if (session('status'))
+                                            <p class="text-success">{{ session('status') }}</p>
+                                        @endif
                                         <label>Old Password</label>
                                         <input type="password" name="oldPassword" id="oldPassword" class="form-control @error('oldPassword') border-danger @enderror">
                                         @error('oldPassword')
