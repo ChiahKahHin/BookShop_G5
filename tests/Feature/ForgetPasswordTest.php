@@ -49,6 +49,13 @@ class ForgetPasswordTest extends TestCase
         $response->assertOk(); // status 200
     }
 
+    public function test_invalid_email() {
+        $response = $this->post(route("forgotPassword"), [
+            "email" => "abc@example.com"
+        ]);
+        $response->assertSessionHasErrors(["email" => "We can't find a user with that email address."]);
+    }
+
     public function test_forget_password_email_notification() {
         $user = $this->user;
         $this->followingRedirects()->post(route("forgotPassword"), [
@@ -64,6 +71,18 @@ class ForgetPasswordTest extends TestCase
                 $this->assertStringStartsWith(route("password.reset", ["token" => $notification->token]), $data["actionUrl"]);
                 return true;
             });
+    }
+
+    public function test_invalid_reset_password() {
+        $user = $this->user;
+        $token = Password::broker()->createToken($user);
+        $randomPassword = $this->faker->password(8);
+        $this->post(route("password.reset", ["token" => $token]), [
+            "token" => $token,
+            "email" => "abc@example.com",
+            "password" => $randomPassword,
+            "password_confirmation" => $randomPassword
+        ])->assertSessionHasErrors(["email" => "We can't find a user with that email address."]);
     }
 
     public function test_reset_password() {

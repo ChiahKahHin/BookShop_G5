@@ -62,13 +62,15 @@ class AddAdminNotification extends TestCase
 
     public function test_add_admin_email_notification() {
         $admin = $this->newAdmin;
-        $this->followingRedirects()->actingAs($this->admin)->post(route("addAdmin"), [
-            "username" => $admin->username,
-            "phone" => $admin->phone,
-            "email" => $admin->email,
-            "password" => $admin->hidden_password,
-            "password_confirmation" => $admin->hidden_password
-        ])->assertOk(); // status 200
+        $this->followingRedirects()
+            ->actingAs($this->admin)
+            ->post(route("addAdmin"), [
+                "username" => $admin->username,
+                "phone" => $admin->phone,
+                "email" => $admin->email,
+                "password" => $admin->hidden_password,
+                "password_confirmation" => $admin->hidden_password
+            ])->assertOk(); // status 200
         
         Notification::assertSentTo(
             User::where("email", $admin->email)->first(), 

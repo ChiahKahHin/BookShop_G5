@@ -56,6 +56,27 @@ class LoginTest extends TestCase
         $response->assertOk(); // status 200
     }
 
+    public function test_login_validation() {
+        $response = $this->post(route("login", [
+            "username" => "",
+            "password" => ""
+        ]));
+        $response->assertSessionHasErrors([
+            "username" => "The username field is required.",
+            "password" => "The password field is required."
+        ]);
+    }
+
+    public function test_user_not_found() {
+        $response = $this->post(route("login", [
+            "username" => "invalid username",
+            "password" => "12"
+        ]));
+        $response->assertSessionHas([
+            "status" => "Invalid login details"
+        ]);
+    }
+
     public function test_admin_login() {
         $admin = $this->admin;
         $response = $this->followingRedirects()
