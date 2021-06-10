@@ -41,7 +41,12 @@
                 </div>
             </div>
             <hr>
-            <div style="display: none">{{ $totalPrice = 0 }}</div>
+            @php
+                $totalPrice = 0;
+            @endphp
+            @if ($cart == "[]")
+                <p class="text-center h4">The cart is empty</p>
+            @endif
             @foreach (json_decode($cart) as $cart)
                 <div class="row">
                     <div class="col-1 text-center d-flex align-items-center justify-content-center">
@@ -72,7 +77,9 @@
                     </div>
                 </div>
                 <hr>
-                <div style="display: none">{{ $totalPrice += $cart->book_retail_price*$cart->book_quantity }}</div>
+                @php
+                    $totalPrice += $cart->book_retail_price*$cart->book_quantity;
+                @endphp
             @endforeach
 
             <div class="row">
