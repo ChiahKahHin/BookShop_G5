@@ -84,7 +84,7 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:8|max:255',
         ]);
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->password)]);
-        return back()->with("status", "Your password has updated successfully");
+        return redirect()->route("changePassword")->with("status", "Your password has updated successfully");
     }
 
     public function editAdmin($id){
