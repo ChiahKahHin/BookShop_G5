@@ -56,7 +56,7 @@
                         </div>
                         <div>
                             <i class="fa fa-trash cart-delete deleteCartBtn" style="color: red;" id="{{ 'deleteCart'.$cart->book_isbn_no }}" 
-                                data-stockName="{{ $cart->book_name }}"> Delete Book</i>
+                                data-stockName="{{ $cart->book_name }}" data-cartId="{{ $cart->cart_id }}"> Delete Book</i>
 
                             <p style="color: black;">ISBN: {{ $cart->book_isbn_no }}</p>   
                         </div>
@@ -178,6 +178,7 @@
     });
 
     $(document).on('click', '.deleteCartBtn', function (){
+        var cartId = $(this).attr('data-cartId');
         var bookID = $(this).attr('id').substring(10);
         var bookName = $(this).attr("data-stockName");
         console.log(bookID);
@@ -192,34 +193,17 @@
 			confirmButtonText: 'Yes'
 		}).then((result) => {
 			if (result.value) {
-                
-			// 	Swal.fire({
-			// 		title: "Deleted!",
-			// 		text: "Deleted book with ISBN: " + stockISBN,
-			// 		icon: 'success',
-			// 		type: 'success',
-			// 		showConfirmButton: false,
-			// 		timer: 1500,
-			// 	}).then(function() {
-			// 		window.location.href = "/cart/deleteCartItem/";
-			// 	});
-
-			// 	$.ajax({
-			// 		type: "POST",
-			// 		dataType: "json",
-			// 		url: " route('dashboardDelete') ",
-			// 		data: {
-			// 			"_token": "csrf_token()",
-			// 			"stockISBN": stockISBN
-			// 		},
-			// 		success: function(data) {
-			// 			console.log("success");
-			// 			$('#stockTable').DataTable().ajax.reload(null, false);
-			// 			$('#dashboardCard').html(data);
-			// 			console.log(data);
-			// 		}
-			// 	});
-			}
+                Swal.fire({
+					title: "Deleted!",
+					text: "Deleted book with ISBN: " + bookID,
+					icon: 'success',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 1500,
+				}).then(function() {
+					window.location.href = "/cart/deleteCartItem/" + cartId;
+				});
+            }
 		});
     });
 

@@ -223,6 +223,7 @@ class StockController extends Controller
                         $updateCartQty->save();
     
                         $stock1 = [
+                            'cart_id' => $c->id,
                             'book_isbn_no' => $c->book_isbn_no,
                             'book_name' => $r->book_name,
                             'book_author' => $r->book_author,
@@ -234,6 +235,7 @@ class StockController extends Controller
                     }
                     else{
                         $stock1 = [
+                            'cart_id' => $c->id,
                             'book_isbn_no' => $c->book_isbn_no,
                             'book_name' => $r->book_name,
                             'book_author' => $r->book_author,
