@@ -53,7 +53,7 @@
 					</div>
 					<div class="row mt-4">
 						<div class="col-sm-6 offset-sm-3">
-							<input type="submit" class="btn bg-gradient-info w-100" value="Login">
+							<input type="submit" class="btn bg-gradient-info w-100" value="Reset Password">
 						</div>
 					</div>
 				</div>
