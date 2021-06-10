@@ -24,9 +24,6 @@
                                     <div class="col-md-6 mb-4 offset-md-3">
                                         <p class="text-success">{{ session('message') }}</p>
                                         <label>Reload Amount</label><br>
-                                        <!--<input type="text" name="reload_amount" id="reload_amount"
-                                            class="form-control @error('reload_amount') border-danger @enderror"
-                                            placeholder="e.g. 100" value="{{ old('reload_amount') }}">-->
 
 											<input class="checkbox-amountReload" type="radio" name="amountReload" id="amountReload-1" value="10" onclick="enableReload()">
 											<label class="for-checkbox-amountReload" for="amountReload-1">

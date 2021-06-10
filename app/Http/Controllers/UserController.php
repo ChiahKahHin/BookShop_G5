@@ -153,7 +153,7 @@ class UserController extends Controller
         $totalReload = $request->amountReload + $user->wallet_balance;
         $user->wallet_balance = $totalReload;
         $user->save();
-        $message = "Reload successful";
+        $message = "Wallet reloaded successfully";
         
         return redirect('/reloadWallet')->with('message', $message);
     }
