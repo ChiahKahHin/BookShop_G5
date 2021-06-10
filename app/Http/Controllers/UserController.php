@@ -16,6 +16,7 @@ class UserController extends Controller
     {
         $this->middleware(['auth']);
         $this->middleware(['admin'])->only(["index", "store", "updateAdmin", "manageAdmin", "deleteAdmin", "editAdmin", "viewAdmin"]);
+        $this->middleware(['customer'])->only(["reloadWalletForm", "reloadWallet"]);
     }
 
     public function index(){

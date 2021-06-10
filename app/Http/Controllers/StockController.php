@@ -11,8 +11,9 @@ class StockController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])->except("homepage");
-        $this->middleware(['admin'])->only(["addStockForm", "store", "editStockForm", "editStock", "index", "delete", "deleteStock"]);
+        $this->middleware(['auth'])->except(["homepage", "homepageSearch"]);
+        $this->middleware(['admin'])->only(["addStockForm", "store", "editStockForm", "editStock", "index", "delete", "deleteStock", "checkISBN"]);
+        $this->middleware(['customer'])->only(["addToCart", "showCart", "deleteCartItem"]);
     }
 
     public function addStockForm()
