@@ -9,23 +9,23 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class CustomerRegistrationTest extends TestCase
+class ViewAccountTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    
+
     /**
      * A basic feature test example.
      *
      * @return void
      */
 
-    public function test_load_registration_page() {
-        $response = $this->get(route("customerRegistration"));
+    public function test_load_view_account_page() {
+        $response = $this->get(route("viewAccount"));
         
         $response->assertOk();
     }
 
-    public function test_customer_registration_page(){
+    public function test_view_account_page(){
         $user = User::factory()->create(
             [
                 'username' => "customer",
@@ -37,7 +37,7 @@ class CustomerRegistrationTest extends TestCase
             ]
         );
 
-        $response = $this->followingRedirects()->get('/customerRegistration');
+        $response = $this->followingRedirects()->get('/viewAccount');
         $response->assertOk();
     }
 }
