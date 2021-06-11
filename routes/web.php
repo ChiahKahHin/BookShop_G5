@@ -64,5 +64,5 @@ Route::get('/reloadWallet', [UserController::class, 'reloadWalletForm'])->name("
 Route::post('/reloadWallet', [UserController::class, 'reloadWallet']);
 
 Route::get('/customerRegistration', [RegisterController::class, 'customerRegistration'])->name("customerRegistration");
-Route::post('/customerRegistration', [RegisterController::class, 'addCustomer'])->name("addCustomer");
+Route::post('/customerRegistration', [RegisterController::class, 'addCustomer']);
 Route::get('/cart/deleteCartItem/{id}', [StockController::class, 'deleteCartItem']);
