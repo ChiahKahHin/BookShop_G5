@@ -20,12 +20,7 @@ class ViewAccountTest extends TestCase
      */
 
     public function test_load_view_account_page() {
-        $response = $this->get(route("viewAccount"));
         
-        $response->assertOk();
-    }
-
-    public function test_view_account_page(){
         $user = User::factory()->create(
             [
                 'username' => "customer",
@@ -37,7 +32,7 @@ class ViewAccountTest extends TestCase
             ]
         );
 
-        $response = $this->followingRedirects()->get('/viewAccount');
+        $response = $this->followingRedirects()->get(route("viewAccount"));
         $response->assertOk();
     }
 }
