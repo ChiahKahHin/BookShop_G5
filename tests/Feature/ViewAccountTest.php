@@ -32,7 +32,8 @@ class ViewAccountTest extends TestCase
             ]
         );
 
-        $response = $this->followingRedirects()->get(route("viewAccount"));
+        $response = $this->followingRedirects()->actingAs($user)->get(route("viewAccount"));
         $response->assertOk();
+        $response->assertViewIs("viewAccount");
     }
 }
