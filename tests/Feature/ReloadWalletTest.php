@@ -12,14 +12,10 @@ use Tests\TestCase;
 class ReloadWalletTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_load_reload_wallet_page()
-    {
-        $user = User::factory()->create(
+    
+    public function setUp(): void {
+        parent::setUp();
+        $this->customer = User::factory()->create(
             [
                 'username' => "customer",
                 'phone' => $this->faker->regexify("(\+6)?01[0-46-9]-[0-9]{7,8}"),
@@ -29,23 +25,26 @@ class ReloadWalletTest extends TestCase
                 'remember_token' => Str::random(10),
             ]
         );
+        $this->customer->hidden_password = "p455w0rd";
+    }
 
-        $response = $this->followingRedirects()->get('/reloadWallet');
+    public function tearDown(): void {
+        parent::tearDown();
+        unset($this->customer);
+    }
+
+    public function test_load_reload_wallet_page()
+    {
+        $user = $this->customer;
+
+        $response = $this->followingRedirects()->actingAs($user)->get('/reloadWallet');
 
         $response->assertOk();
     }
 
     public function test_customer_reload_wallet() {
-        $user = User::factory()->create(
-            [
-                'username' => "customer",
-                'phone' => $this->faker->regexify("(\+6)?01[0-46-9]-[0-9]{7,8}"),
-                'email' => $this->faker->unique()->safeEmail,
-                'password' => Hash::make("p455w0rd"),
-                'role' => 1,
-                'remember_token' => Str::random(10),
-            ]
-        );
+        $user = $this->customer;
+
         $response = $this->followingRedirects()
             ->actingAs($user)
             ->post(route("reloadWallet"), [
@@ -58,16 +57,8 @@ class ReloadWalletTest extends TestCase
     }
 
     public function test_customer_reload_wallet_with_wrong_password() {
-        $user = User::factory()->create(
-            [
-                'username' => "customer",
-                'phone' => $this->faker->regexify("(\+6)?01[0-46-9]-[0-9]{7,8}"),
-                'email' => $this->faker->unique()->safeEmail,
-                'password' => Hash::make("p455w0rd"),
-                'role' => 1,
-                'remember_token' => Str::random(10),
-            ]
-        );
+        $user = $this->customer;
+
         $response = $this->actingAs($user)
             ->post(route("reloadWallet"), [
                 "amountReload" => 100,
@@ -80,16 +71,8 @@ class ReloadWalletTest extends TestCase
     }
 
     public function test_customer_reload_wallet_with_empty_password() {
-        $user = User::factory()->create(
-            [
-                'username' => "customer",
-                'phone' => $this->faker->regexify("(\+6)?01[0-46-9]-[0-9]{7,8}"),
-                'email' => $this->faker->unique()->safeEmail,
-                'password' => Hash::make("p455w0rd"),
-                'role' => 1,
-                'remember_token' => Str::random(10),
-            ]
-        );
+        $user = $this->customer;
+
         $response = $this->actingAs($user)
             ->post(route("reloadWallet"), [
                 "amountReload" => 100,
