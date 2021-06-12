@@ -23,7 +23,7 @@ Book Details
                                     <h6>Book Front Cover</h6>
                                     <img style="height: auto; width:50%;" class="img-fluid" src="data:image/png;base64,{{ chunk_split(base64_encode($stock->book_front_cover)) }}">
                                 </div>
-                                @if(Auth::user()->isCustomer())
+                                @if(Auth::check() && Auth::user()->isCustomer())
                                     @if($stock->book_quantity <= 0)
                                     <div class="input-group justify-content-center">
                                         <input type="button" value="-" class="button-minus" data-field="quantity" disabled>
@@ -65,7 +65,7 @@ Book Details
                             <h5>Book Description</h5>
                                 <h6 class="text-justify">{!! nl2br($stock->book_description) !!}</h6>
                             <br>
-                            @if(Auth::user()->isAdmin())
+                            @if(Auth::check() && Auth::user()->isAdmin())
                                 <h5>Book Trade Price (RM)</h5>
                                     <h6>{{ number_format($stock->book_trade_price, 2) }}</h6>
                                 <br>
@@ -86,7 +86,7 @@ Book Details
                             </div>
                         </div>
                         <div class="row">
-                            @if(Auth::user()->isAdmin())
+                            @if(Auth::check() && Auth::user()->isAdmin())
                                 <div class="col-md-6">
                                     <a href="{{ route("editStock", ['isbn' => $stock->book_isbn_no]) }}" class="btn bg-gradient-info w-100 mt-4 md-6">Edit</a>
                                 </div>
@@ -106,7 +106,7 @@ Book Details
 @section("script")
 <script>
 
-    @if(Auth::user()->isAdmin())
+    @if(Auth::check() && Auth::user()->isAdmin())
         document.getElementById("deleteBtnStock").addEventListener("click", deleteStock);
 
         function deleteStock(){

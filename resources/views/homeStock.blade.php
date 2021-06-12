@@ -8,7 +8,7 @@
                 <div style="height: 0.75rem;"></div>
                 <div>
                     <h6 class="m-0">
-                        <a @if(Auth::check()) href="{{ route('stockDetails', ['isbn' => $stock->book_isbn_no]) }}" @endif>{{ $stock->book_name }}</a>
+                        <a href="{{ route('stockDetails', ['isbn' => $stock->book_isbn_no]) }}">{{ $stock->book_name }}</a>
                     </h6>
                     <label class="ms-0" style="margin-left: 0;">{{ $stock->book_author }}</label>
                     <h6>RM {{ number_format($stock->book_retail_price, 2) }}</h6>
