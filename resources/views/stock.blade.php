@@ -1,7 +1,7 @@
 @extends("layouts.template")
 
 @section("title")
-ISBN: {{ $stock->book_isbn_no }}
+{{ $stock->book_name }}
 @endsection
 
 @section('navtitle')
