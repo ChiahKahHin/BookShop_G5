@@ -140,9 +140,9 @@ class StockController extends Controller
 
     public function homepageSearch(Request $request)
     {
-        $stock = Stock::where('book_name', 'LIKE', '%' . $request->homeSearch . '%')
-            ->orWhere('book_author', 'LIKE', '%' . $request->homeSearch . '%')
-            ->orWhere('book_isbn_no', 'LIKE', '%' . $request->homeSearch . '%')
+        $stock = Stock::where('book_name', 'LIKE', '%' . addcslashes($request->homeSearch, '%_') . '%')
+            ->orWhere('book_author', 'LIKE', '%' . addcslashes($request->homeSearch, '%_') . '%')
+            ->orWhere('book_isbn_no', 'LIKE', '%' . addcslashes($request->homeSearch, '%_') . '%')
             ->get();
         if ($stock->isEmpty()) {
             return view('noresult');
