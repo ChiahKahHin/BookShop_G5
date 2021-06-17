@@ -18,7 +18,7 @@
                         <p class="text-success">{{ session('message') }}</p>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('addStock') }}" method="POST" enctype="multipart/form-data">
+                        <form id="addStockForm" action="{{ route('addStock') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <div class="row">
@@ -166,7 +166,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <button class="btn bg-gradient-info w-100 mt-4 md-6" type="submit">Add
+                                        <button class="btn bg-gradient-info w-100 mt-4 md-6" type="button" onclick="return checkISBN();">Add
                                             stock</button>
                                     </div>
                                 </div>
@@ -178,12 +178,53 @@
         </div>
     @endsection
 
-    <script src="http://code.jquery.com/jquery-1.5.js"></script>
     @section('script')
+        <script src="http://code.jquery.com/jquery-1.5.js"></script>
         <script>
             function countWords(words){
-                var maxlength = document.getElementById('book_description').maxLength;
-                $('#description_word_count').text(words.value.length + "/" + maxlength);
+                $('#description_word_count').text(words.value.length + "/" + words.maxLength);
             };
+
+            function checkISBN() {
+                var isbn = document.getElementById("book_isbn_no").value;
+
+                $.ajax({
+                    url: "{{ route('checkISBN') }}",
+                    data: {
+                        "isbn" : isbn,
+                        "_token": "{{ csrf_token() }}"
+                    },
+                    type: "POST",
+                    success: function(data) {
+                        if(data == true){
+                            Swal.fire({
+                                title: 'Same ISBN number found in database',
+                                text: "Do you wish to replace the original book details?",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                cancelButtonColor: '#F00',
+                                confirmButtonColor: '#00F',
+                                confirmButtonText: 'Yes'
+                            }).then((result) => {
+                                if (result.value) {
+                                    $("#addStockForm").submit();
+                                }
+                                else{
+                                    Swal.fire({
+                                        title: "Cancelled",
+                                        icon: 'error',
+                                        type: 'error',
+                                        showConfirmButton: true,
+                                    })
+                                }
+                            });
+                        }
+                        else{
+                            $("#addStockForm").submit();
+                        }
+                    },
+                    error: function() {}
+                });
+            }
         </script>
     @endsection
