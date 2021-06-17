@@ -15,10 +15,10 @@
                     @if(Auth::check() && Auth::user()->isCustomer())
                         @if($stock->book_quantity <= 0)
                             <div class="input-group justify-content-center">
-                                <input type="button" value="-" class="button-minus" data-field="quantity" disabled>
+                                <input type="button" value="-" style="cursor: default;" class="button-minus" data-field="quantity" disabled>
                                 <input type="number" step="1" max="{{ $stock->book_quantity }}" value="1" name="quantity" class="quantity-field validateEmpty"
                                     id="{{ 'bookQty' . $stock->book_isbn_no }}" disabled>
-                                <input type="button" value="+" class="button-plus" data-field="quantity" data-maxQty="{{ $stock->book_quantity }}" disabled>
+                                <input type="button" value="+" style="cursor: default;" class="button-plus" data-field="quantity" data-maxQty="{{ $stock->book_quantity }}" disabled>
                             </div>
                             <button type="button" class="btn bg-gradient-info mb-0" disabled><i class="fa fa-shopping-cart"></i> Out of Stock</button>
                         @else
