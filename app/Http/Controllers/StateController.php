@@ -70,4 +70,12 @@ class StateController extends Controller
 
         return redirect()->route("editState", ["id" => $id])->with("message", "State info updated successfully");
     }
+    public function deleteState($id){
+        $state = State::findOrFail($id);
+        $state->delete();
+        
+        $states = State::all();
+        return redirect('/manageState');
+        // return view('manageState', ['state' => $state]);
+    }
 }
