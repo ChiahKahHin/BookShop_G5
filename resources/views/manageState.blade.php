@@ -60,7 +60,7 @@
                                                 <i class="material-icons btn-stock-action" style="color: blue">mode_edit</i>
                                             </a>
                                             
-                                            <a class="material-icons btn-stock-action deleteAdmin" style="color: blue" {{-- id="{{ $admin->id }}" value="{{ $admin->username }}" --}}>delete</a>
+                                            <a class="material-icons btn-stock-action deleteState" style="color: blue" id="{{ $state->id }}" value="{{ $state->state }}">delete</a>
                                             
                                         </td>
                                     </tr>
@@ -83,12 +83,12 @@
 
 @section('script')
     <script>
-        $(document).on('click', '.deleteAdmin', function() {
-		    var adminID = $(this).attr('id');
-		    var adminUsername = $(this).attr('value');
+        $(document).on('click', '.deleteState', function() {
+		    var stateID = $(this).attr('id');
+		    var stateName = $(this).attr('value');
             Swal.fire({
-                title: 'Delete Admin?',
-                text: 'Username: ' + adminUsername,
+                title: 'Delete State?',
+                text: 'State Name: ' + stateName,
                 icon: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#F00',
@@ -98,13 +98,13 @@
                 if (result.value) {
                     Swal.fire({
                         title: "Deleted!",
-                        text: "Deleted admin with username: " + adminUsername,
+                        text: "Deleted state with the name: " + stateName,
                         icon: 'success',
                         type: 'success',
                         showConfirmButton: false,
                         timer: 1500,
                     }).then(function() {
-                        window.location.href = "/manageAdmin/" + adminID;
+                        window.location.href = "/manageState/" + stateID;
                     });
                 }
 		    });
