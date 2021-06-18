@@ -69,3 +69,4 @@ Route::get('/addState', [StateController::class, 'addStateForm'])->name('addStat
 Route::post('/addState', [StateController::class, 'addState']);
 Route::get('/editState/{id}', [StateController::class, 'editStateForm'])->name('editState');
 Route::post('/editState/{id}', [StateController::class, 'editState']);
+Route::get('/manageState/{id}', [StateController::class, 'deleteState']);
