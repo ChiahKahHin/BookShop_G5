@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -62,3 +63,5 @@ Route::post('/addStock', [StockController::class, 'store']);
 Route::post('/checkISBN', [StockController::class, 'checkISBN'])->name("checkISBN");
 Route::get('/editStock/{isbn}', [StockController::class, 'editStockForm'])->name('editStock');
 Route::post('/editStock/{isbn}', [StockController::class, 'editStock']);
+
+Route::post('/comments/{isbn}', [CommentController::class, 'addComment'])->name("addcomment");

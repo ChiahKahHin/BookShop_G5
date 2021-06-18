@@ -119,6 +119,7 @@ class StockController extends Controller
     public function bookDetails($isbn)
     {
         $stock = Stock::findOrFail($isbn);
+        $stock->setRelation("comments", $stock->comments()->paginate(5));
 
         return view('stock', ['stock' => $stock]);
     }
