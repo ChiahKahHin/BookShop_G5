@@ -102,7 +102,7 @@ Book Details
 							<p class="h5">Comments</p>
 							@auth
 								@if (Auth::user()->isCustomer())
-									<form action="{{ route("addcomment", $stock->book_isbn_no) }}" method="post">
+									<form action="{{ route("addcomment", $stock->book_isbn_no) }}" method="post" enctype="multipart/form-data" >
 										@csrf
 										<div class="rate">
 											<input type="radio" id="star5" name="rate" value="5" />
@@ -118,9 +118,15 @@ Book Details
 										</div>
 										<textarea name="content" id="content" cols="30" rows="4" class="border-2 w-100 rounded-3 @error("body") border-warning @enderror" placeholder="Anything to comment"></textarea>
 										@error("content")
-										<div class="text-sm text-danger">
-											{{ $message }}
-										</div>
+											<div class="text-sm text-danger">
+												{{ $message }}
+											</div>
+										@enderror
+										<input type="file" class="form-control" name="attachment" id="attachment">
+										@error("attachment")
+											<div class="text-sm text-danger">
+												{{ $message }}
+											</div>
 										@enderror
 										<div class="text-right mt-4">
 											<button class="btn bg-gradient-info rounded-3" type="submit"><i class="fas fa-paper-plane"></i> Post</button>
@@ -134,7 +140,8 @@ Book Details
 							@endphp
 							@if ($comments->count() > 0)
 								@foreach ($comments as $comment)
-									<div class="mb-4">
+								<div class="row">
+									<div class="col-8">
 										<div class="font-weight-bold d-inline me-2" style="color: black">{{ $comment->user->username }}</div>
 										<span class="text-sm">{{ $comment->created_at->diffForHumans() }}</span>
 										<div class="rate-display mt-1">
@@ -146,7 +153,19 @@ Book Details
 										</div>
 										<p style="color: black">{!! $comment->content() !!}</p>
 									</div>
+									<div class="col-4 text-center mb-4">
+										@if (!is_null($comment->mimeType))
+											@if (Str::startsWith($comment->mimeType, 'image'))
+												<img style="height: 150px" src="data:{{ $comment->mimeType }};base64,{{ chunk_split(base64_encode($comment->attachment)) }}" alt="Failed Image">
+											@elseif (Str::startsWith($comment->mimeType, 'audio'))
+												<audio style="height: 150px" src="data:{{ $comment->mimeType }};base64,{{ chunk_split(base64_encode($comment->attachment)) }}" alt="Failed Image" controls></audio>
+											@else
+												<video style="height: 150px" src="data:{{ $comment->mimeType }};base64,{{ chunk_split(base64_encode($comment->attachment)) }}" alt="Failed Image" controls></video>
+											@endif
+										@endif
+									</div>
 									<hr>
+								</div>
 								@endforeach
 								<p>Showing {{ $comments->firstItem() }} to {{ $comments->lastItem() }} of {{ $comments->total() }} {{ Str::plural("result", $comments->total()) }}</p>
 								@php

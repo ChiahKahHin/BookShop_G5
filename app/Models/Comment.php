@@ -14,6 +14,7 @@ class Comment extends Model
         "isbn",
         "rating",
         "content",
+        "mimeType",
         "attachment"
     ];
 

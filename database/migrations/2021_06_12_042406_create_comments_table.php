@@ -19,11 +19,12 @@ class CreateCommentsTable extends Migration
             $table->integer("user_id")->index();
             $table->string("isbn")->index();
             $table->integer("rating");
-            $table->text("content");
+            $table->text("content")->nullable();
+            $table->text("mimeType")->nullable();
             $table->timestamps();
         });
 
-        DB::statement("ALTER TABLE comments ADD attachment LONGBLOB NULL DEFAULT NULL AFTER `content`");
+        DB::statement("ALTER TABLE comments ADD attachment LONGBLOB NULL DEFAULT NULL AFTER `mimeType`");
     }
 
     /**
