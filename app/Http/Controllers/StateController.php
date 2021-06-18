@@ -76,6 +76,6 @@ class StateController extends Controller
         
         $states = State::all();
         return redirect('/manageState');
-        // return view('manageState', ['state' => $state]);
+        
     }
 }
