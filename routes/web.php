@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\StateController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +64,12 @@ Route::post('/addStock', [StockController::class, 'store']);
 Route::post('/checkISBN', [StockController::class, 'checkISBN'])->name("checkISBN");
 Route::get('/editStock/{isbn}', [StockController::class, 'editStockForm'])->name('editStock');
 Route::post('/editStock/{isbn}', [StockController::class, 'editStock']);
+
+Route::get('/manageState', [StateController::class, 'manageState'])->name('manageState');
+Route::get('/addState', [StateController::class, 'addStateForm'])->name('addState');
+Route::post('/addState', [StateController::class, 'addState']);
+Route::get('/editState/{id}', [StateController::class, 'editStateForm'])->name('editState');
+Route::post('/editState/{id}', [StateController::class, 'editState']);
 Route::get('/checkout', [StockController::class, 'checkout'])->name('checkout');
 
 Route::post('/comments/{isbn}', [CommentController::class, 'addComment'])->name("addcomment");
