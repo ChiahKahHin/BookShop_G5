@@ -99,7 +99,7 @@ Book Details
 					<hr>
 					<div class="text-left @if (Auth::check() && Auth::user()->isCustomer()) mx-8 @endif">
 						<div class="card-body">
-							<p class="h5">Comments</p>
+							<p class="h5">Ratings & Comments</p>
 							@auth
 								@if (Auth::user()->isCustomer())
 									<form action="{{ route("addcomment", $stock->book_isbn_no) }}" method="post" enctype="multipart/form-data" >
@@ -116,12 +116,13 @@ Book Details
 											<input type="radio" id="star1" name="rate" value="1" checked/>
 											<label for="star1">1 star</label>
 										</div>
-										<textarea name="content" id="content" cols="30" rows="4" class="border-2 w-100 rounded-3 @error("body") border-warning @enderror" placeholder="Anything to comment"></textarea>
+										<textarea name="content" id="content" cols="30" rows="4" class="border-2 w-100 rounded-3 @error("body") border-warning @enderror" placeholder="Leave a comment (Optional)"></textarea>
 										@error("content")
 											<div class="text-sm text-danger">
 												{{ $message }}
 											</div>
 										@enderror
+										<label for="attachment">Upload attachment <i>(Only attachment with .jpg, .png, .jpeg, .mp3, .m4a, .mp4 extension can be accepted) (Optional)</i></label>
 										<input type="file" class="form-control" name="attachment" id="attachment">
 										@error("attachment")
 											<div class="text-sm text-danger">
