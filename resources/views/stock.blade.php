@@ -141,7 +141,7 @@ Book Details
 							@if ($comments->count() > 0)
 								@foreach ($comments as $comment)
 								<div class="row">
-									<div class="col-8">
+									<div class="col-12">
 										<div class="font-weight-bold d-inline me-2" style="color: black">{{ $comment->user->username }}</div>
 										<span class="text-sm">{{ $comment->created_at->diffForHumans() }}</span>
 										<div class="rate-display mt-1">
@@ -153,12 +153,12 @@ Book Details
 										</div>
 										<p style="color: black">{!! $comment->content() !!}</p>
 									</div>
-									<div class="col-4 text-center mb-4">
+									<div class="col-12 mb-4">
 										@if (!is_null($comment->mimeType))
 											@if (Str::startsWith($comment->mimeType, 'image'))
 												<img style="height: 150px" src="data:{{ $comment->mimeType }};base64,{{ chunk_split(base64_encode($comment->attachment)) }}" alt="Failed Image">
 											@elseif (Str::startsWith($comment->mimeType, 'audio'))
-												<audio style="height: 150px" src="data:{{ $comment->mimeType }};base64,{{ chunk_split(base64_encode($comment->attachment)) }}" alt="Failed Image" controls></audio>
+												<audio src="data:{{ $comment->mimeType }};base64,{{ chunk_split(base64_encode($comment->attachment)) }}" alt="Failed Image" controls></audio>
 											@else
 												<video style="height: 150px" src="data:{{ $comment->mimeType }};base64,{{ chunk_split(base64_encode($comment->attachment)) }}" alt="Failed Image" controls></video>
 											@endif
