@@ -26,12 +26,12 @@ class StateController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'admin']);
+        asort($this->states);
     }
 
     public function manageState()
     {
-        $states = State::all();
-
+        $states = State::orderBy('state')->get();
         return view('manageState', ['states' => $states]);
     }
 
