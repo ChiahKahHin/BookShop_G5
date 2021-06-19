@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\State;
 
+use function PHPUnit\Framework\isEmpty;
+
 class StateController extends Controller
 {
     private $states = array(
@@ -25,7 +27,7 @@ class StateController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth', 'admin']);
+        $this->middleware(['auth', 'admin'])->except("getState");
     }
 
     public function manageState()
@@ -69,5 +71,14 @@ class StateController extends Controller
         $state->save();
 
         return redirect()->route("editState", ["id" => $id])->with("message", "State info updated successfully");
+    }
+
+    public function getState(Request $request) {
+        $state = State::where("state", "LIKE", addcslashes($request->q, "%_"))->get();
+        $delivery_cost = 5;
+        if (!$state->isEmpty()) {
+            $delivery_cost = $state[0]->delivery_cost;
+        }
+        return $delivery_cost;
     }
 }
