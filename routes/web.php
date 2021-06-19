@@ -63,5 +63,6 @@ Route::post('/addStock', [StockController::class, 'store']);
 Route::post('/checkISBN', [StockController::class, 'checkISBN'])->name("checkISBN");
 Route::get('/editStock/{isbn}', [StockController::class, 'editStockForm'])->name('editStock');
 Route::post('/editStock/{isbn}', [StockController::class, 'editStock']);
+Route::get('/checkout', [StockController::class, 'checkout'])->name('checkout');
 
 Route::post('/comments/{isbn}', [CommentController::class, 'addComment'])->name("addcomment");
