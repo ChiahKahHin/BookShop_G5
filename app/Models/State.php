@@ -9,6 +9,7 @@ class State extends Model
 {
     use HasFactory;
     protected $table = "states";
+    public $timestamps = false;
 
     protected $fillable = [
         'state',
