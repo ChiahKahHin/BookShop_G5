@@ -5,7 +5,7 @@
 		<title>@yield('title')</title>
 	</head>
 	<body class="g-sidenav-show bg-gray-100">
-		@if (Auth::check() && Auth::user()->isAdmin())
+		@if (Auth::check() && Route::currentRouteName() != "home" && Auth::user()->isAdmin())
 			@include('layouts.sidebar')
 		@endif
 		<main class="main-content mt-1 border-radius-lg">
