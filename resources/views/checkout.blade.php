@@ -171,7 +171,7 @@
 
     $(document).ready(function() {
         let addressInput = document.getElementById("address");
-        let tempInput = addressInput.innerHTML;
+        let tempInput = "";
         let deliveryCostLabel = document.getElementById("deliveryCostValue");
         let deliveryCostInput = document.getElementById("delivery_cost");
         let stateInput = document.getElementById("state");
