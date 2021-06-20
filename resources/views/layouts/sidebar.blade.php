@@ -10,28 +10,6 @@
 	<div class="collapse navbar-collapse w-auto h-100" id="sidenav-collapse-main">
 		<ul class="navbar-nav">
 			
-			@auth
-			@if (Auth::user()->isCustomer())
-				<li class="nav-item mt-3">
-					<h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Wallet Balance: <br><br> RM 
-						@if (Auth::user()->wallet_balance != null)
-						{{ Auth::user()->wallet_balance }}
-						@else
-						-
-						@endif
-					</h6>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link @if (Route::currentRouteName() == "reloadWallet") active @endif" href="{{ route('reloadWallet') }}">
-						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-							💰
-						</div>
-						<span class="nav-link-text ms-1">Reload Wallet</span>
-					</a>
-				</li>
-				<hr class="horizontal dark mt-0">
-				@endif
-			@endauth
 			<li class="nav-item">
 				<a class="nav-link @if (Route::currentRouteName() == "home") active @endif" href="{{ route('home') }}">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
