@@ -107,7 +107,7 @@
                             <h6 class="m-0">:</h6>
                         </div>
                         <div class="col-6 text-end">
-                            <h6 class="m-0">RM <div id="deliveryCostValue">4.00</div></h6>
+                            <h6 class="m-0">RM <span id="deliveryCostValue">4.00</span></h6>
                         </div4.00>
                     </div>
 
