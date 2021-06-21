@@ -209,6 +209,8 @@ class StockController extends Controller
         $cart = Cart::where('user_id', $userID)->get()->toJson();
         // $cart2 = $cart->toJson();
 
+        $testing123 = Stock::all();
+
         foreach(json_decode($cart) as $c){
             $result = Stock::where('book_isbn_no', $c->book_isbn_no)->get();
             foreach($result as $r){
@@ -251,7 +253,7 @@ class StockController extends Controller
         }
         $stock = json_encode($stock);
 
-        return view('cart', ['cart' => $stock]);
+        return view('cart', ['cart' => $stock], ['stock' => $testing123]);
     }
 
     public function deleteCartItem($id)

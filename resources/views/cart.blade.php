@@ -27,10 +27,10 @@
                 <div class="col-2">
 
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <h6>Book</h6>
                 </div>
-                <div class="col-1 text-center">
+                <div class="col-2 text-center">
                     <h6>Quantity</h6>
                 </div>
                 <div class="col-2 text-center">
@@ -47,39 +47,48 @@
             @if ($cart == "[]")
                 <p class="text-center h4">The cart is empty</p>
             @endif
-            @foreach (json_decode($cart) as $cart)
-                <div class="row">
-                    <div class="col-1 text-center d-flex align-items-center justify-content-center">
-                        <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" data-uTotalPrice="{{ $cart->book_retail_price*$cart->book_quantity }}">
-                    </div>
-                    <div class="col-2 text-center">
-                        <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cart->book_front_cover) }}">
-                    </div>
-                    <div class="col-4 d-flex align-content-between flex-wrap">
-                        <div class="w-100">
-                            <a href="{{ route('stockDetails', ['isbn' => $cart->book_isbn_no]) }}"><h5>{{ $cart->book_name }}</h5></a> <label>by {{ $cart->book_author }}</label>
-                        </div>
-                        <div>
-                            <i class="fa fa-trash cart-delete deleteCartBtn" style="color: red;" id="{{ 'deleteCart'.$cart->book_isbn_no }}" 
-                                data-stockName="{{ $cart->book_name }}" data-cartId="{{ $cart->cart_id }}"> Delete Book</i>
 
-                            <p style="color: black;">ISBN: {{ $cart->book_isbn_no }}</p>   
+            @foreach (json_decode($cart) as $cartItem)
+            @foreach ($stock as $stockItem)
+                @if($cartItem->book_isbn_no == $stockItem->book_isbn_no)
+                    <div class="row">
+                        <div class="col-1 text-center d-flex align-items-center justify-content-center">
+                            <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" data-uTotalPrice="{{ $cartItem->book_retail_price*$cartItem->book_quantity }}">
+                        </div>
+                        <div class="col-2 text-center">
+                            <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cartItem->book_front_cover) }}">
+                        </div>
+                        <div class="col-3 d-flex align-content-between flex-wrap">
+                            <div class="w-100">
+                                <a href="{{ route('stockDetails', ['isbn' => $cartItem->book_isbn_no]) }}"><h5>{{ $cartItem->book_name }}</h5></a> <label>by {{ $cartItem->book_author }}</label>
+                            </div>
+                            <div>
+                                <i class="fa fa-trash cart-delete deleteCartBtn" style="color: red;" id="{{ 'deleteCart'.$cartItem->book_isbn_no }}" 
+                                    data-stockName="{{ $cartItem->book_name }}" data-cartId="{{ $cartItem->cart_id }}"> Delete Book</i>
+                                <p style="color: black;">ISBN: {{ $stockItem->book_isbn_no }}</p>   
+                            </div>
+                        </div>
+                        <div class="col-2 text-center">
+                            <div class="input-group justify-content-center">
+                                <input type="button" value="-" class="button-minus" data-field="quantity">
+                                <input type="number" step="1" max="{{ $stockItem->book_quantity }}" value="{{ $cartItem->book_quantity }}" name="quantity" class="quantity-field validateEmpty"
+                                    id="{{ 'bookQty' . $stockItem->book_isbn_no }}">
+                                <input type="button" value="+" class="button-plus" data-field="quantity" data-maxQty="{{ $stockItem->book_quantity }}">
+                            </div>
+                        </div>
+                        <div class="col-2 text-center">
+                            RM{{ number_format($cartItem->book_retail_price, 2) }}
+                        </div>
+                        <div class="col-2 text-center">
+                            RM{{ number_format($cartItem->book_retail_price*$cartItem->book_quantity, 2) }}
                         </div>
                     </div>
-                    <div class="col-1 text-center">
-                        {{ $cart->book_quantity }}
-                    </div>
-                    <div class="col-2 text-center">
-                        RM{{ number_format($cart->book_retail_price, 2) }}
-                    </div>
-                    <div class="col-2 text-center">
-                        RM{{ number_format($cart->book_retail_price*$cart->book_quantity, 2) }}
-                    </div>
-                </div>
-                <hr>
-                @php
-                    $totalPrice += $cart->book_retail_price*$cart->book_quantity;
-                @endphp
+                    <hr>
+                    @php
+                        $totalPrice += $cartItem->book_retail_price*$cartItem->book_quantity;
+                    @endphp
+                @endif
+            @endforeach
             @endforeach
 
             <div class="row">
@@ -221,6 +230,46 @@
 		}
 		Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
 	}
+</script>
+
+<script>
+    function incrementValue(e, maxValue) {
+        e.preventDefault();
+        var fieldName = $(e.target).data('field');
+        var parent = $(e.target).closest('div');
+        var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+        if (!isNaN(currentVal)) {
+            if(currentVal < maxValue){
+                parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+            }
+        } else {
+            parent.find('input[name=' + fieldName + ']').val(1);
+        }
+    }
+
+    function decrementValue(e) {
+        e.preventDefault();
+        var fieldName = $(e.target).data('field');
+        var parent = $(e.target).closest('div');
+        var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+        if (!isNaN(currentVal) && currentVal > 1) {
+            parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+        } else {
+            parent.find('input[name=' + fieldName + ']').val(1);
+        }
+    }
+
+    $('.input-group').on('click', '.button-plus', function(e) {
+        var maxValue = $(this).attr('data-maxQty');
+        incrementValue(e, maxValue);
+    });
+
+    $('.input-group').on('click', '.button-minus', function(e) {
+        decrementValue(e);
+    });
+
 </script>
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
