@@ -13,4 +13,8 @@ class Stock extends Model
     protected $primaryKey = "book_isbn_no";
     protected $keyType = "string";
     public $incrementing = false;
+
+    public function comments() {
+        return $this->hasMany(Comment::class, "isbn")->orderBy("created_at", "desc");
+    }
 }

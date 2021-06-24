@@ -115,6 +115,10 @@
         <a href="{{ route('home') }}" class="btn bg-gradient-info mb-0">
             Continue Shopping
         </a>
+        &nbsp;
+        <a href="{{ route('checkout') }}" class="btn bg-gradient-info mb-0">
+            Proceed to Checkout
+        </a>
     </div>
 
 </div>

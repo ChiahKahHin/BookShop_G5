@@ -119,6 +119,7 @@ class StockController extends Controller
     public function bookDetails($isbn)
     {
         $stock = Stock::findOrFail($isbn);
+        $stock->setRelation("comments", $stock->comments()->paginate(5));
 
         return view('stock', ['stock' => $stock]);
     }
@@ -306,4 +307,55 @@ class StockController extends Controller
 
     //     // return view('cart', ['cart' => $cart, 'result' => $result, 'test' => $test, 'test2' => $test2, 'cart2' => $cart2, 'stock' => $stock]);
     // }
+    public function checkout(){
+        
+        $stock = array();
+        $userID = Auth::id();
+
+        $cart = Cart::where('user_id', $userID)->get()->toJson();
+        // $cart2 = $cart->toJson();
+
+        foreach(json_decode($cart) as $c){
+            $result = Stock::where('book_isbn_no', $c->book_isbn_no)->get();
+            foreach($result as $r){
+                if($r->book_quantity == 0){ //current solution to having a book that has 0 quantity stock is to delete the book from the cart
+                    $delete = Cart::where('user_id', $userID)->where('book_isbn_no', $c->book_isbn_no)->first();
+                    $delete->delete();
+                }
+                else{
+                    if($c->book_quantity > $r->book_quantity){
+                        $updateCartQty = Cart::where('book_isbn_no', $c->book_isbn_no)->first();
+                        $updateCartQty->book_quantity = $r->book_quantity;
+                        $updateCartQty->save();
+    
+                        $stock1 = [
+                            'cart_id' => $c->id,
+                            'book_isbn_no' => $c->book_isbn_no,
+                            'book_name' => $r->book_name,
+                            'book_author' => $r->book_author,
+                            'book_quantity' => $r->book_quantity,
+                            'book_retail_price' => $r->book_retail_price,
+                            'book_front_cover' => base64_encode($r->book_front_cover)
+                        ];
+                        array_push($stock, $stock1);              
+                    }
+                    else{
+                        $stock1 = [
+                            'cart_id' => $c->id,
+                            'book_isbn_no' => $c->book_isbn_no,
+                            'book_name' => $r->book_name,
+                            'book_author' => $r->book_author,
+                            'book_quantity' => $c->book_quantity,
+                            'book_retail_price' => $r->book_retail_price,
+                            'book_front_cover' => base64_encode($r->book_front_cover)
+                        ];
+                        array_push($stock, $stock1);
+                    }
+                }
+            }
+        }
+        $stock = json_encode($stock);
+
+        return view('checkout', ['cart' => $stock]);
+    }
 }

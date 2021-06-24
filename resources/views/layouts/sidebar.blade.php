@@ -57,6 +57,14 @@
 						<span class="nav-link-text ms-1">Manage Admin</span>
 					</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link @if (Route::currentRouteName() == "manageState") active @endif" href="{{ route('manageState') }}">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							🌎
+						</div>
+						<span class="nav-link-text ms-1">Manage State</span>
+					</a>
+				</li>
 			@endif
 			@auth
 				<li class="nav-item mt-3">
