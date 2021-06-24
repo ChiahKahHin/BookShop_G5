@@ -209,7 +209,7 @@ class StockController extends Controller
         $cart = Cart::where('user_id', $userID)->get()->toJson();
         // $cart2 = $cart->toJson();
 
-        $testing123 = Stock::all();
+        $stockItem = Stock::all();
 
         foreach(json_decode($cart) as $c){
             $result = Stock::where('book_isbn_no', $c->book_isbn_no)->get();
@@ -253,7 +253,7 @@ class StockController extends Controller
         }
         $stock = json_encode($stock);
 
-        return view('cart', ['cart' => $stock], ['stock' => $testing123]);
+        return view('cart', ['cart' => $stock], ['stock' => $stockItem]);
     }
 
     public function deleteCartItem($id)
@@ -263,6 +263,13 @@ class StockController extends Controller
 
         $cart = Cart::all();
         return redirect('/cart');
+    }
+
+    public function updateCartItemNumber(Request $request)
+    {
+        $cart = Cart::find($request->cartId);
+        $cart->book_quantity = $request->bookQty;
+        $cart->save();
     }
 
     // public function showCart()

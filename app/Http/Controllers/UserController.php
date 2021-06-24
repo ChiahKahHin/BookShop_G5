@@ -158,4 +158,8 @@ class UserController extends Controller
         return redirect('/reloadWallet')->with('message', $message);
     }
     
+    public function orderHistory()
+    {
+        return view('orderHistory');
+    }
 }

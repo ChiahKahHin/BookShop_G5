@@ -49,46 +49,46 @@
             @endif
 
             @foreach (json_decode($cart) as $cartItem)
-            @foreach ($stock as $stockItem)
-                @if($cartItem->book_isbn_no == $stockItem->book_isbn_no)
-                    <div class="row">
-                        <div class="col-1 text-center d-flex align-items-center justify-content-center">
-                            <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" data-uTotalPrice="{{ $cartItem->book_retail_price*$cartItem->book_quantity }}">
-                        </div>
-                        <div class="col-2 text-center">
-                            <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cartItem->book_front_cover) }}">
-                        </div>
-                        <div class="col-3 d-flex align-content-between flex-wrap">
-                            <div class="w-100">
-                                <a href="{{ route('stockDetails', ['isbn' => $cartItem->book_isbn_no]) }}"><h5>{{ $cartItem->book_name }}</h5></a> <label>by {{ $cartItem->book_author }}</label>
+                @foreach ($stock as $stockItem)
+                    @if($cartItem->book_isbn_no == $stockItem->book_isbn_no)
+                        <div class="row">
+                            <div class="col-1 text-center d-flex align-items-center justify-content-center">
+                                <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" id="{{'checkbox'.$stockItem->book_isbn_no}}" data-uTotalPrice="{{ $cartItem->book_retail_price*$cartItem->book_quantity }}">
                             </div>
-                            <div>
-                                <i class="fa fa-trash cart-delete deleteCartBtn" style="color: red;" id="{{ 'deleteCart'.$cartItem->book_isbn_no }}" 
-                                    data-stockName="{{ $cartItem->book_name }}" data-cartId="{{ $cartItem->cart_id }}"> Delete Book</i>
-                                <p style="color: black;">ISBN: {{ $stockItem->book_isbn_no }}</p>   
+                            <div class="col-2 text-center">
+                                <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cartItem->book_front_cover) }}">
+                            </div>
+                            <div class="col-3 d-flex align-content-between flex-wrap">
+                                <div class="w-100">
+                                    <a href="{{ route('stockDetails', ['isbn' => $cartItem->book_isbn_no]) }}"><h5>{{ $cartItem->book_name }}</h5></a> <label>by {{ $cartItem->book_author }}</label>
+                                </div>
+                                <div>
+                                    <i class="fa fa-trash cart-delete deleteCartBtn" style="color: red;" id="{{ 'deleteCart'.$cartItem->book_isbn_no }}" 
+                                        data-stockName="{{ $cartItem->book_name }}" data-cartId="{{ $cartItem->cart_id }}"> Delete Book</i>
+                                    <p style="color: black;">ISBN: {{ $stockItem->book_isbn_no }}</p>   
+                                </div>
+                            </div>
+                            <div class="col-2 text-center">
+                                <div class="input-group justify-content-center">
+                                    <input type="button" value="-" class="button-minus" data-field="quantity">
+                                    <input type="number" step="1" max="{{ $stockItem->book_quantity }}" value="{{ $cartItem->book_quantity }}" data-price="{{ $stockItem->book_retail_price }}" data-cartId="{{ $cartItem->cart_id }}" name="quantity" class="quantity-field validateEmpty"
+                                        id="{{ 'bookQty' . $stockItem->book_isbn_no }}">
+                                    <input type="button" value="+" class="button-plus" data-field="quantity" data-maxQty="{{ $stockItem->book_quantity }}">
+                                </div>
+                            </div>
+                            <div class="col-2 text-center">
+                                RM{{ number_format($cartItem->book_retail_price, 2) }}
+                            </div>
+                            <div class="col-2 text-center" id="{{ 'subTotal'.$stockItem->book_isbn_no }}" name="itemSubtotal" data-subtotal="{{ number_format($cartItem->book_retail_price*$cartItem->book_quantity, 2) }}">
+                                RM{{ number_format($cartItem->book_retail_price*$cartItem->book_quantity, 2) }}
                             </div>
                         </div>
-                        <div class="col-2 text-center">
-                            <div class="input-group justify-content-center">
-                                <input type="button" value="-" class="button-minus" data-field="quantity">
-                                <input type="number" step="1" max="{{ $stockItem->book_quantity }}" value="{{ $cartItem->book_quantity }}" name="quantity" class="quantity-field validateEmpty"
-                                    id="{{ 'bookQty' . $stockItem->book_isbn_no }}">
-                                <input type="button" value="+" class="button-plus" data-field="quantity" data-maxQty="{{ $stockItem->book_quantity }}">
-                            </div>
-                        </div>
-                        <div class="col-2 text-center">
-                            RM{{ number_format($cartItem->book_retail_price, 2) }}
-                        </div>
-                        <div class="col-2 text-center">
-                            RM{{ number_format($cartItem->book_retail_price*$cartItem->book_quantity, 2) }}
-                        </div>
-                    </div>
-                    <hr>
-                    @php
-                        $totalPrice += $cartItem->book_retail_price*$cartItem->book_quantity;
-                    @endphp
-                @endif
-            @endforeach
+                        <hr>
+                        @php
+                            $totalPrice += $cartItem->book_retail_price*$cartItem->book_quantity;
+                        @endphp
+                    @endif
+                @endforeach
             @endforeach
 
             <div class="row">
@@ -172,6 +172,7 @@
     $('#selectAllCartBtn').on('click', function(){
         var cartSelectAll = document.getElementById('selectAllCartBtn');
         var cartSelect = document.getElementsByName('selectCart');
+        var totalPrice = 0;
 
         var totalPriceCartValue = document.getElementById('totalPriceCartValue');
 
@@ -179,9 +180,12 @@
             for(var i=0; i < cartSelect.length; i++){  
                 if(cartSelect[i].type == 'checkbox'){
                     cartSelect[i].checked = true;
+                    totalPrice += parseFloat(cartSelect[i].getAttribute("data-uTotalPrice"));
+
                 }
             }
-            totalPriceCartValue.innerHTML = "RM{{ number_format($totalPrice, 2) }}";
+            //totalPriceCartValue.innerHTML = "RM{{ number_format($totalPrice, 2) }}";
+            totalPriceCartValue.innerHTML = "RM" + totalPrice.toFixed(2);
         }
         else{
             for(var i=0; i < cartSelect.length; i++){  
@@ -262,12 +266,75 @@
     }
 
     $('.input-group').on('click', '.button-plus', function(e) {
+        var cartSelectAll = document.getElementById('selectAllCartBtn');
+        var cartSelect = document.getElementsByName('selectCart');
+
         var maxValue = $(this).attr('data-maxQty');
         incrementValue(e, maxValue);
+
+        var cartId = this.parentElement.getElementsByTagName('input')[1].getAttribute('data-cartId');
+        var bookPrice = this.parentElement.getElementsByTagName('input')[1].getAttribute('data-price');
+        var bookISBN =  this.parentElement.getElementsByTagName('input')[1].getAttribute('id').substring(7);
+        var bookQty = this.parentElement.getElementsByTagName('input')[1].value;
+        var subtotal = bookPrice * bookQty;
+
+        document.getElementById('subTotal' + bookISBN).setAttribute('data-subtotal',subtotal.toFixed(2));
+        document.getElementById('checkbox' + bookISBN).setAttribute('data-utotalprice',subtotal.toFixed(2));
+        document.getElementById('subTotal' + bookISBN).innerHTML = "RM" + subtotal.toFixed(2);
+        
+        $.ajax({
+            url: "{{ route('updateCartItemNumber') }}",
+            data: {
+                "cartId" : cartId,
+                "bookQty" : bookQty,
+                "_token": "{{ csrf_token() }}"
+            },
+            type: "POST"
+        });
+
+        var allSubtotal = document.getElementsByName('itemSubtotal');
+        var totalPrice = 0;
+        for(var i=0; i < allSubtotal.length; i++){
+            totalPrice += parseFloat(allSubtotal[i].getAttribute('data-subtotal'));
+        }
+        if(cartSelectAll.checked == true || cartSelect.checked == true){
+            document.getElementById('totalPriceCartValue').innerHTML = "RM" + totalPrice.toFixed(2);
+        }
     });
 
     $('.input-group').on('click', '.button-minus', function(e) {
         decrementValue(e);
+        var cartSelectAll = document.getElementById('selectAllCartBtn');
+        var cartSelect = document.getElementsByName('selectCart');
+        var cartId = this.parentElement.getElementsByTagName('input')[1].getAttribute('data-cartId');
+        var bookPrice = this.parentElement.getElementsByTagName('input')[1].getAttribute('data-price');
+        var bookISBN = this.parentElement.getElementsByTagName('input')[1].getAttribute('id').substring(7);
+        var bookQty = this.parentElement.getElementsByTagName('input')[1].value;
+        var subtotal = bookPrice * bookQty;
+
+        document.getElementById('subTotal' + bookISBN).setAttribute('data-subtotal',subtotal.toFixed(2));
+        document.getElementById('checkbox' + bookISBN).setAttribute('data-utotalprice',subtotal.toFixed(2));
+        document.getElementById('subTotal' + bookISBN).innerHTML = "RM" + subtotal.toFixed(2);
+
+        $.ajax({
+            url: "{{ route('updateCartItemNumber') }}",
+            data: {
+                "cartId" : cartId,
+                "bookQty" : bookQty,
+                "_token": "{{ csrf_token() }}"
+            },
+            type: "POST"
+        });
+
+        var allSubtotal = document.getElementsByName('itemSubtotal');
+        var totalPrice = 0;
+        for(var i=0; i < allSubtotal.length; i++){
+            console.log(parseFloat(allSubtotal[i].getAttribute('data-subtotal')));
+            totalPrice += parseFloat(allSubtotal[i].getAttribute('data-subtotal'));
+        }
+        if(cartSelectAll.checked == true || cartSelect.checked == true){
+            document.getElementById('totalPriceCartValue').innerHTML = "RM" + totalPrice.toFixed(2);
+        }
     });
 
 </script>
