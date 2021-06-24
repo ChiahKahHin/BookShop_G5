@@ -109,6 +109,7 @@
         &nbsp;
 
         <form action="{{ route('checkout') }}" method="POST">
+            @csrf
             <input type="hidden" value="" id="checkedBooks" name="selectedBooks">
 
             <button type="submit" class="btn bg-gradient-info mb-0" id="proceedCheckout">
