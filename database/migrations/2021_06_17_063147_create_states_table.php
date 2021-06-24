@@ -18,7 +18,6 @@ class CreateStatesTable extends Migration
             $table->id();
             $table->string('state')->unique();
             $table->double('delivery_cost');
-            $table->timestamps();
         });
 
         State::create([

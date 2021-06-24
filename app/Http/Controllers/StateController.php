@@ -28,12 +28,12 @@ class StateController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'admin'])->except("getState");
+        asort($this->states);
     }
 
     public function manageState()
     {
-        $states = State::all();
-
+        $states = State::orderBy('state')->get();
         return view('manageState', ['states' => $states]);
     }
 
@@ -57,7 +57,7 @@ class StateController extends Controller
     public function editStateForm($id){
         $state = State::find($id);
         return view('editState', ['states' => $this->states, 'selectedState' => $state]);
-    
+
     }
     public function editState(Request $request, $id){
         $this->validate($request, [
