@@ -25,8 +25,4 @@ class Comment extends Model
     public function stock() {
         return $this->belongsTo(Stock::class, "isbn");
     }
-
-    public function content() {
-        return nl2br(htmlentities($this->content));
-    }
 }

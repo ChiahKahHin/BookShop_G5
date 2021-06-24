@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stock;
 use App\Models\Cart;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -118,10 +119,21 @@ class StockController extends Controller
 
     public function bookDetails($isbn)
     {
+        $userComment = null;
+        
+        if (auth()->check()) {
+            $userComment = Comment::where("user_id", auth()->user()->id)
+                ->where("isbn", $isbn)->get();
+        }
         $stock = Stock::findOrFail($isbn);
-        $stock->setRelation("comments", $stock->comments()->paginate(5));
-
-        return view('stock', ['stock' => $stock]);
+        $stock->setRelation("comments", $stock->comments(auth()->user()? auth()->user()->id: null)->paginate(5));
+        if (!is_null($userComment) && $userComment->count() > 0) {
+            $userComment = $userComment[0];
+        }
+        else {
+            $userComment = null;
+        }
+        return view('stock', ['stock' => $stock, 'userComment' => $userComment]);
     }
 
     public function deleteStock($isbn)
