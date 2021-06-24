@@ -128,7 +128,6 @@
 @section("script")
 <script>
     $(document).ready(function (){
-        updateSelectedBooks();
         var cartSelectAll = document.getElementById('selectAllCartBtn');
         var cartSelect = document.getElementsByName('selectCart');
 
@@ -138,6 +137,8 @@
             }
         }
         cartSelectAll.checked = true;
+        
+        updateSelectedBooks();
     });
 
     function updateSelectedBooks(){
@@ -158,25 +159,6 @@
 
         document.getElementById('checkedBooks').value = selectedBooks;
     }
-
-    // $('#proceedCheckout').click(function(){
-    //     // $.ajax({
-    //     //     type: "POST",
-    //     //     // dataType: "text",
-    //     //     url: "{{ route('checkout') }}",
-    //     //     data: {
-    //     //         "userID": "{{ Auth::id() }}",
-    //     //         "_token": "{{ csrf_token() }}",
-    //     //         "selectedBooks": 
-    //     //     },
-    //     //     success: function(data) {
-    //     //         // if(data == "success"){
-    //     //         //     console.log(data);
-    //     //         // }
-    //     //         console.log(data);
-    //     //     }
-    //     // });
-    // });
 
     $(document).on('click', '.selectCartChk', function(){
         var cartSelectAll = document.getElementById('selectAllCartBtn');
