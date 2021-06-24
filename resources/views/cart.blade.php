@@ -111,7 +111,7 @@
         <form action="{{ route('checkout') }}" method="POST">
             <input type="hidden" value="" id="checkedBooks" name="selectedBooks">
 
-            <button type="submit" class="btn bg-gradient-info mb-0" id="proceedCheckout" onclick="updateSelectedBooks()">
+            <button type="submit" class="btn bg-gradient-info mb-0" id="proceedCheckout">
                 Proceed to Checkout
             </button>
         </form>
@@ -159,8 +159,6 @@
     }
 
     // $('#proceedCheckout').click(function(){
-        
-
     //     // $.ajax({
     //     //     type: "POST",
     //     //     // dataType: "text",
@@ -180,7 +178,6 @@
     // });
 
     $(document).on('click', '.selectCartChk', function(){
-        updateSelectedBooks();
         var cartSelectAll = document.getElementById('selectAllCartBtn');
         var cartSelect = document.getElementsByName('selectCart');
         var validateAll = true;
@@ -213,10 +210,10 @@
             }
         }
         totalPriceCartValue.innerHTML = "RM" + totalUnitPrice.toFixed(2);
+        updateSelectedBooks();
     });
 
     $('#selectAllCartBtn').on('click', function(){
-        updateSelectedBooks();
         var cartSelectAll = document.getElementById('selectAllCartBtn');
         var cartSelect = document.getElementsByName('selectCart');
 
@@ -238,6 +235,7 @@
             }
             totalPriceCartValue.innerHTML = "RM{{ number_format(0, 2) }}";
         }
+        updateSelectedBooks();
     });
 
     $(document).on('click', '.deleteCartBtn', function (){
