@@ -74,3 +74,4 @@ Route::post('/editState/{id}', [StateController::class, 'editState']);
 Route::get('/state', [StateController::class, 'getState'])->name("getState");
 
 Route::post('/comments/{isbn}', [CommentController::class, 'addComment'])->name("addcomment");
+Route::post('/comments/{isbn}/edit', [CommentController::class, 'editComment'])->name("editcomment");

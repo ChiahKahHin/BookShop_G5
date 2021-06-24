@@ -105,7 +105,7 @@ class StockController extends Controller
     public function index()
     {
         $stock = Stock::all();
-
+        
         return view('dashboard', ['stock' => $stock]);
     }
 
@@ -263,7 +263,6 @@ class StockController extends Controller
             // array_push($stock, $stock1);
         }
         $stock = json_encode($stock);
-
         return view('cart', ['cart' => $stock]);
     }
 
@@ -324,7 +323,6 @@ class StockController extends Controller
             }
         }
         $stock = json_encode($stock);
-
         return view('checkout', ['cart' => $stock]);
     }
 }

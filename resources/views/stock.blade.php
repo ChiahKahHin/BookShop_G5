@@ -12,11 +12,16 @@ Book Details
 	<div class="container-fluid py-4">
 		<div class="row">
 			<div class="col-12">
-				<div class="card mb-4">
+				<div class="card">
 					<div class="card-header pb-0">
 						<a href="{{ route("home") }}"><i class="fa fa-arrow-left"></i> &nbsp;Back</a>
 					</div> 
 					<div class="card-body">
+						@if (session("message"))
+							<div class="row ms-8">
+								<div class="text-success text-center mb-5">{{ session('message') }}</div>
+							</div>
+						@endif
 						<div class="row">
 							<div class="col-md-6 mb-4">
 								<div class="text-center">
