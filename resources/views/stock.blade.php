@@ -102,7 +102,7 @@ Book Details
 							<p class="h5">Ratings & Comments</p>
 							@auth
 								@if (Auth::user()->isCustomer())
-									<form action="{{ route(empty($userComment) ? "addcomment": "addcomment", $stock->book_isbn_no) }}" method="post" enctype="multipart/form-data" >
+									<form action="{{ route(is_null($userComment) ? "addcomment": "editcomment", $stock->book_isbn_no) }}" method="post" enctype="multipart/form-data" >
 										@csrf
 										<div class="rate">
 											<input type="radio" id="star5" name="rate" value="5" @if (!is_null($userComment) && $userComment->rating == 5) checked @endif/>
