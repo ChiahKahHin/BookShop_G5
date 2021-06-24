@@ -50,7 +50,7 @@
             @foreach (json_decode($cart) as $cart)
                 <div class="row">
                     <div class="col-1 text-center d-flex align-items-center justify-content-center">
-                        <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" data-uTotalPrice="{{ $cart->book_retail_price*$cart->book_quantity }}">
+                        <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" data-bookID="{{ $cart->book_isbn_no }}" data-uTotalPrice="{{ $cart->book_retail_price*$cart->book_quantity }}">
                     </div>
                     <div class="col-2 text-center">
                         <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cart->book_front_cover) }}">
@@ -107,9 +107,18 @@
             Continue Shopping
         </a>
         &nbsp;
-        <a href="{{ route('checkout') }}" class="btn bg-gradient-info mb-0">
+
+        <form action="{{ route('checkout') }}" method="POST">
+            <input type="hidden" value="" id="checkedBooks" name="selectedBooks">
+
+            <button type="submit" class="btn bg-gradient-info mb-0" id="proceedCheckout" onclick="updateSelectedBooks()">
+                Proceed to Checkout
+            </button>
+        </form>
+
+        {{-- <a href="{{ route('checkout') }}" class="btn bg-gradient-info mb-0">
             Proceed to Checkout
-        </a>
+        </a> --}}
     </div>
 
 </div>
@@ -118,6 +127,7 @@
 @section("script")
 <script>
     $(document).ready(function (){
+        updateSelectedBooks();
         var cartSelectAll = document.getElementById('selectAllCartBtn');
         var cartSelect = document.getElementsByName('selectCart');
 
@@ -129,7 +139,48 @@
         cartSelectAll.checked = true;
     });
 
+    function updateSelectedBooks(){
+        var cartSelect = document.getElementsByName('selectCart');
+        var cartSelectAll = document.getElementById('selectAllCartBtn');
+        var selectedBooks = "";
+
+            for(var i=0; i < cartSelect.length; i++){  
+                if(cartSelect[i].type == 'checkbox'){
+                    if(cartSelect[i].checked == true){
+                        selectedBooks += (cartSelect[i].getAttribute('data-bookID') + ",");
+                    }
+                }
+            }
+
+        selectedBooks = selectedBooks.replace(/,\s*$/, "");
+        console.log(selectedBooks);
+
+        document.getElementById('checkedBooks').value = selectedBooks;
+    }
+
+    // $('#proceedCheckout').click(function(){
+        
+
+    //     // $.ajax({
+    //     //     type: "POST",
+    //     //     // dataType: "text",
+    //     //     url: "{{ route('checkout') }}",
+    //     //     data: {
+    //     //         "userID": "{{ Auth::id() }}",
+    //     //         "_token": "{{ csrf_token() }}",
+    //     //         "selectedBooks": 
+    //     //     },
+    //     //     success: function(data) {
+    //     //         // if(data == "success"){
+    //     //         //     console.log(data);
+    //     //         // }
+    //     //         console.log(data);
+    //     //     }
+    //     // });
+    // });
+
     $(document).on('click', '.selectCartChk', function(){
+        updateSelectedBooks();
         var cartSelectAll = document.getElementById('selectAllCartBtn');
         var cartSelect = document.getElementsByName('selectCart');
         var validateAll = true;
@@ -165,6 +216,7 @@
     });
 
     $('#selectAllCartBtn').on('click', function(){
+        updateSelectedBooks();
         var cartSelectAll = document.getElementById('selectAllCartBtn');
         var cartSelect = document.getElementsByName('selectCart');
 

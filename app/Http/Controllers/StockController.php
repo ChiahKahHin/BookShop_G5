@@ -13,7 +13,7 @@ class StockController extends Controller
     {
         $this->middleware(['auth'])->except(["homepage", "homepageSearch", "bookDetails"]);
         $this->middleware(['admin'])->only(["addStockForm", "store", "editStockForm", "editStock", "index", "delete", "deleteStock", "checkISBN"]);
-        $this->middleware(['customer'])->only(["addToCart", "showCart", "deleteCartItem"]);
+        $this->middleware(['customer'])->only(["addToCart", "showCart", "deleteCartItem", "showCheckout"]);
     }
 
     public function addStockForm()
@@ -264,27 +264,28 @@ class StockController extends Controller
         return redirect('/cart');
     }
 
-    public function checkout(){
+    public function showCheckout(Request $request){
         
         $stock = array();
         $userID = Auth::id();
 
-        $cart = Cart::where('user_id', $userID)->get()->toJson();
-        // $cart2 = $cart->toJson();
+        // $cart = Cart::where('user_id', $userID)->get()->toJson();
+        // return $cart;
 
-        foreach(json_decode($cart) as $c){
-            $result = Stock::where('book_isbn_no', $c->book_isbn_no)->get();
-            foreach($result as $r){
-                if($r->book_quantity == 0){ //current solution to having a book that has 0 quantity stock is to delete the book from the cart
-                    $delete = Cart::where('user_id', $userID)->where('book_isbn_no', $c->book_isbn_no)->first();
-                    $delete->delete();
-                }
-                else{
+        $allSelected = explode(",", request('selectedBooks'));
+
+        for ($i=0; $i < count($allSelected); $i++) { 
+            $cart = Cart::where('book_isbn_no', $allSelected[$i])->get()->toJson();
+            
+            foreach(json_decode($cart) as $c){
+                $result = Stock::where('book_isbn_no', $c->book_isbn_no)->get();
+
+                foreach($result as $r){
                     if($c->book_quantity > $r->book_quantity){
                         $updateCartQty = Cart::where('book_isbn_no', $c->book_isbn_no)->first();
                         $updateCartQty->book_quantity = $r->book_quantity;
                         $updateCartQty->save();
-    
+        
                         $stock1 = [
                             'cart_id' => $c->id,
                             'book_isbn_no' => $c->book_isbn_no,
@@ -312,7 +313,6 @@ class StockController extends Controller
             }
         }
         $stock = json_encode($stock);
-
         return view('checkout', ['cart' => $stock]);
     }
 }

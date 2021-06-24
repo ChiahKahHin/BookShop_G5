@@ -1,7 +1,7 @@
 @extends("layouts.template")
 
 @section("title")
-    Shopping Cart
+    Checkout
 @endsection
 
 @section('navtitle')
@@ -108,7 +108,7 @@
                         </div>
                         <div class="col-6 text-end">
                             <h6 class="m-0">RM <span id="deliveryCostValue">4.00</span></h6>
-                        </div4.00>
+                        </div>
                     </div>
 
                     <div class="row">
