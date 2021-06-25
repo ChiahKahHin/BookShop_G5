@@ -323,10 +323,14 @@ class StockController extends Controller
         $userID = Auth::user()->id;
         $user = User::find(Auth::id());
 
+        if(empty(request('address'))){
+            return "emptyAddress";
+        }
+
         if($user->wallet_balance < floatval(request('totalPrice'))){
             return "insufficientWallet";
         }
-
+        
         $allISBN = explode(",", request('allISBN'));
         
         $checkout = new Checkout();

@@ -202,6 +202,15 @@
                                 window.location.href = "/";
                             });
                         }
+                        else if(data == "emptyAddress"){
+                            Swal.fire({
+                                title: 'Checkout Failed',
+                                text: "Address is empty!",
+                                icon: 'error',
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        }
                         else if(data == "insufficientWallet"){
                             Swal.fire({
                                 title: 'Checkout Failed',
@@ -209,8 +218,6 @@
                                 icon: 'error',
                                 timer: 1500,
                                 showConfirmButton: false
-                            }).then(function (){
-                                console.log(data);
                             });
                         }
                         else{
