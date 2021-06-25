@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\State;
 
-use function PHPUnit\Framework\isEmpty;
-
 class StateController extends Controller
 {
     private $states = array(
