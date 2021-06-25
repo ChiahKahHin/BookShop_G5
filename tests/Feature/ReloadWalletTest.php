@@ -22,7 +22,7 @@ class ReloadWalletTest extends TestCase
                 'email' => $this->faker->unique()->safeEmail,
                 'password' => Hash::make("p455w0rd"),
                 'role' => 1,
-                'remember_token' => Str::random(10),
+                'remember_token' => Str::random(10)
             ]
         );
         $this->customer->hidden_password = "p455w0rd";
