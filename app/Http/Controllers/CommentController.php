@@ -9,7 +9,7 @@ class CommentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware("auth");
+        $this->middleware("customer");
     }
 
     public function addComment(Request $request, $isbn) {
@@ -31,7 +31,6 @@ class CommentController extends Controller
         ]);
         $file = $request->file("attachment");
         $request->user()->comments()->where("isbn", $isbn)->update(["rating" => $request->rate, "content" => $request->content, "mimeType"=> is_null($file) ? null: $file->getMimeType(), "attachment" => is_null($file) ? null: $file->get()]);
-        
         return redirect()->route("stockDetails", ["isbn" => $isbn])->with("message", "Your comment has been updated successfully");
     }
 }
