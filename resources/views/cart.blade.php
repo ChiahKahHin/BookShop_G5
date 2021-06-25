@@ -112,14 +112,17 @@
             @csrf
             <input type="hidden" value="" id="checkedBooks" name="selectedBooks">
 
-            <button type="submit" class="btn bg-gradient-info mb-0" id="proceedCheckout">
-                Proceed to Checkout
-            </button>
-        </form>
+            @if ($cart == "[]")
+                <button type="submit" class="btn bg-gradient-info mb-0" disabled>
+                    Proceed to Checkout
+                </button>
+            @else
+                <button type="submit" class="btn bg-gradient-info mb-0" id="proceedCheckout">
+                    Proceed to Checkout
+                </button>   
+            @endif
 
-        {{-- <a href="{{ route('checkout') }}" class="btn bg-gradient-info mb-0">
-            Proceed to Checkout
-        </a> --}}
+        </form>
     </div>
 
 </div>
