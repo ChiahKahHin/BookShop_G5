@@ -15,7 +15,7 @@ Book Details
 				<div class="card">
 					<div class="card-header pb-0">
 						<a href="{{ route("home") }}"><i class="fa fa-arrow-left"></i> &nbsp;Back</a>
-					</div> 
+					</div>
 					<div class="card-body">
 						@if (session("message"))
 							<div class="row ms-8">
@@ -88,6 +88,12 @@ Book Details
 								<h6>{{ $stock->book_quantity }}</h6>
 							<br>
 
+                            @if (!is_null($stock->comments()->avg("rating")))
+                                <h5>Rating</h5>
+                                    <h6>{{ number_format($stock->comments()->avg("rating"), 1) }}</h6>
+                                <br>
+                            @endif
+
 							</div>
 						</div>
 						<div class="row">
@@ -107,30 +113,35 @@ Book Details
 							<p class="h5">Ratings & Comments</p>
 							@auth
 								@if (Auth::user()->isCustomer())
-									<form action="{{ route(is_null($userComment) ? "addcomment": "editcomment", $stock->book_isbn_no) }}" method="post" enctype="multipart/form-data" >
-										@csrf
-										<div class="rate">
-											<input type="radio" id="star5" name="rate" value="5" @if (!is_null($userComment) && $userComment->rating == 5) checked @endif/>
-											<label for="star5">5 stars</label>
-											<input type="radio" id="star4" name="rate" value="4" @if (!is_null($userComment) && $userComment->rating == 4) checked @endif/>
-											<label for="star4">4 stars</label>
-											<input type="radio" id="star3" name="rate" value="3" @if (!is_null($userComment) && $userComment->rating == 3) checked @endif/>
-											<label for="star3">3 stars</label>
-											<input type="radio" id="star2" name="rate" value="2" @if (!is_null($userComment) && $userComment->rating == 2) checked @endif/>
-											<label for="star2">2 stars</label>
-											<input type="radio" id="star1" name="rate" value="1" @if (!is_null($userComment) && $userComment->rating == 1 || is_null($userComment)) checked @endif/>
-											<label for="star1">1 star</label>
-										</div>
-										<textarea name="content" id="content" cols="30" rows="4" class="border-2 w-100 rounded-3 @error("body") border-warning @enderror" placeholder="Leave a comment (Optional)">{{ !is_null($userComment) ? $userComment->content : "" }}</textarea>
+                                    <form action="{{ route(is_null($userComment) ? "addcomment": "editcomment", $stock->book_isbn_no) }}" id="comment-form" method="post" enctype="multipart/form-data" >
+                                        @csrf
+                                        <div class="rate" id="comment-rating">
+                                            <input type="radio" id="star5" name="rate" value="5" @if (!is_null($userComment) && $userComment->rating == 5) checked @endif @if(!is_null($userComment)) disabled="disabled" @endif>
+                                            <label for="star5">5 stars</label>
+                                            <input type="radio" id="star4" name="rate" value="4" @if (!is_null($userComment) && $userComment->rating == 4) checked @endif @if(!is_null($userComment)) disabled="disabled" @endif>
+                                            <label for="star4">4 stars</label>
+                                            <input type="radio" id="star3" name="rate" value="3" @if (!is_null($userComment) && $userComment->rating == 3) checked @endif @if(!is_null($userComment)) disabled="disabled" @endif>
+                                            <label for="star3">3 stars</label>
+                                            <input type="radio" id="star2" name="rate" value="2" @if (!is_null($userComment) && $userComment->rating == 2) checked @endif @if(!is_null($userComment)) disabled="disabled" @endif>
+                                            <label for="star2">2 stars</label>
+                                            <input type="radio" id="star1" name="rate" value="1" @if (!is_null($userComment) && $userComment->rating == 1 || is_null($userComment)) checked @endif @if(!is_null($userComment)) disabled="disabled" @endif>
+                                            <label for="star1">1 star</label>
+                                        </div>
+                                        @if (!is_null($userComment))
+                                            <div style="float: right" id="comment-edit-button">
+                                                <button class="btn bg-gradient-info rounded-3" type="button"><i class="fas fa-edit"></i> Edit</button>
+                                            </div>
+                                        @endif
+                                        <textarea name="content" id="content" cols="30" rows="4" class="border-2 w-100 rounded-3 @error("body") border-warning @enderror" placeholder="Leave a comment (Optional)" @if(!is_null($userComment)) disabled="disabled" @endif>{{ !is_null($userComment) ? $userComment->content : "" }}</textarea>
 										<label for="attachment">Upload attachment <i>(Only attachment with .jpg, .png, .jpeg, .mp3, .m4a, .mp4 extension can be accepted) (Optional)</i></label>
-										<input type="file" class="form-control" name="attachment" id="attachment">
+										<input type="file" class="form-control" name="attachment" id="attachment" @if(!is_null($userComment)) disabled="disabled" @endif>
 										@error("attachment")
 											<div class="text-sm text-danger">
 												{{ $message }}
 											</div>
 										@enderror
-										<div class="text-right mt-4">
-											<button class="btn bg-gradient-info rounded-3" type="submit"><i class="fas fa-paper-plane"></i> Post</button>
+										<div class="text-right mt-4 {{ !is_null($userComment) ? "d-none" : "" }}" id="comment-add-button">
+											<button class="btn bg-gradient-info rounded-3" type="submit"><i class="fas fa-paper-plane"></i> {{ is_null($userComment) ? "Post" : "Update" }}</button>
 										</div>
 									</form>
 								@endif
@@ -144,7 +155,7 @@ Book Details
 								<div class="row">
 									<div class="col-12">
 										<div class="font-weight-bold d-inline me-2" style="color: black">{{ $comment->user->username }}</div>
-										<span class="text-sm">{{ $comment->created_at->diffForHumans() }}</span>
+										<span class="text-sm">{{ $comment->updated_at->diffForHumans() }}</span>
 										<div class="rate-display mt-1">
 											<label for="star5" @if ($comment->rating == 1) class="checked" @endif>1 star</label>
 											<label for="star4" @if ($comment->rating == 2) class="checked" @endif>2 stars</label>
@@ -234,7 +245,18 @@ Book Details
 				}
 			});
 		}
-
+    @elseif (Auth::check() && Auth::user()->isCustomer() && !is_null($userComment))
+        $(document).ready(function () {
+            $("#comment-edit-button button").on("click", function () {
+                $("#comment-add-button")[0].classList.remove("d-none");
+                $("#comment-edit-button")[0].classList.add("d-none")
+                $("#attachment")[0].removeAttribute("disabled");
+                $("#content")[0].removeAttribute("disabled");
+                $("#comment-rating input[name='rate']").each(function (index, element) {
+                    element.removeAttribute("disabled");
+                });
+            });
+        });
 	@else
 		$(document).on('click', '.addBookToCart', function() {
 			var stockISBN = $(this).attr('value');

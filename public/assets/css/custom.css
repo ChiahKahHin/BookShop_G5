@@ -42,7 +42,7 @@
 }
 
 /* Add Animation */
-.img-modal-content, #caption {  
+.img-modal-content, #caption {
 	-webkit-animation-name: zoom;
 	-webkit-animation-duration: 0.6s;
 	animation-name: zoom;
@@ -50,12 +50,12 @@
 }
 
 @-webkit-keyframes zoom {
-	from {-webkit-transform:scale(0)} 
+	from {-webkit-transform:scale(0)}
 	to {-webkit-transform:scale(1)}
 }
 
 @keyframes zoom {
-	from {transform:scale(0)} 
+	from {transform:scale(0)}
 	to {transform:scale(1)}
 }
 
@@ -451,22 +451,35 @@ input[type='checkbox'].checkboxCart:checked {
     font-size:35px;
     color:#ccc;
 }
+.rate:not(:disabled) > label {
+    cursor: default;
+}
 .rate:not(:checked) > label:before {
     content: '★ ';
 }
-.rate > input:checked ~ label {
-    color: #ffc700;    
+.rate > input:not(:checked):not(:disabled) + label:hover,
+.rate > input:not(:checked):not(:disabled) + label:hover ~ label,
+.rate > input:not(:checked):not(:disabled) ~ label:hover,
+.rate > input:not(:checked):not(:disabled) ~ label:hover ~ label,
+.rate > label:hover ~ input:not(:checked):not(:disabled) ~ label {
+    color: #c59b08;
 }
 .rate:not(:checked) > label:hover,
 .rate:not(:checked) > label:hover ~ label {
-    color: #deb217;  
+    color: #deb217;
 }
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-    color: #c59b08;
+.rate:not(:disabled) > label:hover,
+.rate:not(:disabled) > label:hover ~ label {
+    color: #ccc;
+}
+
+.rate > input:checked ~ label,
+.rate > input:checked:disabled + label:hover,
+.rate > input:checked:disabled + label:hover ~ label,
+.rate > input:checked:disabled ~ label:hover,
+.rate > input:checked:disabled ~ label:hover ~ label,
+.rate > label:hover ~ input:checked:disabled ~ label {
+    color: #ffc700;
 }
 
 /* display rating */
@@ -485,11 +498,11 @@ input[type='checkbox'].checkboxCart:checked {
     color:#ccc;
 }
 .rate-display label {
-	color: #ffc700;    
+	color: #ffc700;
 }
 .rate-display label:before {
 	content: '★ ';
 }
 .rate-display label.checked ~ label {
-    color: #ccc;    
+    color: #ccc;
 }
