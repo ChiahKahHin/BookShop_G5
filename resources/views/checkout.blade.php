@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-2">
-        
+
                         </div>
                         <div class="col-5">
                             <h6>Book</h6>
@@ -56,7 +56,7 @@
                                     <a href="{{ route('stockDetails', ['isbn' => $cart->book_isbn_no]) }}"><h5>{{ $cart->book_name }}</h5></a> <label>by {{ $cart->book_author }}</label>
                                 </div>
                                 <div>
-                                    <p style="color: black;">ISBN: {{ $cart->book_isbn_no }}</p>   
+                                    <p style="color: black;">ISBN: {{ $cart->book_isbn_no }}</p>
                                 </div>
                             </div>
                             <div class="col-1 text-center">
@@ -74,7 +74,7 @@
                             $totalPrice += $cart->book_retail_price*$cart->book_quantity;
                         @endphp
                     @endforeach
-        
+
                 </div>
             </div>
             <div class="card" style="margin-top: 20px;">
@@ -131,8 +131,8 @@
             </div>
         </div>
     </div>
-    
-    
+
+
 
 </div>
 </div>
@@ -155,7 +155,7 @@
 			confirmButtonText: 'Yes'
         }).then((result) => {
 			if (result.value) {
-                
+
             }
 		});
     });
@@ -188,11 +188,15 @@
                     "accept-language": "en",
                     format: "json"
                 };
-                $.getJSON(requestURL, param,
-                    function (data) {
+                $.ajax({
+                    type: "GET",
+                    url: requestURL,
+                    data: param,
+                    dataType: "JSON",
+                    success: function (response) {
                         let state = "";
-                        if (data.length > 0) {
-                            let state = data[0]["address"]["state"];
+                        if (response.length > 0) {
+                            let state = response[0]["address"]["state"];
                             $.get("{{ route("getState") }}", {q: state},
                                 function (delivery_cost) {
                                     delivery_cost = parseFloat(delivery_cost);
@@ -202,9 +206,10 @@
                                 }
                             );
                         }
+                    },
+                    error: function (response) {
+                        stateInput.value="Unable to get your location";
                     }
-                ).fail(function() {
-                    stateInput.value="Unable to get your location";
                 });
             }
         }, 1000);
@@ -235,6 +240,7 @@
                 );
             });
         });
+
     });
 </script>
 <!-- Github buttons -->
