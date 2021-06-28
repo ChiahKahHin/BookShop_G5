@@ -245,7 +245,7 @@ Book Details
 				}
 			});
 		}
-    @elseif (Auth::check() && Auth::user()->isCustomer() && !is_null($userComment))
+	@else
         $(document).ready(function () {
             $("#comment-edit-button button").on("click", function () {
                 $("#comment-add-button")[0].classList.remove("d-none");
@@ -257,7 +257,6 @@ Book Details
                 });
             });
         });
-	@else
 		$(document).on('click', '.addBookToCart', function() {
 			var stockISBN = $(this).attr('value');
 			var qtyBtn = "bookQty" + stockISBN;
