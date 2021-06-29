@@ -364,4 +364,10 @@ class StockController extends Controller
 
         return "success";
     }
+
+    public function manageOrder(){
+        $checkouts = Checkout::all()->except(Auth::id())->where('role', 0);
+
+        return view('manageOrder', ['checkouts' => $checkouts]);
+    }
 }
