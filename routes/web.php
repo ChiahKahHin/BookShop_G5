@@ -66,12 +66,14 @@ Route::get('/editStock/{isbn}', [StockController::class, 'editStockForm'])->name
 Route::post('/editStock/{isbn}', [StockController::class, 'editStock']);
 Route::post('/checkout', [StockController::class, 'showCheckout'])->name('checkout');
 Route::post('/confirmCheckout', [StockController::class, 'checkout'])->name('confirmCheckout');
+Route::get('/manageOrder', [StockController::class, 'manageOrder'])->name('manageOrder');
 
 Route::get('/manageState', [StateController::class, 'manageState'])->name('manageState');
 Route::get('/addState', [StateController::class, 'addStateForm'])->name('addState');
 Route::post('/addState', [StateController::class, 'addState']);
 Route::get('/editState/{id}', [StateController::class, 'editStateForm'])->name('editState');
 Route::post('/editState/{id}', [StateController::class, 'editState']);
+Route::get('/manageState/{id}', [StateController::class, 'deleteState']);
 Route::get('/state', [StateController::class, 'getState'])->name("getState");
 
 Route::post('/comments/{isbn}', [CommentController::class, 'addComment'])->name("addcomment");
