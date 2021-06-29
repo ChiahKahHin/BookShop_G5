@@ -65,6 +65,16 @@
 						<span class="nav-link-text ms-1">Manage State</span>
 					</a>
 				</li>
+				<!-- testing -->
+				<li class="nav-item">
+					<a class="nav-link @if (Route::currentRouteName() == "manageOrder") active @endif" href="{{ route('manageOrder') }}">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							📦	
+						</div>
+						<span class="nav-link-text ms-1">Manage Order</span>
+					</a>
+				</li>
+				<!-- testing -->
 			@endif
 			@auth
 				<li class="nav-item mt-3">
