@@ -197,22 +197,27 @@
                         let state = "";
                         if (response.length > 0) {
                             let state = response[0]["address"]["state"];
-                            $.get("{{ route("getState") }}", {q: state},
-                                function (delivery_cost) {
+                            $.ajax({
+                                type: "GET",
+                                url: "{{ route("getState") }}",
+                                data: {q: state},
+                                dataType: "JSON",
+                                success: function (delivery_cost) {
                                     delivery_cost = parseFloat(delivery_cost);
                                     deliveryCostLabel.innerHTML = delivery_cost.toFixed(2);
                                     deliveryCostInput.value = delivery_cost;
                                     stateInput.value = state;
                                 }
-                            );
+                            });
                         }
                     },
                     error: function (response) {
                         stateInput.value="Unable to get your location";
                     }
                 });
+                console.log(x);
             }
-        }, 1000);
+        }, 1500);
 
         $("#location").on("click", function () {
             navigator.geolocation.getCurrentPosition(function(position) {
