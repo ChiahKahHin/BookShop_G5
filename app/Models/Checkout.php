@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Checkout extends Model
 {
     use HasFactory;
-    protected $table = "cart";
+    protected $table = "checkout";
+    protected $primaryKey = "checkoutID";
 
     protected $fillable = [
         'user_id',
-        'book_isbn_no',
-        'book_quantity'
+        'total_price',
+        'address',
+        'status'
     ];
 }

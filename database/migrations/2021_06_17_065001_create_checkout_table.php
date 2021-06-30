@@ -14,7 +14,7 @@ class CreateCheckoutTable extends Migration
     public function up()
     {
         Schema::create('checkout', function (Blueprint $table) {
-            $table->integer('checkoutID')->primary()->unique();
+            $table->bigIncrements('checkoutID');
             $table->integer('user_id');
             $table->double('total_price');
             $table->string('address');

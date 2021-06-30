@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Stock;
 use App\Models\Cart;
 use App\Models\Comment;
+use App\Models\Checkout;
+use App\Models\Checkoutitems;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +17,7 @@ class StockController extends Controller
     {
         $this->middleware(['auth'])->except(["homepage", "homepageSearch", "bookDetails"]);
         $this->middleware(['admin'])->only(["addStockForm", "store", "editStockForm", "editStock", "index", "delete", "deleteStock", "checkISBN"]);
-        $this->middleware(['customer'])->only(["addToCart", "showCart", "deleteCartItem"]);
+        $this->middleware(['customer'])->only(["addToCart", "showCart", "deleteCartItem", "showCheckout", "checkout"]);
     }
 
     public function addStockForm()
@@ -105,7 +108,7 @@ class StockController extends Controller
     public function index()
     {
         $stock = Stock::all();
-        
+
         return view('dashboard', ['stock' => $stock]);
     }
 
@@ -120,7 +123,7 @@ class StockController extends Controller
     public function bookDetails($isbn)
     {
         $userComment = null;
-        
+
         if (auth()->check()) {
             $userComment = Comment::where("user_id", auth()->user()->id)
                 ->where("isbn", $isbn)->get();
@@ -166,7 +169,7 @@ class StockController extends Controller
 
     public function checkISBN(Request $request){
         $stock = Stock::find($request->isbn);
-        
+
         if($stock == null)
             return false; // unique ISBN
         else
@@ -177,7 +180,7 @@ class StockController extends Controller
     {
         $userID = request('userID');
         $searchInfo = ['user_id' => $userID, 'book_isbn_no' => request('stockISBN')];
-        
+
         $stock = Cart::where($searchInfo)->first();
 
         if ($stock === null) {
@@ -234,7 +237,7 @@ class StockController extends Controller
                         $updateCartQty = Cart::where('book_isbn_no', $c->book_isbn_no)->first();
                         $updateCartQty->book_quantity = $r->book_quantity;
                         $updateCartQty->save();
-    
+
                         $stock1 = [
                             'cart_id' => $c->id,
                             'book_isbn_no' => $c->book_isbn_no,
@@ -244,7 +247,7 @@ class StockController extends Controller
                             'book_retail_price' => $r->book_retail_price,
                             'book_front_cover' => base64_encode($r->book_front_cover)
                         ];
-                        array_push($stock, $stock1);              
+                        array_push($stock, $stock1);
                     }
                     else{
                         $stock1 = [
@@ -275,27 +278,28 @@ class StockController extends Controller
         return redirect('/cart');
     }
 
-    public function checkout(){
-        
+    public function showCheckout(Request $request){
+
         $stock = array();
         $userID = Auth::id();
 
-        $cart = Cart::where('user_id', $userID)->get()->toJson();
-        // $cart2 = $cart->toJson();
+        // $cart = Cart::where('user_id', $userID)->get()->toJson();
+        // return $cart;
 
-        foreach(json_decode($cart) as $c){
-            $result = Stock::where('book_isbn_no', $c->book_isbn_no)->get();
-            foreach($result as $r){
-                if($r->book_quantity == 0){ //current solution to having a book that has 0 quantity stock is to delete the book from the cart
-                    $delete = Cart::where('user_id', $userID)->where('book_isbn_no', $c->book_isbn_no)->first();
-                    $delete->delete();
-                }
-                else{
+        $allSelected = explode(",", request('selectedBooks'));
+
+        for ($i=0; $i < count($allSelected); $i++) {
+            $cart = Cart::where('book_isbn_no', $allSelected[$i])->get();
+
+            foreach($cart as $c){
+                $result = Stock::where('book_isbn_no', $c->book_isbn_no)->get();
+
+                foreach($result as $r){
                     if($c->book_quantity > $r->book_quantity){
                         $updateCartQty = Cart::where('book_isbn_no', $c->book_isbn_no)->first();
                         $updateCartQty->book_quantity = $r->book_quantity;
                         $updateCartQty->save();
-    
+
                         $stock1 = [
                             'cart_id' => $c->id,
                             'book_isbn_no' => $c->book_isbn_no,
@@ -305,7 +309,7 @@ class StockController extends Controller
                             'book_retail_price' => $r->book_retail_price,
                             'book_front_cover' => base64_encode($r->book_front_cover)
                         ];
-                        array_push($stock, $stock1);              
+                        array_push($stock, $stock1);
                     }
                     else{
                         $stock1 = [
@@ -324,5 +328,51 @@ class StockController extends Controller
         }
         $stock = json_encode($stock);
         return view('checkout', ['cart' => $stock]);
+    }
+
+    public function checkout(Request $request){
+        $userID = Auth::user()->id;
+        $user = User::find(Auth::id());
+
+        if(empty(request('address'))){
+            return "emptyAddress";
+        }
+
+        if($user->wallet_balance < floatval(request('totalPrice'))){
+            return "insufficientWallet";
+        }
+
+        $allISBN = explode(",", request('allISBN'));
+
+        $checkout = new Checkout();
+        $checkout->user_id = $userID;
+        $checkout->total_price = floatval(request('totalPrice'));
+        $checkout->address = request('address');
+        $checkout->status = "delivering";
+        $checkout->save();
+        $checkoutID = $checkout->checkoutID;
+
+        for ($i=0; $i < count($allISBN); $i++) {
+            $cartCopy = Cart::where('user_id', $userID)->where('book_isbn_no', $allISBN[$i])->get();
+
+            foreach($cartCopy as $cart){
+                $checkoutItems = new Checkoutitems();
+                $checkoutItems->checkoutID = $checkoutID;
+                $checkoutItems->book_isbn_no = $cart->book_isbn_no;
+                $checkoutItems->book_quantity = $cart->book_quantity;
+                $checkoutItems->save();
+
+                $stockDelete = Stock::where('book_isbn_no', $cart->book_isbn_no)->get();
+                foreach($stockDelete as $stock){
+                    $stock->book_quantity = $stock->book_quantity - $cart->book_quantity;
+                    $stock->save();
+                }
+            }
+            $cartCopy->first()->delete();
+            $user->wallet_balance -= $checkout->total_price;
+            $user->save();
+        }
+
+        return "success";
     }
 }
