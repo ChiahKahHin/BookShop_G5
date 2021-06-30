@@ -17,4 +17,12 @@ class Checkout extends Model
         'address',
         'status'
     ];
+
+    public function items() {
+        return $this->hasMany(Checkoutitems::class, "checkoutID");
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class, "user_id");
+    }
 }
