@@ -18,6 +18,7 @@ class CreateCheckoutItemsTable extends Migration
             $table->integer('checkoutID');
             $table->string('book_isbn_no');
             $table->integer('book_quantity');
+            $table->timestamps();
         });
     }
 

@@ -67,7 +67,8 @@ Route::post('/editStock/{isbn}', [StockController::class, 'editStock']);
 Route::post('/updateCartItemNumber', [StockController::class, 'updateCartItemNumber'])->name('updateCartItemNumber');
 
 Route::get('/orderHistory', [UserController::class, 'orderHistory'])->name('orderHistory');
-Route::get('/checkout', [StockController::class, 'checkout'])->name('checkout');
+Route::post('/checkout', [StockController::class, 'showCheckout'])->name('checkout');
+Route::post('/confirmCheckout', [StockController::class, 'checkout'])->name('confirmCheckout');
 
 Route::get('/manageState', [StateController::class, 'manageState'])->name('manageState');
 Route::get('/addState', [StateController::class, 'addStateForm'])->name('addState');

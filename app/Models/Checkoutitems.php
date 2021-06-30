@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class Checkoutitems extends Model
 {
     use HasFactory;
-    protected $table = "cart";
+    protected $table = "checkout_items";
 
     protected $fillable = [
-        'user_id',
+        'checkoutID',
         'book_isbn_no',
         'book_quantity'
     ];

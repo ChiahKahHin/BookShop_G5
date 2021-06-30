@@ -53,7 +53,7 @@
                     @if($cartItem->book_isbn_no == $stockItem->book_isbn_no)
                         <div class="row">
                             <div class="col-1 text-center d-flex align-items-center justify-content-center">
-                                <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" id="{{'checkbox'.$stockItem->book_isbn_no}}" data-uTotalPrice="{{ $cartItem->book_retail_price*$cartItem->book_quantity }}">
+                                <input type="checkbox" class="checkboxCart selectCartChk" name="selectCart" data-bookID="{{ $cartItem->book_isbn_no }}" id="{{'checkbox'.$stockItem->book_isbn_no}}" data-uTotalPrice="{{ $cartItem->book_retail_price*$cartItem->book_quantity }}">
                             </div>
                             <div class="col-2 text-center">
                                 <img style="" class="img-thumbnail" src="data:image/png;base64,{{ chunk_split($cartItem->book_front_cover) }}">
@@ -116,9 +116,22 @@
             Continue Shopping
         </a>
         &nbsp;
-        <a href="{{ route('checkout') }}" class="btn bg-gradient-info mb-0">
-            Proceed to Checkout
-        </a>
+
+        <form action="{{ route('checkout') }}" method="POST">
+            @csrf
+            <input type="hidden" value="" id="checkedBooks" name="selectedBooks">
+
+            @if ($cart == "[]")
+                <button type="submit" class="btn bg-gradient-info mb-0" disabled>
+                    Proceed to Checkout
+                </button>
+            @else
+                <button type="submit" class="btn bg-gradient-info mb-0" id="proceedCheckout">
+                    Proceed to Checkout
+                </button>   
+            @endif
+
+        </form>
     </div>
 
 </div>
@@ -136,7 +149,28 @@
             }
         }
         cartSelectAll.checked = true;
+        
+        updateSelectedBooks();
     });
+
+    function updateSelectedBooks(){
+        var cartSelect = document.getElementsByName('selectCart');
+        var cartSelectAll = document.getElementById('selectAllCartBtn');
+        var selectedBooks = "";
+
+            for(var i=0; i < cartSelect.length; i++){  
+                if(cartSelect[i].type == 'checkbox'){
+                    if(cartSelect[i].checked == true){
+                        selectedBooks += (cartSelect[i].getAttribute('data-bookID') + ",");
+                    }
+                }
+            }
+
+        selectedBooks = selectedBooks.replace(/,\s*$/, "");
+        console.log(selectedBooks);
+
+        document.getElementById('checkedBooks').value = selectedBooks;
+    }
 
     $(document).on('click', '.selectCartChk', function(){
         var cartSelectAll = document.getElementById('selectAllCartBtn');
@@ -171,6 +205,7 @@
             }
         }
         totalPriceCartValue.innerHTML = "RM" + totalUnitPrice.toFixed(2);
+        updateSelectedBooks();
     });
 
     $('#selectAllCartBtn').on('click', function(){
@@ -199,6 +234,7 @@
             }
             totalPriceCartValue.innerHTML = "RM{{ number_format(0, 2) }}";
         }
+        updateSelectedBooks();
     });
 
     $(document).on('click', '.deleteCartBtn', function (){

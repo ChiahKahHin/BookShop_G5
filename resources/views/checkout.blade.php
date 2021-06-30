@@ -1,7 +1,7 @@
 @extends("layouts.template")
 
 @section("title")
-    Shopping Cart
+    Checkout
 @endsection
 
 @section('navtitle')
@@ -42,6 +42,7 @@
                     <hr>
                     @php
                         $totalPrice = 0;
+                        $totalBookISBN = "";
                     @endphp
                     @if ($cart == "[]")
                         <p class="text-center h4">The cart is empty</p>
@@ -71,10 +72,12 @@
                         </div>
                         <hr>
                         @php
+                            $totalBookISBN = $totalBookISBN.$cart->book_isbn_no.",";
                             $totalPrice += $cart->book_retail_price*$cart->book_quantity;
                         @endphp
                     @endforeach
-        
+                        <input type="hidden" value="{{ $totalBookISBN }}" name="totalBookIsbn" id="allISBN">
+                        <input type="hidden" value="{{ $totalPrice }}" name="totalBookPrice" id="totalPrice">
                 </div>
             </div>
             <div class="card" style="margin-top: 20px;">
@@ -107,8 +110,8 @@
                             <h6 class="m-0">:</h6>
                         </div>
                         <div class="col-6 text-end">
-                            <h6 class="m-0">RM <span id="deliveryCostValue">4.00</span></h6>
-                        </div4.00>
+                            <h6 class="m-0">RM <span id="deliveryCostValue">0.00</span></h6>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -122,6 +125,21 @@
                             <h6 class="m-0" id="totalPriceCartValue">RM {{ number_format($totalPrice, 2) }}</h6>
                         </div>
                     </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-5">
+                            <h6 class="m-0">Total Price</h6>
+                        </div>
+                        <div class="col-1">
+                            <h6 class="m-0">:</h6>
+                        </div>
+                        <div class="col-6 text-end">
+                            <h6 class="m-0" id="finalTotalPrice">RM 0.00</h6>
+                        </div>
+                    </div>
+
                     <br><br>
                     <button type="button" id="checkoutConfirm" class="btn bg-gradient-info mb-0 form-control">
                         Proceed to Checkout
@@ -145,6 +163,12 @@
 @section("script")
 <script>
     $('#checkoutConfirm').on('click', function(){
+        var allISBN = document.getElementById('allISBN').value;
+        allISBN = allISBN.replace(/,\s*$/, "");
+        var address = document.getElementById('address').value;
+        var totalPrice = parseFloat(document.getElementById('totalPrice').value) + parseFloat(document.getElementById('delivery_cost').value);
+        document.getElementById('finalTotalPrice').innerHTML = "RM " + totalPrice.toFixed(2);
+
         Swal.fire({
             title: 'Are you sure you want to checkout?',
             icon: 'warning',
@@ -155,7 +179,61 @@
 			confirmButtonText: 'Yes'
         }).then((result) => {
 			if (result.value) {
-                
+                $.ajax({
+                    type: "POST",
+                    dataType: "text",
+                    url: "{{ route('confirmCheckout') }}",
+                    data: {
+                        "userID": "{{ Auth::id() }}",
+                        "_token": "{{ csrf_token() }}",
+                        "allISBN": allISBN,
+                        "address": address,
+                        "totalPrice": totalPrice
+                    },
+                    success: function(data) {
+                        if(data == "success"){
+                            Swal.fire({
+                                title: 'Checkout Completed',
+                                text: "",
+                                icon: 'success',
+                                timer: 2000,
+                                showConfirmButton: false
+                            }).then(function (){
+                                window.location.href = "/";
+                            });
+                        }
+                        else if(data == "emptyAddress"){
+                            Swal.fire({
+                                title: 'Checkout Failed',
+                                text: "Address is empty!",
+                                icon: 'error',
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        }
+                        else if(data == "insufficientWallet"){
+                            Swal.fire({
+                                title: 'Checkout Failed',
+                                text: "Not enough wallet balance!",
+                                icon: 'error',
+                                timer: 1500,
+                                showConfirmButton: false
+                            });
+                        }
+                        else{
+                            Swal.fire({
+                                title: 'Checkout Failed',
+                                text: "",
+                                icon: 'error',
+                                timer: 500,
+                                showConfirmButton: false
+                            }).then(function (){
+                                console.log(data);
+                            });
+                            
+                        }
+                    }
+                });
             }
 		});
     });
@@ -199,6 +277,8 @@
                                     deliveryCostLabel.innerHTML = delivery_cost.toFixed(2);
                                     deliveryCostInput.value = delivery_cost;
                                     stateInput.value = state;
+                                    var total = parseFloat(document.getElementById('totalPrice').value) + delivery_cost;
+                                    document.getElementById('finalTotalPrice').innerHTML = "RM " + total.toFixed(2);
                                 }
                             );
                         }
@@ -229,6 +309,8 @@
                                 deliveryCostInput.value = delivery_cost;
                                 stateInput.value = state;
                                 addressInput.value = data["display_name"];
+                                var total = parseFloat(document.getElementById('totalPrice').value) + delivery_cost;
+                                document.getElementById('finalTotalPrice').innerHTML = "RM " + total.toFixed(2);
                             }
                         );
                     }
