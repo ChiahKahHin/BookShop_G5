@@ -268,7 +268,7 @@ class StockController extends Controller
             // array_push($stock, $stock1);
         }
         $stock = json_encode($stock);
-        return view('cart', ['cart' => $stock]);
+        return view('cart', ['cart' => $stock, "stock" => $stockItem]);
     }
 
     public function deleteCartItem($id)
