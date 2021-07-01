@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Stock;
+use App\Models\Checkout;
+use App\Models\Checkoutitems;
 use App\Notifications\AdminCreatedNotification;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
@@ -160,6 +163,17 @@ class UserController extends Controller
     
     public function orderHistory()
     {
-        return view('orderHistory');
+        $checkout = Checkout::all()->where('user_id', Auth::id());
+
+        return view('orderHistory', ['checkout' => $checkout]);
+    }
+
+    public function orderInformation($checkoutID)
+    {
+        $cc = Checkout::findOrFail($checkoutID);
+        $checkout = Checkout::all()->where('user_id', Auth::id());
+        $checkoutItems = Checkoutitems::all()->where('checkoutID', $checkoutID);
+        
+        return view('orderInformation', ['checkout' => $cc], ['checkoutItems' => $checkoutItems]);
     }
 }

@@ -275,41 +275,6 @@ class StockController extends Controller
         $cart->book_quantity = $request->bookQty;
         $cart->save();
     }
-
-    // public function showCart()
-    // {
-    //     $stock = array();
-    //     $userID = Auth::id();
-
-    //     $cart = Cart::where('user_id', $userID)->get();
-    //     $cart2 = $cart->toJson();
-    //     //$test = count($cart);
-    //     $val = 0;
-    //     foreach(json_decode($cart2) as $cart2){
-    //         $book = Stock::where('book_isbn_no', $cart2->book_isbn_no)->get();
-    //         foreach($book as $book){
-    //             $stock1 = [
-    //                 'book_isbn_no' => $cart2->book_isbn_no,
-    //                 'book_name' => $book->book_name,
-    //                 'book_author' => $book->book_author,
-    //                 'book_front_cover' => $book->book_front_cover,
-    //                 'book_quantity' => $cart2->book_quantity,
-    //                 'book_retail_price' => $book->book_retail_price
-    //             ];
-    //             $val += $book->book_retail_price;
-    //         }
-            
-    //         array_push($stock, $stock1);
-    //     }
-    //     $stock = json_encode($stock);
-    //     //$result = Stock::where('book_isbn_no', $cart[0]->book_isbn_no)->get();
-    //     // $test2 = $cart[0]->book_isbn_no;
-    //     $test2 = $val;
-
-    //     return view('cart', ['cart' => $cart, 'stock' => $stock]);
-
-    //     // return view('cart', ['cart' => $cart, 'result' => $result, 'test' => $test, 'test2' => $test2, 'cart2' => $cart2, 'stock' => $stock]);
-    // }
     
     public function showCheckout(Request $request){
         
