@@ -37,20 +37,17 @@
                                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                             Customer
 										</th>
-                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
+                                        <th class="text-uppercase text-secondary text-xs text-center font-weight-bolder opacity-7 ps-2">
                                             No. Book
 										</th>
                                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                             Total Price (RM)
 										</th>
-                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                                            Address
-										</th>
                                         <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                             Checkout Date
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                                            Recieved Date
+                                            Received Date
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                             Status
@@ -75,9 +72,6 @@
                                         <td class="align-middle text-left text-sm">
                                             <p class="text-md text-dark font-weight-bold mb-0">RM{{ number_format($checkout->total_price, 2) }}</p>
                                         </td>
-                                        <td class="align-middle text-left">
-                                            <p class="text-md text-dark font-weight-bold mb-0">{{  $checkout->address }}</p>
-                                        </td>
                                         <td class="align-middle text-center">
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  date_format($checkout->created_at,"Y/m/d") }}</p>                                    
                                         </td>
@@ -85,7 +79,7 @@
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  ($checkout->status == "delivering") ? "-" : date_format($checkout->updated_at,"Y/m/d") }}</p>                                    
                                         </td>
                                         <td class="align-middle text-center">
-                                            <p class="text-md text-dark font-weight-bold mb-0">{{  $checkout->status }}</p>                                    
+                                            <p class="text-md text-dark font-weight-bold mb-0">{{ ucfirst($checkout->status) }}</p>                                    
                                         </td>
                                         <td class="align-middle text-center">
                                             <a href="/viewOrderHistory/{{ $checkout->checkoutID }}" class="btn bg-gradient-info mt-2">
