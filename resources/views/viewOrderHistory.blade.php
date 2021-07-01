@@ -14,7 +14,7 @@ View Order History Details
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>Customer Order Checkout Details</h6>
+                        <u><h6>Customer Order Checkout Details</h6></u>
                     </div>
                     <div class="card-body">
                     <h6 class="pb-3">Order ID # {{$checkouts->checkoutID}}</h6>
@@ -37,14 +37,14 @@ View Order History Details
                     @endif
                        
                     <h6>Order Status</h6>
-                    <p>{{ $checkouts->status}}</p>
+                    <p>{{ ucfirst($checkouts->status) }}</p>
                     
                     <h6>Total Order Price (RM)</h6>
                     <p>RM{{ number_format($checkouts->total_price, 2) }}</p>
                     </div>
 
                     <div class="card-header pb-0">
-                        <h6>Order Items Checkout Details</h6>
+                        <u><h6>Order Items Checkout Details</h6></u>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
