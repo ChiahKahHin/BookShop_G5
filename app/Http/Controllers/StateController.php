@@ -71,6 +71,14 @@ class StateController extends Controller
         return redirect()->route("editState", ["id" => $id])->with("message", "State info updated successfully");
     }
 
+    public function deleteState($id){
+        $state = State::findOrFail($id);
+        $state->delete();
+        
+        $states = State::all();
+        return redirect('/manageState');
+    }
+
     public function getState(Request $request) {
         $state = State::where("state", "LIKE", addcslashes($request->q, "%_"))->get();
         $delivery_cost = 5;
