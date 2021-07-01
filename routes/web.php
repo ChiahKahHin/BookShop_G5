@@ -72,6 +72,7 @@ Route::post('/checkout', [StockController::class, 'showCheckout'])->name('checko
 Route::post('/confirmCheckout', [StockController::class, 'checkout'])->name('confirmCheckout');
 Route::get('/viewOrder', [StockController::class, 'viewOrder'])->name('viewOrder');
 Route::get('/viewOrderHistory/{checkoutID}', [StockController::class, 'viewOrderHistory'])->name("viewOrderHistory");
+Route::post('/orderReceive', [StockController::class, 'orderReceive'])->name('orderReceive');
 
 Route::get('/manageState', [StateController::class, 'manageState'])->name('manageState');
 Route::get('/addState', [StateController::class, 'addStateForm'])->name('addState');

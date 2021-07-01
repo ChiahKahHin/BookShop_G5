@@ -28,11 +28,11 @@ View Order History Details
                     <h6>Customer Address</h6>
                     <p>{{ $checkouts->address}}</p>
 
-                    <h6>Order Date & Time</h6>
+                    <h6>Order Checkout Date & Time</h6>
                     <p>{{ date_format($checkouts->created_at,"d F Y g:ia") }}</p>
                     
                     @if ($checkouts->status != "delivering")
-                    <h6>Order Received Date & Time</h6>
+                    <h6>Order Received Date  & Time</h6>
                     <p>{{ date_format($checkouts->updated_at, "d F Y g:ia") }}</p>
                     @endif
                        
