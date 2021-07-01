@@ -103,25 +103,25 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-sm-5">
                             <h6 class="m-0">Delivery cost</h6>
                         </div>
-                        <div class="col-1">
+                        <div class="col-sm-1">
                             <h6 class="m-0">:</h6>
                         </div>
-                        <div class="col-6 text-end">
+                        <div class="col-sm text-sm-end">
                             <h6 class="m-0">RM <span id="deliveryCostValue">0.00</span></h6>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-sm-5">
                             <h6 class="m-0">Subtotal</h6>
                         </div>
-                        <div class="col-1">
+                        <div class="col-sm-1">
                             <h6 class="m-0">:</h6>
                         </div>
-                        <div class="col-6 text-end">
+                        <div class="col-sm text-sm-end">
                             <h6 class="m-0" id="totalPriceCartValue">RM {{ number_format($totalPrice, 2) }}</h6>
                         </div>
                     </div>
@@ -129,16 +129,54 @@
                     <br>
 
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-sm-5">
                             <h6 class="m-0">Total Price</h6>
                         </div>
-                        <div class="col-1">
+                        <div class="col-sm-1">
                             <h6 class="m-0">:</h6>
                         </div>
-                        <div class="col-6 text-end">
+                        <div class="col-sm text-sm-end">
                             <h6 class="m-0" id="finalTotalPrice">RM 0.00</h6>
                         </div>
                     </div>
+
+                    {{-- <div class="row">
+                        <div class="col-sm-5">
+                            <p class="m-0">Delivery cost</p>
+                        </div>
+                        <div class="col-sm-1">
+                            <p class="m-0">:</p>
+                        </div>
+                        <div class="col-sm-5 text-end">
+                            <p class="m-0">RM <span id="deliveryCostValue">0.00</span></p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <p class="m-0">Subtotal</p>
+                        </div>
+                        <div class="col-sm-1">
+                            <p class="m-0">:</p>
+                        </div>
+                        <div class="col-sm-5 text-end">
+                            <p class="m-0" id="totalPriceCartValue">RM {{ number_format($totalPrice, 2) }}</p>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <p class="m-0">Total Price</p>
+                        </div>
+                        <div class="col-sm-1">
+                            <p class="m-0">:</p>
+                        </div>
+                        <div class="col-sm-5 text-end">
+                            <p class="m-0" id="finalTotalPrice">RM 0.00</p>
+                        </div>
+                    </div> --}}
 
                     <br><br>
                     <button type="button" id="checkoutConfirm" class="btn bg-gradient-info mb-0 form-control">
