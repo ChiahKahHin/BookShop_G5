@@ -103,25 +103,25 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-sm-5">
                             <h6 class="m-0">Delivery cost</h6>
                         </div>
-                        <div class="col-1">
+                        <div class="col-sm-1">
                             <h6 class="m-0">:</h6>
                         </div>
-                        <div class="col-6 text-end">
+                        <div class="col-sm text-sm-end">
                             <h6 class="m-0">RM <span id="deliveryCostValue">0.00</span></h6>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-sm-5">
                             <h6 class="m-0">Subtotal</h6>
                         </div>
-                        <div class="col-1">
+                        <div class="col-sm-1">
                             <h6 class="m-0">:</h6>
                         </div>
-                        <div class="col-6 text-end">
+                        <div class="col-sm text-sm-end">
                             <h6 class="m-0" id="totalPriceCartValue">RM {{ number_format($totalPrice, 2) }}</h6>
                         </div>
                     </div>
@@ -129,20 +129,20 @@
                     <br>
 
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-sm-5">
                             <h6 class="m-0">Total Price</h6>
                         </div>
-                        <div class="col-1">
+                        <div class="col-sm-1">
                             <h6 class="m-0">:</h6>
                         </div>
-                        <div class="col-6 text-end">
+                        <div class="col-sm text-sm-end">
                             <h6 class="m-0" id="finalTotalPrice">RM 0.00</h6>
                         </div>
                     </div>
 
                     <br><br>
                     <button type="button" id="checkoutConfirm" class="btn bg-gradient-info mb-0 form-control">
-                        Proceed to Checkout
+                        Make Payment
                     </button>
 
                 </div>
@@ -193,7 +193,7 @@
                     success: function(data) {
                         if(data == "success"){
                             Swal.fire({
-                                title: 'Checkout Completed',
+                                title: 'Payment Completed',
                                 text: "",
                                 icon: 'success',
                                 timer: 2000,
@@ -204,7 +204,7 @@
                         }
                         else if(data == "emptyAddress"){
                             Swal.fire({
-                                title: 'Checkout Failed',
+                                title: 'Payment Failed',
                                 text: "Address is empty!",
                                 icon: 'error',
                                 timer: 1500,
@@ -213,7 +213,7 @@
                         }
                         else if(data == "insufficientWallet"){
                             Swal.fire({
-                                title: 'Checkout Failed',
+                                title: 'Payment Failed',
                                 text: "Not enough wallet balance!",
                                 icon: 'error',
                                 timer: 1500,
@@ -230,7 +230,6 @@
                             }).then(function (){
                                 console.log(data);
                             });
-
                         }
                     }
                 });
