@@ -225,6 +225,8 @@ class StockController extends Controller
         $cart = Cart::where('user_id', $userID)->get()->toJson();
         // $cart2 = $cart->toJson();
 
+        $stockItem = Stock::all();
+
         foreach(json_decode($cart) as $c){
             $result = Stock::where('book_isbn_no', $c->book_isbn_no)->get();
             foreach($result as $r){
@@ -276,6 +278,13 @@ class StockController extends Controller
 
         $cart = Cart::all();
         return redirect('/cart');
+    }
+
+    public function updateCartItemNumber(Request $request)
+    {
+        $cart = Cart::find($request->cartId);
+        $cart->book_quantity = $request->bookQty;
+        $cart->save();
     }
 
     public function showCheckout(Request $request){
@@ -370,10 +379,10 @@ class StockController extends Controller
             }
             $cartCopy->first()->delete();
         }
-        
+
         $user->wallet_balance -= $checkout->total_price;
         $user->save();
-        
+
         return "success";
     }
 
@@ -387,5 +396,5 @@ class StockController extends Controller
         $checkouts = Checkout::findOrFail($checkoutID);
         return view('viewOrderHistory',['checkouts' => $checkouts]);
     }
-    
+
 }

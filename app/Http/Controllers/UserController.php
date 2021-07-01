@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Stock;
+use App\Models\Checkout;
+use App\Models\Checkoutitems;
 use App\Notifications\AdminCreatedNotification;
 use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
@@ -158,4 +161,17 @@ class UserController extends Controller
         return redirect('/reloadWallet')->with('message', $message);
     }
     
+    public function orderHistory()
+    {
+        $checkout = Checkout::all()->where('user_id', Auth::id());
+
+        return view('orderHistory', ['checkout' => $checkout]);
+    }
+
+    public function orderInformation($checkoutID)
+    {
+        $checkout = Checkout::findOrFail($checkoutID);
+        
+        return view('orderInformation', ['checkout' => $checkout]);
+    }
 }
