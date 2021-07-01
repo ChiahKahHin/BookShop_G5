@@ -69,6 +69,10 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class, "user_id");
     }
 
+    public function checkouts() {
+        return $this->hasMany(Checkout::class, "user_id");
+    }
+
     public function isCommentable($isbn) {
         return $this->hasManyThrough(Checkoutitems::class, Checkout::class, "user_id", "checkoutID")->where("status", "delivered")->where("book_isbn_no", $isbn)->get()->count() == 1;
     }

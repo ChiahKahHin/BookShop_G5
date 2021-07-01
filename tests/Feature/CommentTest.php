@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\Comment;
 use App\Models\Stock;
+use App\Models\Checkout;
+use App\Models\Checkoutitems;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +32,18 @@ class CommentTest extends TestCase
                 'book_front_cover' => file_get_contents("public\\assets\\img\\book\\tokillamockingbird.jpg")
             ]
         );
-        $this->customerWithComment = User::factory()->has(Comment::factory()->count(1)->state([
+        $this->customerWithComment = User::factory()
+        ->has(Checkout::factory()->has(
+            Checkoutitems::factory()->state([
+                "book_isbn_no" => $this->book->book_isbn_no,
+                "book_quantity" => 3
+            ]), "items")
+            ->state([
+                "total_price" => 200,
+                "address" => $this->faker->sentence(25),
+                "status" => "delivered"
+            ]), "checkouts")
+        ->has(Comment::factory()->state([
             "isbn" => $this->book->book_isbn_no,
             "rating" => $this->faker->numberBetween(1, 5),
             "content" => $this->faker->sentence(25)
@@ -46,7 +59,31 @@ class CommentTest extends TestCase
             ]
         );
 
-        $this->customerWithoutComment = User::factory()->create(
+        $this->customerWithoutComment = User::factory()
+        ->has(Checkout::factory()->has(
+                Checkoutitems::factory()->state([
+                        "book_isbn_no" => $this->book->book_isbn_no,
+                        "book_quantity" => 3
+                    ]
+                ), "items")
+                ->state([
+                    "total_price" => 200,
+                    "address" => $this->faker->sentence(25),
+                    "status" => "delivered"
+                ]
+            ), "checkouts")
+        ->create(
+            [
+                'username' => $this->faker->name,
+                'phone' => $this->faker->regexify("(\+6)?01[0-46-9]-[0-9]{7,8}"),
+                'email' => $this->faker->unique()->safeEmail,
+                'password' => Hash::make("p455w0rd"),
+                'role' => 1,
+                'remember_token' => Str::random(10),
+            ]
+        );
+
+        $this->customerWithoutCheckout = User::factory()->create(
             [
                 'username' => $this->faker->name,
                 'phone' => $this->faker->regexify("(\+6)?01[0-46-9]-[0-9]{7,8}"),
@@ -63,6 +100,14 @@ class CommentTest extends TestCase
         unset($this->book);
         unset($this->customerWithComment);
         unset($this->customerWithoutComment);
+        unset($this->customerWithoutCheckout);
+    }
+
+    public function test_commentable() {
+        $isbn = $this->book->book_isbn_no;
+        $this->assertTrue($this->customerWithComment->isCommentable($isbn));
+        $this->assertTrue($this->customerWithoutComment->isCommentable($isbn));
+        $this->assertFalse($this->customerWithoutCheckout->isCommentable($isbn));
     }
 
     public function test_post_comment()
