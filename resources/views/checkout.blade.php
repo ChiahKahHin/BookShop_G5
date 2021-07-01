@@ -142,7 +142,7 @@
 
                     <br><br>
                     <button type="button" id="checkoutConfirm" class="btn bg-gradient-info mb-0 form-control">
-                        Proceed to Checkout
+                        Make Payment
                     </button>
 
                 </div>
@@ -193,7 +193,7 @@
                     success: function(data) {
                         if(data == "success"){
                             Swal.fire({
-                                title: 'Checkout Completed',
+                                title: 'Payment Completed',
                                 text: "",
                                 icon: 'success',
                                 timer: 2000,
@@ -204,7 +204,7 @@
                         }
                         else if(data == "emptyAddress"){
                             Swal.fire({
-                                title: 'Checkout Failed',
+                                title: 'Payment Failed',
                                 text: "Address is empty!",
                                 icon: 'error',
                                 timer: 1500,
@@ -213,7 +213,7 @@
                         }
                         else if(data == "insufficientWallet"){
                             Swal.fire({
-                                title: 'Checkout Failed',
+                                title: 'Payment Failed',
                                 text: "Not enough wallet balance!",
                                 icon: 'error',
                                 timer: 1500,
@@ -230,7 +230,6 @@
                             }).then(function (){
                                 console.log(data);
                             });
-                            
                         }
                     }
                 });

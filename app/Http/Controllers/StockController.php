@@ -358,10 +358,11 @@ class StockController extends Controller
                 }
             }
             $cartCopy->first()->delete();
-            $user->wallet_balance -= $checkout->total_price;
-            $user->save();
         }
-
+        
+        $user->wallet_balance -= $checkout->total_price;
+        $user->save();
+        
         return "success";
     }
 }
