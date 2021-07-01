@@ -37,9 +37,6 @@
                                             Total price (RM)
 										</th>
                                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                                            Address
-										</th>
-                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                             Checkout date
 										</th>
                                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
@@ -63,19 +60,21 @@
                                             <p class="text-md text-dark font-weight-bold mb-0">{{ number_format($receipt->total_price, 2) }}</p>
                                         </td>
                                         <td class="align-middle text-left">
-                                            <p class="text-md text-dark font-weight-bold mb-0">{{  $receipt->address }}</p>
-                                        </td>
-                                        <td class="align-middle text-left">
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  date_format($receipt->created_at,"Y/m/d") }}</p>
                                         </td>
                                         <td class="align-middle text-left">
-                                            <p class="text-md text-dark font-weight-bold mb-0">{{  $receipt->status }}</p>
+                                            <p class="text-md text-dark font-weight-bold mb-0">{{  ucfirst($receipt->status) }}</p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <a href="/orderInformation/{{ $receipt->checkoutID }}" class="btn bg-gradient-info mt-2">View</a>
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @if (count($checkout) == 0)
+                                        <tr>
+                                            <td colspan="10" style="text-align: center;">No order history found!</td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

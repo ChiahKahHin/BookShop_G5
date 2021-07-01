@@ -15,4 +15,8 @@ class Checkoutitems extends Model
         'book_isbn_no',
         'book_quantity'
     ];
+
+    public function books() {
+        return $this->belongsTo(Stock::class, "book_isbn_no");
+    }
 }
