@@ -28,18 +28,18 @@ View Order History Details
                     <h6>Customer Address</h6>
                     <p>{{ $checkouts->address}}</p>
 
-                    <h6>Order Checkout Date</h6>
-                    <p>{{ date_format($checkouts->created_at,"Y/m/d H:i") }}</p>
+                    <h6>Order Date & Time</h6>
+                    <p>{{ date_format($checkouts->created_at,"d F Y g:ia") }}</p>
                     
                     @if ($checkouts->status != "delivering")
-                    <h6>Order Received Date</h6>
-                    <p>{{ date_format($checkouts->updated_at, "Y/m/d H:i") }}</p>
+                    <h6>Order Received Date & Time</h6>
+                    <p>{{ date_format($checkouts->updated_at, "d F Y g:ia") }}</p>
                     @endif
                        
                     <h6>Order Status</h6>
                     <p>{{ ucfirst($checkouts->status) }}</p>
                     
-                    <h6>Total Order Price (RM)</h6>
+                    <h6>Total Order Price</h6>
                     <p>RM{{ number_format($checkouts->total_price, 2) }}</p>
                     </div>
 
@@ -64,7 +64,7 @@ View Order History Details
                                             Book Quantity
                                         </th>
                                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2, align-middle text-center">
-                                            Price per Unit (RM)
+                                            Total Price
                                         </th>
                                     </tr>
                                 </thead>
@@ -84,7 +84,7 @@ View Order History Details
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  $checkoutItem->book_quantity }}</p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <p class="text-md text-dark font-weight-bold mb-0">RM{{  number_format($checkoutItem->books->book_retail_price, 2) }}</p>
+                                            <p class="text-md text-dark font-weight-bold mb-0">RM{{  number_format($checkoutItem->books->book_retail_price*$checkoutItem->book_quantity, 2) }}</p>
                                         </td>
                                     </tr>
                                     @endforeach
