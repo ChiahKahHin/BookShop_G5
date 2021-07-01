@@ -44,10 +44,10 @@
                                             Total Price
 										</th>
                                         <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                                            Order Date & Time
+                                            Order Checkout Date 
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                                            Received Date & Time
+                                            Order Received Date 
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                             Status

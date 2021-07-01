@@ -170,7 +170,7 @@
         document.getElementById('finalTotalPrice').innerHTML = "RM " + totalPrice.toFixed(2);
 
         Swal.fire({
-            title: 'Are you sure you want to checkout?',
+            title: 'Are you sure you want to make payment?',
             icon: 'warning',
             icon: 'warning',
 			showCancelButton: true,
@@ -199,7 +199,7 @@
                                 timer: 2000,
                                 showConfirmButton: false
                             }).then(function (){
-                                window.location.href = "/";
+                                window.location.href = "/orderHistory";
                             });
                         }
                         else if(data == "emptyAddress"){

@@ -397,4 +397,11 @@ class StockController extends Controller
         return view('viewOrderHistory',['checkouts' => $checkouts]);
     }
 
+    public function orderReceive(Request $request){
+        $checkout = Checkout::find($request->checkoutID);
+        $checkout->status = "delivered";
+        $checkout->save();
+        
+        return "success";
+    }
 }

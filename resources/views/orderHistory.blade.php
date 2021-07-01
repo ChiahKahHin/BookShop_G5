@@ -26,11 +26,14 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xs text-center font-weight-bolder opacity-7 ps-2" width="100px">
+                                        <th class="text-uppercase text-secondary text-xs text-center font-weight-bolder opacity-7 ps-2" width="10%">
                                             Order ID
 										</th>
-                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                                            Order date
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2" width="20%">
+                                            Order checkout date
+										</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2" width="20%">
+                                            Order delivered date
 										</th>
                                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                             Total price (RM)
@@ -50,10 +53,13 @@
                                             <p class="text-md text-dark text-center font-weight-bold mb-0">{{  $receipt->checkoutID }}</p>
                                         </td>
                                         <td class="align-middle text-left">
-                                            <p class="text-md text-dark font-weight-bold mb-0">{{  date_format($receipt->created_at,"d F Y") }}</p>
+                                            <p class="text-md text-dark font-weight-bold mb-0 ">{{  date_format($receipt->created_at,"d F Y") }}</p>
+                                        </td>
+                                        <td class="align-middle text-left">
+                                            <p class="text-md text-dark font-weight-bold mb-0 ">{{  ($receipt->status == "delivered") ? date_format($receipt->updated_at,"d F Y") : "-" }}</p>
                                         </td>
                                         <td class="align-middle text-left text-sm">
-                                            <p class="text-md text-dark font-weight-bold mb-0">{{ number_format($receipt->total_price, 2) }}</p>
+                                            <p class="text-md text-dark font-weight-bold mb-0">RM{{ number_format($receipt->total_price, 2) }}</p>
                                         </td>
                                         <td class="align-middle text-left">
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  ucfirst($receipt->status) }}</p>
@@ -63,11 +69,6 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    @if (count($checkout) == 0)
-                                        <tr>
-                                            <td colspan="10" style="text-align: center;">No order history found!</td>
-                                        </tr>
-                                    @endif
                                 </tbody>
                             </table>
                         </div>
