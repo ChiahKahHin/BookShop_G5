@@ -112,7 +112,7 @@ Book Details
 						<div class="card-body">
 							<p class="h5">Ratings & Comments</p>
 							@auth
-								@if (Auth::user()->isCustomer())
+								@if (Auth::user()->isCustomer() && Auth::user()->isCommentable($stock->book_isbn_no))
                                     <form action="{{ route(is_null($userComment) ? "addcomment": "editcomment", $stock->book_isbn_no) }}" id="comment-form" method="post" enctype="multipart/form-data" >
                                         @csrf
                                         <div class="rate" id="comment-rating">
