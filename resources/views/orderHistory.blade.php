@@ -40,6 +40,9 @@
                                             Address
 										</th>
                                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
+                                            Checkout date
+										</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                             Status
 										</th>
                                         <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
@@ -63,10 +66,13 @@
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  $receipt->address }}</p>
                                         </td>
                                         <td class="align-middle text-left">
+                                            <p class="text-md text-dark font-weight-bold mb-0">{{  date_format($receipt->created_at,"Y/m/d") }}</p>
+                                        </td>
+                                        <td class="align-middle text-left">
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  $receipt->status }}</p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <a href="{{ route('orderInformation', ['checkoutID' => $receipt->checkoutID]) }}" class="btn bg-gradient-info mt-2">View</a>
+                                            <a href="/orderInformation/{{ $receipt->checkoutID }}" class="btn bg-gradient-info mt-2">View</a>
                                         </td>
                                     </tr>
                                     @endforeach

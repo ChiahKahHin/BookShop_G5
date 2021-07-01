@@ -170,10 +170,8 @@ class UserController extends Controller
 
     public function orderInformation($checkoutID)
     {
-        $cc = Checkout::findOrFail($checkoutID);
-        $checkout = Checkout::all()->where('user_id', Auth::id());
-        $checkoutItems = Checkoutitems::all()->where('checkoutID', $checkoutID);
+        $checkout = Checkout::findOrFail($checkoutID);
         
-        return view('orderInformation', ['checkout' => $cc], ['checkoutItems' => $checkoutItems]);
+        return view('orderInformation', ['checkout' => $checkout]);
     }
 }

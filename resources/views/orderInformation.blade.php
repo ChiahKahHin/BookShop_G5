@@ -47,7 +47,12 @@
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                 <p class="text-md text-dark mb-0 px-2">Checkout date and time</p>
-                                    <p class="text-md text-dark font-weight-bold mb-0 px-2">{{ $checkout->created_at }}</p>
+                                    <p class="text-md text-dark font-weight-bold mb-0 px-2">{{ date_format($checkout->created_at,"Y/m/d H:i") }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <p class="text-md text-dark mb-0 px-2">Order Items Checkout Details</p>
                                 </div>
                             </div>
                             <div class="card-body px-0 pt-0 pb-2">
@@ -67,22 +72,28 @@
                                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2" width="50px">
                                                     Book quantity
                                                 </th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2" width="50px">
+                                                    Total Price (RM)
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($checkoutItems as $checkoutItems)
+                                            @foreach ($checkout->items as $checkoutItems)
                                             <tr>
                                                 <td class="align-middle text-md" style="padding-left: 25px">
                                                     <h6 class="mb-0">{{ $loop->iteration }}</h6>
                                                 </td>
                                                 <td class="align-middle text-left">
-                                                    <p class="text-md text-dark font-weight-bold mb-0">{{  $checkoutItems->book_isbn_no }}</p>
+                                                    <p class="text-md text-dark font-weight-bold mb-0">{{ $checkoutItems->books->book_name }}</p>
                                                 </td>
                                                 <td class="align-middle text-left">
-                                                    <p class="text-md text-dark font-weight-bold mb-0">{{  $checkoutItems->book_isbn_no }}</p>
+                                                    <p class="text-md text-dark font-weight-bold mb-0">{{ $checkoutItems->book_isbn_no }}</p>
                                                 </td>
                                                 <td class="align-middle text-left">
-                                                    <p class="text-md text-dark font-weight-bold mb-0">{{  $checkoutItems->book_quantity }}</p>
+                                                    <p class="text-md text-dark font-weight-bold mb-0">{{ $checkoutItems->book_quantity }}</p>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <p class="text-md text-dark font-weight-bold mb-0">{{ number_format($checkoutItems->books->book_retail_price, 2) }}</p>
                                                 </td>
                                             </tr>
                                             @endforeach
