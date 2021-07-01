@@ -41,13 +41,13 @@
                                             No. Book
 										</th>
                                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                                            Total Price (RM)
+                                            Total Price
 										</th>
                                         <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                                            Checkout Date
+                                            Order Date & Time
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
-                                            Received Date
+                                            Received Date & Time
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">
                                             Status
@@ -73,10 +73,10 @@
                                             <p class="text-md text-dark font-weight-bold mb-0">RM{{ number_format($checkout->total_price, 2) }}</p>
                                         </td>
                                         <td class="align-middle text-center">
-                                            <p class="text-md text-dark font-weight-bold mb-0">{{  date_format($checkout->created_at,"Y/m/d") }}</p>                                    
+                                            <p class="text-md text-dark font-weight-bold mb-0">{{  date_format($checkout->created_at,"d F Y") }}</p>                                    
                                         </td>
                                         <td class="align-middle text-center">
-                                            <p class="text-md text-dark font-weight-bold mb-0">{{  ($checkout->status == "delivering") ? "-" : date_format($checkout->updated_at,"Y/m/d") }}</p>                                    
+                                            <p class="text-md text-dark font-weight-bold mb-0">{{  ($checkout->status == "delivering") ? "-" : date_format($checkout->updated_at,"d F Y") }}</p>                                    
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-md text-dark font-weight-bold mb-0">{{ ucfirst($checkout->status) }}</p>                                    
