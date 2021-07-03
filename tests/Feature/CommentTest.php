@@ -68,7 +68,7 @@ class CommentTest extends TestCase
                 ), "items")
                 ->state([
                     "total_price" => 200,
-                    "address" => $this->faker->sentence(25),
+                    "address" => $this->faker->address,
                     "status" => "delivered"
                 ]
             ), "checkouts")
