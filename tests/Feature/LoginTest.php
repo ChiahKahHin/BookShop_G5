@@ -45,14 +45,9 @@ class LoginTest extends TestCase
         unset($this->customer);
     }
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     public function test_load_login_page() {
         $response = $this->get(route("login"));
-        
+
         $response->assertOk(); // status 200
     }
 
@@ -98,7 +93,7 @@ class LoginTest extends TestCase
                 "password" => $customer->hidden_password
             ]
         )->assertOk(); // status 200
-        
+
         $this->assertTrue($this->isAuthenticated()); // check whether the user is authenticated
         $this->assertAuthenticatedAs($customer); // check whether the user is authenticated as the given user
         $response->assertViewIs("home"); // check whether the system is redirect to correct route

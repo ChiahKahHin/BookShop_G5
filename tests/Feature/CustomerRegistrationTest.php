@@ -12,16 +12,10 @@ use Tests\TestCase;
 class CustomerRegistrationTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
 
     public function test_load_registration_page() {
         $response = $this->get(route("customerRegistration"));
-        
+
         $response->assertOk();
     }
 
@@ -57,7 +51,7 @@ class CustomerRegistrationTest extends TestCase
                 "password_confirmation" => 12345678
             ]
         );
-        
+
         $response->assertSessionHasErrors([
             "username" => "The username has already been taken."
         ]);

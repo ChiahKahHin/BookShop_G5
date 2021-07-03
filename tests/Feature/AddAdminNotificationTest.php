@@ -50,11 +50,6 @@ class AddAdminNotification extends TestCase
         unset($this->newAdmin);
     }
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     public function test_load_admin_page() {
         $response = $this->actingAs($this->admin)->get(route("addAdmin"));
         $response->assertOk(); // status 200
@@ -71,13 +66,13 @@ class AddAdminNotification extends TestCase
                 "password" => $admin->hidden_password,
                 "password_confirmation" => $admin->hidden_password
             ])->assertOk(); // status 200
-        
+
         Notification::assertSentTo(
-            User::where("email", $admin->email)->first(), 
+            User::where("email", $admin->email)->first(),
             AdminCreatedNotification::class,
             function ($notification) use ($admin) {
                 $data = $notification->toMail($admin)->toArray();
-                
+
                 $this->assertContains("Username: ".$admin->username, $data["introLines"]); // check whether the username is shown correctly
                 $this->assertContains("Password: ".$admin->hidden_password, $data["introLines"]); // check whether the password is shown correctly
                 return true;

@@ -13,14 +13,8 @@ class ViewAccountTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-
     public function test_load_view_account_page() {
-        
+
         $user = User::factory()->create(
             [
                 'username' => "customer",

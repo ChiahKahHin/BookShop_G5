@@ -38,11 +38,6 @@ class ForgetPasswordTest extends TestCase
         unset($this->user);
     }
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     public function test_load_forget_password_page()
     {
         $response = $this->get(route("forgotPassword"));
@@ -61,16 +56,23 @@ class ForgetPasswordTest extends TestCase
         $this->followingRedirects()->post(route("forgotPassword"), [
             "email" => $user->email
         ])->assertOk(); // status 200
-        
-        Notification::assertSentTo($user, 
+
+        Notification::assertSentTo($user,
             ResetPassword::class,
             function ($notification) use ($user) {
                 $data = $notification->toMail($user)->toArray();
-                
+
                 // check whether the generated URL is correct with the generated token
                 $this->assertStringStartsWith(route("password.reset", ["token" => $notification->token]), $data["actionUrl"]);
                 return true;
             });
+    }
+
+    public function test_load_reset_password_page() {
+        $user = $this->user;
+        $token = Password::broker()->createToken($user);
+        $response = $this->followingRedirects()->get(route("password.reset", ["token" => $token]));
+        $response->assertOk(); // status 200
     }
 
     public function test_invalid_reset_password() {
@@ -99,7 +101,7 @@ class ForgetPasswordTest extends TestCase
 
         // before reset password
         $this->assertTrue(Hash::check($user->hidden_password, $user->getAuthPassword()));
-        
+
         // update database with new password
         $user->refresh();
 

@@ -15,11 +15,7 @@ use Illuminate\Http\Request;
 class CheckoutTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     public function test_proceed_to_checkout()
     {
         $user = User::factory()->create(
@@ -41,7 +37,7 @@ class CheckoutTest extends TestCase
         ]);
 
         $response = $this->followingRedirects()->actingAs($user)->post(route("checkout", ["selectedBooks" => "978-0-14-017739-8"]));
-        
+
         $response->assertViewHas("cart", function($stock) {
             $check = true;
             $stock = json_decode($stock);

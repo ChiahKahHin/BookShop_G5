@@ -14,11 +14,7 @@ use Illuminate\Http\Request;
 class SearchBookTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     public function test_search_by_name()
     {
         $user = User::factory()->create(
@@ -31,7 +27,7 @@ class SearchBookTest extends TestCase
                 'remember_token' => Str::random(10),
             ]
         );
-        
+
         $response = $this->followingRedirects()->actingAs($user)->post(route("homeSearch", ["homeSearch" => "To Kill a Mockingbird"]));
         $response->assertViewHas("stock", function($stock) {
             $check = true;
@@ -60,7 +56,7 @@ class SearchBookTest extends TestCase
                 'remember_token' => Str::random(10),
             ]
         );
-        
+
         $response = $this->followingRedirects()->actingAs($user)->post(route("homeSearch", ["homeSearch" => "Harper Lee"]));
         $response->assertViewHas("stock", function($stock) {
             $check = true;
@@ -89,7 +85,7 @@ class SearchBookTest extends TestCase
                 'remember_token' => Str::random(10),
             ]
         );
-        
+
         $response = $this->followingRedirects()->actingAs($user)->post(route("homeSearch", ["homeSearch" => "978-0-44-631078-9"]));
         $response->assertViewHas("stock", function($stock) {
             $check = true;

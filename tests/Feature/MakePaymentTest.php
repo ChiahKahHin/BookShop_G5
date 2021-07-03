@@ -15,11 +15,7 @@ use Illuminate\Http\Request;
 class MakePaymentTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     public function test_make_payment_success()
     {
         $user = User::factory()->create(

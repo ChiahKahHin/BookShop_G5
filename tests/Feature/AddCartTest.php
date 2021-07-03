@@ -13,11 +13,7 @@ use Tests\TestCase;
 class AddCartTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
     public function test_add_to_cart_quantity_available()
     {
         $user = User::factory()->create(
