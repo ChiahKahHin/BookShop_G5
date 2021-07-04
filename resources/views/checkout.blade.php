@@ -252,6 +252,7 @@
         let deliveryCostLabel = document.getElementById("deliveryCostValue");
         let deliveryCostInput = document.getElementById("delivery_cost");
         let stateInput = document.getElementById("state");
+        var requests = [];
         setInterval(() => {
             let val = addressInput.value;
             if (val != "" && val != tempInput) {
@@ -265,7 +266,10 @@
                     "accept-language": "en",
                     format: "json"
                 };
-                $.ajax({
+                requests.forEach(request => {
+                    request.abort();
+                });
+                var xhr = $.ajax({
                     type: "GET",
                     url: requestURL,
                     data: param,
@@ -274,7 +278,7 @@
                         let state = "";
                         if (response.length > 0) {
                             let state = response[0]["address"]["state"];
-                            $.ajax({
+                            var r = $.ajax({
                                 type: "GET",
                                 url: "{{ route("getState") }}",
                                 data: {q: state},
@@ -288,14 +292,19 @@
                                     document.getElementById('finalTotalPrice').innerHTML = "RM " + total.toFixed(2);
                                 }
                             });
+                            requests.push(r);
                         }
                     },
                     error: function (response) {
                         stateInput.value="Unable to get your location";
                     }
                 });
+                requests.push(xhr);
             }
-        }, 1500);
+            else if (val == "") {
+                stateInput.value="Unable to get your location";
+            }
+        }, 500);
 
         $("#location").on("click", function () {
             navigator.geolocation.getCurrentPosition(function(position) {
