@@ -53,6 +53,17 @@
 					</a>
 				<ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
 					<li class="mb-2">
+						<a class="dropdown-item border-radius-md" href="{{ route("orderHistory") }}">
+							<div class="d-flex py-1">
+								<div class="d-flex flex-column justify-content-center">
+									<h6 class="text-sm font-weight-normal mb-1">
+										<span>Order History</span>
+									</h6>
+								</div>
+							</div>
+						</a>
+					</li>
+					<li class="mb-2">
 						<a class="dropdown-item border-radius-md" href="{{ route("viewAccount") }}">
 							<div class="d-flex py-1">
 								<div class="d-flex flex-column justify-content-center">
@@ -69,17 +80,6 @@
 								<div class="d-flex flex-column justify-content-center">
 									<h6 class="text-sm font-weight-normal mb-1">
 										<span>Change Password</span>
-									</h6>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li class="mb-2">
-						<a class="dropdown-item border-radius-md" href="{{ route("orderHistory") }}">
-							<div class="d-flex py-1">
-								<div class="d-flex flex-column justify-content-center">
-									<h6 class="text-sm font-weight-normal mb-1">
-										<span>Order History</span>
 									</h6>
 								</div>
 							</div>

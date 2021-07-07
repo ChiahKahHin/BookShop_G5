@@ -39,7 +39,19 @@ View Order History Details
                     <h6>Order Status</h6>
                     <p>{{ ucfirst($checkouts->status) }}</p>
                     
-                    <h6>Total Order Price</h6>
+                    @php
+                        $subtotal = 0;
+                    @endphp
+                    @foreach ($checkouts->items as $checkoutItem)
+                        @php
+                            $subtotal += $checkoutItem->books->book_retail_price * $checkoutItem->book_quantity;  
+                        @endphp
+                    @endforeach
+                    
+                    <h6>Delivery Cost</h6>
+                    <p>RM{{ number_format($checkouts->total_price - $subtotal, 2) }}</p>
+
+                    <h6>Total Order Price <i>(included delivery cost)</i></h6>
                     <p>RM{{ number_format($checkouts->total_price, 2) }}</p>
                     </div>
 
@@ -61,6 +73,9 @@ View Order History Details
                                             Book Name
                                         </th>
                                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2, align-middle text-center">
+                                            Unit Price
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2, align-middle text-center">
                                             Book Quantity
                                         </th>
                                         <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2, align-middle text-center">
@@ -79,6 +94,9 @@ View Order History Details
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  $checkoutItem->books->book_name }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-md text-dark font-weight-bold mb-0">RM{{  number_format($checkoutItem->books->book_retail_price, 2) }}</p>
                                         </td>
                                         <td class="align-middle text-center">
                                             <p class="text-md text-dark font-weight-bold mb-0">{{  $checkoutItem->book_quantity }}</p>
